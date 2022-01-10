@@ -10768,7 +10768,7 @@ ol.commentlist li::after {
 	5. services
 -------------------------------------*/
 .bg-service-team {
-	background-image: url(../../../file/G_/uploading-item/bitinvest-html-template/html/images/our-services/crane-left.jpg);
+	background-image: url(../file/G_/uploading-item/bitinvest-html-template/html/images/our-services/crane-left.html);
 	background-repeat: no-repeat;
 	background-position: -200px bottom;
 }
@@ -10777,7 +10777,7 @@ ol.commentlist li::after {
 	6. latest project
 -------------------------------------*/
 .latest-project-block {
-	background-image: url(../../../file/G_/uploading-item/bitinvest-html-template/html/images/main-page-pic/btn-wrap-bg-dark.jpg);
+	background-image: url(../file/G_/uploading-item/bitinvest-html-template/html/images/main-page-pic/btn-wrap-bg-dark.html);
 	background-repeat: no-repeat;
 	background-position: center center;
 }
@@ -10852,7 +10852,7 @@ ol.commentlist li::after {
 	top: -20px;
 	z-index: 1;
 	background-color:#FF9800;
-	background-image:url(../../../file/G_/uploading-item/bitinvest-html-template/html/images/background/bg7.png);
+	background-image:url(../file/G_/uploading-item/bitinvest-html-template/html/images/background/bg7.html);
 	background-repeat:repeat;
 }
 @media only screen and (max-width: 991px) { 

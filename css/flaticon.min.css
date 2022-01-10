@@ -1,8 +1,8 @@
-@font-face{font-family:"Flaticon";src:url("../fonts/Flaticon.eot");src:url("../fonts/Flaticond41d.eot") format("embedded-opentype"),
+@font-face{font-family:"Flaticon";src:url("../fonts/Flaticon.eot");src:url("../fonts/Flaticond41dd41d.eot?#iefix") format("embedded-opentype"),
 url("../fonts/Flaticon.woff") format("woff"),
 url("../fonts/Flaticon.ttf") format("truetype"),
-url("../fonts/Flaticon.svg") format("svg");font-weight:normal;font-style:normal;}
-@media screen and (-webkit-min-device-pixel-ratio:0){@font-face{font-family:"Flaticon";src:url("../fonts/Flaticon.svg") format("svg");}
+url("../fonts/Flaticon.svg#Flaticon") format("svg");font-weight:normal;font-style:normal;}
+@media screen and (-webkit-min-device-pixel-ratio:0){@font-face{font-family:"Flaticon";src:url("../fonts/Flaticon.svg#Flaticon") format("svg");}
 }
 [class^="flaticon-"]:before, [class*=" flaticon-"]:before,
 [class^="flaticon-"]:after, [class*=" flaticon-"]:after{font-family:Flaticon;font-size:36px;font-style:normal;}
@@ -64,11 +64,11 @@ url("../fonts/Flaticon.svg") format("svg");font-weight:normal;font-style:normal;
 ==================================*/
 @font-face {
   font-family: 'icomoon';
-  src:  url('../fonts/icomoon071e.eot');
-  src:  url('../fonts/icomoon071e.eot#iefix') format('embedded-opentype'),
-    url('../fonts/icomoon071e.ttf') format('truetype'),
-    url('../fonts/icomoon071e.woff') format('woff'),
-    url('../fonts/icomoon071e.svg') format('svg');
+  src:  url('../fonts/icomoon071e071e.eot?rrsgby');
+  src:  url('../fonts/icomoon071e071e.eot?rrsgby#iefix') format('embedded-opentype'),
+    url('../fonts/icomoon071e071e.ttf?rrsgby') format('truetype'),
+    url('../fonts/icomoon071e071e.woff?rrsgby') format('woff'),
+    url('../fonts/icomoon071e071e.svg?rrsgby#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }

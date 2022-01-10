@@ -37,7 +37,7 @@ jQuery( document ).ready(function() {
 	
     // Color changer
     jQuery(".skin-1").on('click', function(){
-        jQuery(".skin").attr("href", "../css/skin/skin-1.css");
+        jQuery(".skin").attr("href", "css/skin/skin-1.css");
 		jQuery(".logo-header img").attr("src", "images/logo-1.png");
 		jQuery(".header-style-3 .logo-header img").attr("src", "images/logo-light-1.png");
 		jQuery(".header-style-5 .logo-header img").attr("src", "images/logo-light-1.png");
