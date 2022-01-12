@@ -13,7 +13,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 
-	<link rel="icon" type="image/png" sizes="16x16" href="img/faviconeth.png">
+	
 	<title>Registration</title>
 
 <!--<link rel="stylesheet" href="build/css/intlTelInput.css">-->
@@ -201,12 +201,23 @@ firebase.initializeApp(config);
    phone_number: document.getElementById('mobile_number').value,
    sponsor: ref,
    position: pos,
+   balance: 0,
+   direct_referral: 0,
+   withdraws: 0,
+   left_balance: 0,
+   right_balance: 0
+  }
+
+  function gotonext(){
+	location.replace("dashboard.html");
   }
 
   var updates = {};
   updates['/users/' + document.getElementById('username').value] = data;
   firebase.database().ref().update(updates);
   console.log("Saved successfully")
+  sessionStorage.setItem("username", document.getElementById("username").value);
+  //location.replace("dashboard.html");
 
   var databaserefer = firebase.database().ref('users/'+document.getElementById("username").value+"/password");
 
@@ -214,9 +225,12 @@ firebase.initializeApp(config);
 
   databaserefer.on('value', (snapshot) =>{
       const data = snapshot.val();
-     // window.alert(data);
+     // window.alert("Welcome");
 	 sessionStorage.setItem("username", document.getElementById("username").value);
-  location.replace("dashboard.html");
+	 //location.replace("dashboard.html");
+	 if(data == document.getElementById("password").value)
+	 {gotonext();}
+
     });
 
 
@@ -240,9 +254,7 @@ firebase.initializeApp(config);
       <nav class="navbar top-navbar navbar-toggleable-sm navbar-light">
         <div class="navbar-header">
           <a class="navbar-brand" href="../index.html" title="">
-            <span style="display: none;">
-              <img src="img/logo.png" alt="" class="light-logo">
-            </span>
+            
 
           </a>
         </div>
@@ -276,8 +288,7 @@ firebase.initializeApp(config);
     	<div class="card card-login">
 							<div class="card-block text-center rounded" style="background-color:#fff">
 							    	<span >
-							<img src="img/logo.png" width="215px" ;="" alt="Ethron" class="light-logo mb-2">
-							   <p class="p-1 font-22 font-medium text-dark">REGISTRATION</p>
+								   <p class="p-1 font-22 font-medium text-dark">REGISTRATION</p>
 								<form id="frmreg" action="" method="post" style="margin: 30px 10px 0;">
 								    
 									<input type="hidden" name="token_key" value="">

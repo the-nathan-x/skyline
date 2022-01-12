@@ -25,6 +25,32 @@
 
         <link href="assets/monster/css/colors/green.css" id="theme" rel="stylesheet">
 
+
+        <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+        <script>
+          // Initialize Firebase
+       
+          var config = {
+           apiKey: "AIzaSyAXWVP-VUaTnCr9nq5QRs1HvYnDVt60FXU",
+           authDomain: "skylineinvestment-64d99.firebaseapp.com",
+           databaseURL: "https://skylineinvestment-64d99-default-rtdb.firebaseio.com",
+           projectId: "skylineinvestment-64d99",
+           storageBucket: "skylineinvestment-64d99.appspot.com",
+           messagingSenderId: "1030553967112",
+           appId: "1:1030553967112:web:dc722ad6556a76692dcfbd",
+           measurementId: "G-4DDY78GSEG"
+       };
+       
+          firebase.initializeApp(config);
+        </script>
+    
+
+        <script>
+            
+
+        </script>
+
+
         <script>
             var link_left, link_right;
             function go()
@@ -38,6 +64,26 @@
                 document.getElementById("print-link-right").innerHTML = link_right;
                 document.getElementById("print-link-left-value").value = link_left;
                 document.getElementById("print-link-right-value").value = link_right;
+                
+                var databaseRef = firebase.database().ref('users/'+sessionStorage.getItem("username"));
+
+
+                databaseRef.once('value', function(snapshot) {
+                snapshot.forEach(function(childSnapshot) {
+                var childKey = childSnapshot.key;
+                var childData = childSnapshot.val();
+            
+
+                  //  window.alert(childData.balance);
+                 document.getElementById("balance").innerHTML = childData.balance;
+                 document.getElementById("direct_referral").innerHTML = childData.direct_referral;
+                 document.getElementById("withdraws").innerHTML = childData.withdraws;
+                 document.getElementById("left_balance").innerHTML = childData.left_balance;
+                 document.getElementById("right_balance").innerHTML = childData.right_balance;
+
+
+  });
+});
             }
 
 
@@ -308,81 +354,41 @@
     <div class="scroll-sidebar">
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
-                <li class="active"><a href="index" aria-expanded="false">
-                        <span class="hide-menu"><i class="fas fa-tachometer-alt" style="color:#fff"></i>
-                            Dashboard</span></a></li>
-                  <li class="dropdown hide-menu " style="margin-top: 8px">
-                 <button class="px-3 py-2 dropdown-toggle" data-toggle="dropdown" style="background: #0000;
-    color: #e258d1;border: none;">
-                        <i class="fas fa-download" style="color:#fff"></i>
-                        Downline
-                    </button>
-                    <div class="dropdown-menu" style="background:#000000">
-                        <a class="dropdown-item" href="MyTree?idn=Sadick001" style="color:#fff">My Tree</a>
-                        <a class="dropdown-item" href="LeftMember" style="color:#fff">Left Members</a>
-                        <a class="dropdown-item" href="RightMember" style="color:#fff">Right Member</a>
-                        <a class="dropdown-item" href="DirectMember" style="color:#fff">Direct Member</a>
-                        <a class="dropdown-item" href="MyDownline" style="color:#fff">My Downline</a>
-                    </div>
-                </li>
-                <li class="dropdown hide-menu " style="margin-top: 15px">
-                <button class="px-3 py-2 dropdown-toggle" data-toggle="dropdown" style="background: #0000;
-    color: #e258d1;border: none;">
-                        <i class="fas fa-hand-holding-usd" style="color:#fff"></i>
-                        Income
-                    </button>
-                    <div class="dropdown-menu" style="background:#000000">
-                        <a class="dropdown-item" href="AllIncome" style="color:#fff">All Income</a>
-                        <a class="dropdown-item" href="ROIIncome" style="color:#fff">ROI Income</a>
-                        <!--<a class="dropdown-item" href="ReferralROI" style="color:#fff">Refferal ROI</a>-->
-                        <a class="dropdown-item" href="DirectIncome" style="color:#fff">Direct Income</a>
-                        <a class="dropdown-item" href="BinaryIncome" style="color:#fff">Binary Income</a>
-                        <!--<a class="dropdown-item" href="CashReward" style="color:#fff">Cash Reward</a>-->
-                        <a href="Reward" class="dropdown-item" style="color:#fff"> Reward</a>
-                    </div>
-                </li>
+               
+                  
+           
+                                    </li>
 <li class="dropdown hide-menu " style="margin-top: 15px">
 <button class="px-3 py-2 dropdown-toggle" data-toggle="dropdown" style="background: #0000;
-    color: #e258d1;border: none;">
+    color: #fff;border: none;">
                         <i class="fas fa-won-sign" style="color:#fff"></i>
                         Deposit
                     </button>
                     <div class="dropdown-menu" style="background:#000000">
-                        <a class="dropdown-item" href="MakeDeposit" style="color:#fff">Deposit</a>
-                        <a class="dropdown-item" href="DepositHistory" style="color:#fff">Deposit history</a>
+                        <a class="dropdown-item" href="plans/index.html" style="color:#fff">Deposit</a>
+                        <a class="dropdown-item" href="plans/index.html" style="color:#fff">Deposit history</a>
                     </div>
                 </li>
 
 <li class="dropdown hide-menu " style="margin-top: 15px">
 <button class="px-3 py-2 dropdown-toggle" data-toggle="dropdown" style="background: #0000;
-    color: #e258d1;border: none;">
+    color: #fff;border: none;">
                         <i class="fas fa-won-sign" style="color:#fff"></i>
                         Withdraw
                     </button>
                     <div class="dropdown-menu" style="background:#000000">
-                        <a class="dropdown-item" href="Withdraw" style="color:#fff">Withdraw</a>
-                        <a class="dropdown-item" href="WithdrawHistory" style="color:#fff">Withdraw History</a>
+                        <a class="dropdown-item" href="withdraw.html" style="color:#fff">Withdraw</a>
+                        <a class="dropdown-item" href="withdraw.html" style="color:#fff">Withdraw History</a>
                     </div>
                 </li>
-   <li class="dropdown hide-menu " style="margin-top: 15px">
-<button class="px-3 py-2 dropdown-toggle" data-toggle="dropdown" style="background: #0000;
-    color: #e258d1;border: none;">
-                        <i class="fas fa-dollar" style="color:#fff"></i>
-                        Investment
-                    </button>
-                    <div class="dropdown-menu" style="background:#000000">
-                        <a class="dropdown-item" href="Investment" style="color:#fff">Invest</a>
-                        <a class="dropdown-item" href="InvestmentHistory" style="color:#fff">Investment History</a>
-                    </div>
-                </li>
-                             
+                          
            
                 
 
                 <!--<li class="logoutbtn"><a href="Logout.php" aria-expanded="false"><i class="fa fa-power-off"></i></a></li>-->
                 <li class="dropdown active logoutbtn " style="margin-top: 15px">
                   <button class="px-3 py-2 dropdown-toggle" data-toggle="dropdown" style="background: #0000;
-    color: #e258d1;border: none;">
+    color: #fff;border: none;">
                         <i class="fas fa-user-circle" style="color:#fff"></i>
                         Hi: <span id="greetings">Sadick001</span> 
                     </button>
@@ -415,7 +421,6 @@
                     <!--   </div>-->
                     <div class="row" id="referral-program" style="margin-top:80px;margin-bottom:20px">
                         <div class="col-sm-10">
-                            <span class="font-22 font-medium"> Welcome ! Sadiki Kidundo </span>
                         </div>
                         <div class="col-sm-2">
                             <span class="font-22 font-medium"> Rank : Beginner </span>
@@ -423,7 +428,7 @@
                     </div>
                     <div class="row" id="referral-program" style="margin-top:20px;margin-bottom:20px">
                         <div class="col-sm-12">
-                            <div class="card card-block card-inverse" style="background: #4c2f6e">
+                            <div class="card card-block card-inverse" style="background: #124E9D">
                                 <marquee behavior="scroll" direction="left" scrolldelay="60" scrollamount="3" width="100%" height="20" onMouseOver="this.stop();" onMouseOut="this.start();">
 
                                                                             <span style="line-height:11px; font-size:18px; margin:0px; text-transform:capitalize;color:#fff">&nbsp;Congratulations and Welcome to Skyline Investment. 
@@ -444,7 +449,7 @@ More Power and More Success </span>
                                         <h6 style="overflow-wrap: break-word;" id="print-link-left">https://LEFT </h6>
                                         <span style="white-space: nowrap;">
                                             <input class="input__area cp-target" type="hidden" id="print-link-left-value" value="https://LEFT" readonly="readonly" name="copyTarget1" id="left_ref_link">
-                                            <span class="btn btn-block btn-bs btn-custom" style="background: #4c2f6e;border: #4c2f6e;" onClick="myFunctionxvy();">LEFT AFFILIATE LINK</span>
+                                            <span class="btn btn-block btn-bs btn-custom" style="background: #124E9D;border: #124E9D;" onClick="myFunctionxvy();">LEFT AFFILIATE LINK</span>
                                         </span>
                                     </div>
                                 </div>
@@ -459,8 +464,8 @@ More Power and More Success </span>
                                         <h6 style="overflow-wrap: break-word;" id="print-link-right">https://RIGHT </h6>
 
                                         <span style="white-space: nowrap;">
-                                            <input class="input__area cp-target" type="hidden" id="print-link-left-value" value="https://RIGHT" readonly="readonly" name="copyTarget1" id="right_ref_link2">
-                                            <span class="btn btn-block btn-bs btn-custom" style="background: #4c2f6e;border: #4c2f6e;" onClick="myFunction2();">RIGHT AFFILIATE LINK</span>
+                                            <input class="input__area cp-target" type="hidden" id="print-link-right-value" value="https://RIGHT" readonly="readonly" name="copyTarget1" id="right_ref_link2">
+                                            <span class="btn btn-block btn-bs btn-custom" style="background: #124E9D;border: #124E9D;" onClick="myFunction2();">RIGHT AFFILIATE LINK</span>
                                         </span>
                                     </div>
                                 </div>
@@ -473,16 +478,16 @@ More Power and More Success </span>
                         <!--first row-->
 
                         <div class="col-sm-3">
-                            <div class="card card-block card-inverse" style="background: #4c2f6e;border: #4c2f6e;">
+                            <div class="card card-block card-inverse" style="background: #124E9D;border: #124E9D;">
                                 <div class="row p-t-5 p-b-0">
                                     <div class="col-4 p-r-0">
                                         
                                     </div>
                                     <div class="col-8 p-r-0">
-                                        <h2 class="text-white" style="float:right;margin-top:20px;margin-right:10px">$ 200 </h2>
+                                        <h2 class="text-white" style="float:right;margin-top:20px;margin-right:10px" id="balance"> </h2>
                                     </div>
                                     <div class="col-12 p-r-0">
-                                        <h2 class="text-white" style="font-size:21px">MY INVESTMENT</h2>
+                                        <h2 class="text-white" style="font-size:21px">BALANCE</h2>
                                     </div>
                                 </div>
 
@@ -490,7 +495,7 @@ More Power and More Success </span>
                         </div>
                         
                         <!--<div class="col-sm-3">-->
-                        <!--    <div class="card card-block card-inverse" style="background: #4c2f6e;border: #4c2f6e;">-->
+                        <!--    <div class="card card-block card-inverse" style="background: #124E9D;border: #124E9D;">-->
                         <!--        <div class="row p-t-5 p-b-0">-->
                         <!--            <div class="col-4 p-r-0">-->
                         <!--                <i><img src="assets/1-13.png" style="width: 57px;" class="mb-3"></i>-->
@@ -508,193 +513,55 @@ More Power and More Success </span>
                         
                         <div class="col-sm-3">
 
-                            <div class="card card-block card-inverse" style="background: #4c2f6e;border: #4c2f6e;">
+                            <div class="card card-block card-inverse" style="background: #124E9D;border: #124E9D;">
                                 <div class="row p-t-5 p-b-0">
                                     <div class="col-4 p-r-0">
                                         
                                     </div>
                                     <div class="col-8 p-r-0">
-                                        <h2 class="text-white" style="float:right;margin-top:20px;margin-right:10px">$ 30.00 </h2>
+                                        <h2 class="text-white" style="float:right;margin-top:20px;margin-right:10px" id="direct_referral"> </h2>
                                     </div>
                                     <div class="col-12 p-r-0">
-                                        <h2 class="text-white" style="font-size:21px">WALLET BALANCE</h2>
+                                        <h2 class="text-white" style="font-size:21px">DIRECT REFERRALS</h2>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-3">
 
-                            <div class="card card-block card-inverse" style="background: #4c2f6e;border: #4c2f6e;">
+                            <div class="card card-block card-inverse" style="background: #124E9D;border: #124E9D;">
                                 <div class="row p-t-5 p-b-0">
                                     <div class="col-4 p-r-0">
                                         
                                     </div>
                                     <div class="col-8 p-r-0">
-                                        <h2 class="text-white" style="float:right;margin-top:20px;margin-right:10px">2 </h2>
+                                        <h2 class="text-white" style="float:right;margin-top:20px;margin-right:10px" id="left_balance"> </h2>
                                     </div>
                                     <div class="col-12 p-r-0">
-                                        <h2 class="text-white" style="font-size:21px">LEFT MEMBER</h2>
+                                        <h2 class="text-white" style="font-size:21px">LEFT BALANCE</h2>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-3">
 
-                            <div class="card card-block card-inverse" style="background: #4c2f6e;border: #4c2f6e;">
+                            <div class="card card-block card-inverse" style="background: #124E9D;border: #124E9D;">
                                 <div class="row p-t-5 p-b-0">
                                     <div class="col-4 p-r-0">
                                         
                                     </div>
                                     <div class="col-8 p-r-0">
-                                        <h2 class="text-white" style="float:right;margin-top:20px;margin-right:10px">2 </h2>
+                                        <h2 class="text-white" style="float:right;margin-top:20px;margin-right:10px" id="right_balance"> </h2>
                                     </div>
                                     <div class="col-12 p-r-0">
-                                        <h2 class="text-white" style="font-size:21px">RIGHT MEMBER</h2>
+                                        <h2 class="text-white" style="font-size:21px">RIGHT BALANCE</h2>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-3">
-                            <div class="card card-block card-inverse" style="background: #4c2f6e;border: #4c2f6e;">
-                                <div class="row p-t-5 p-b-0">
-                                    <div class="col-4 p-r-0">
-                                        
-                                    </div>
-                                    <div class="col-8 p-r-0">
-                                        <h2 class="text-white" style="float:right;margin-top:20px;margin-right:10px">$ 0 </h2>
-                                    </div>
-                                    <div class="col-12 p-r-0">
-                                        <h2 class="text-white" style="font-size:21px">LEFT BUSINESS</h2>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="card card-block card-inverse" style="background: #4c2f6e;border: #4c2f6e;">
-                                <div class="row p-t-5 p-b-0">
-                                    <div class="col-4 p-r-0">
-                                        
-                                    </div>
-                                    <div class="col-8 p-r-0">
-                                        <h2 class="text-white" style="float:right;margin-top:20px;margin-right:10px">$ 0 </h2>
-                                    </div>
-                                    <div class="col-12 p-r-0">
-                                        <h2 class="text-white" style="font-size:21px">RIGHT BUSINESS</h2>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-
-                            <div class="card card-block card-inverse" style="background: #4c2f6e;border: #4c2f6e;">
-                                <div class="row p-t-5 p-b-0">
-                                    <div class="col-4 p-r-0">
-                                        
-                                    </div>
-                                    <div class="col-8 p-r-0">
-                                        <h2 class="text-white" style="float:right;margin-top:20px;margin-right:10px">3 </h2>
-                                    </div>
-                                    <div class="col-12 p-r-0">
-                                        <h2 class="text-white" style="font-size:21px">DIRECT MEMBER</h2>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-
-                            <div class="card card-block card-inverse" style="background: #4c2f6e;border: #4c2f6e;">
-                                <div class="row p-t-5 p-b-0">
-                                    <div class="col-4 p-r-0">
-                                        
-                                    </div>
-                                    <div class="col-8 p-r-0">
-                                        <h2 class="text-white" style="float:right;margin-top:20px;margin-right:10px">$ 0 </h2>
-                                    </div>
-                                    <div class="col-12 p-r-0">
-                                        <h2 class="text-white" style="font-size:21px">DIRECT BUSINESS</h2>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-
-                            <div class="card card-block card-inverse" style="background: #4c2f6e;border: #4c2f6e;">
-                                <div class="row p-t-5 p-b-0">
-                                    <div class="col-4 p-r-0">
-                                        
-                                    </div>
-                                    <div class="col-8 p-r-0">
-                                        <h2 class="text-white" style="float:right;margin-top:20px;margin-right:10px">$ 0 </h2>
-                                    </div>
-                                    <div class="col-12 p-r-0">
-                                        <h2 class="text-white" style="font-size:21px">MATCHING BUSINESS</h2>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-
-                            <div class="card card-block card-inverse" style="background: #4c2f6e;border: #4c2f6e;">
-                                <div class="row p-t-5 p-b-0">
-                                    <div class="col-4 p-r-0">
-                                        </div>
-                                    <div class="col-8 p-r-0">
-                                        <h2 class="text-white" style="float:right;margin-top:20px;margin-right:10px">$ 0.00 </h2>
-                                    </div>
-                                    <div class="col-12 p-r-0">
-                                        <h2 class="text-white" style="font-size:21px">BINARY INCOME</h2>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-
-                            <div class="card card-block card-inverse" style="background: #4c2f6e;border: #4c2f6e;">
-                                <div class="row p-t-5 p-b-0">
-                                    <div class="col-4 p-r-0">
-                                        </i>
-                                    </div>
-                                    <div class="col-8 p-r-0">
-                                        <h2 class="text-white" style="float:right;margin-top:20px;margin-right:10px">$ 45.00 </h2>
-                                    </div>
-                                    <div class="col-12 p-r-0">
-                                        <h2 class="text-white" style="font-size:21px">ROI INCOME</h2>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-
-                            <div class="card card-block card-inverse" style="background: #4c2f6e;border: #4c2f6e;">
-                                <div class="row p-t-5 p-b-0">
-                                    <div class="col-4 p-r-0">
-                                        <i><img src="assets/1-12.png" style="width: 57px;" class="mb-3"></i>
-                                    </div>
-                                    <div class="col-8 p-r-0">
-                                        <h2 class="text-white" style="float:right;margin-top:20px;margin-right:10px">$ 0.00 </h2>
-                                    </div>
-                                    <div class="col-12 p-r-0">
-                                        <h2 class="text-white" style="font-size:21px">DIRECT INCOME</h2>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="card card-block card-inverse" style="background: #4c2f6e;border: #4c2f6e;">
-                                <div class="row p-t-5 p-b-0">
-                                    <div class="col-4 p-r-0">
-                                    </div>
-                                    <div class="col-8 p-r-0">
-                                        <h2 class="text-white" style="float:right;margin-top:20px;margin-right:10px">$ 45 </h2>
-                                    </div>
-                                    <div class="col-12 p-r-0">
-                                        <h2 class="text-white" style="font-size:21px">TOTAL INCOME</h2>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <
                         <!--<div class="col-sm-3">-->
-                        <!--	<div class="card card-block card-inverse"  style="background: #4c2f6e;border: #4c2f6e;">-->
+                        <!--	<div class="card card-block card-inverse"  style="background: #124E9D;border: #124E9D;">-->
                         <!--		<div class="row p-t-5 p-b-0">-->
                         <!--			<div class="col-9 p-r-0">-->
                         <!--			    <i><img src="assets/1-01.png" style="width: 57px;" class="mb-3"></i>-->
@@ -705,7 +572,7 @@ More Power and More Success </span>
                         <!--	</div>-->
                         <!--</div>-->
                         <!--<div class="col-sm-3">-->
-                        <!--    <div class="card card-block card-inverse" style="background: #4c2f6e;border: #4c2f6e;">-->
+                        <!--    <div class="card card-block card-inverse" style="background: #124E9D;border: #124E9D;">-->
                         <!--        <div class="row p-t-5 p-b-0">-->
                         <!--            <div class="col-4 p-r-0">-->
                         <!--                <i><img src="assets/1-13.png" style="width: 57px;" class="mb-3"></i>-->
@@ -721,16 +588,16 @@ More Power and More Success </span>
                         <!--</div>-->
                       
                        <div class="col-sm-3">
-                            <div class="card card-block card-inverse" style="background: #4c2f6e;border: #4c2f6e;">
+                            <div class="card card-block card-inverse" style="background: #124E9D;border: #124E9D;">
                                 <div class="row p-t-5 p-b-0">
                                     <div class="col-4 p-r-0">
                                         
                                     </div>
                                     <div class="col-8 p-r-0">
-                                        <h2 class="text-white" style="float:right;margin-top:20px;margin-right:10px">$ 15.00 </h2>
+                                        <h2 class="text-white" style="float:right;margin-top:20px;margin-right:10px" id="withdraws"> </h2>
                                     </div>
                                     <div class="col-12 p-r-0">
-                                        <h2 class="text-white" style="font-size:21px">WITHDRAW FUND</h2>
+                                        <h2 class="text-white" style="font-size:21px">WITHDRAWN</h2>
                                     </div>
                                 </div>
                             </div>

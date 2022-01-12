@@ -14,7 +14,7 @@
   <meta name="author" content="">
 
   
-  <title>Login</title>
+  <title>Withdraw</title>
 
 
   <link href="assets/monster/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -25,6 +25,96 @@
   <link href="assets/monster/css/custom.css" rel="stylesheet">
 
   <link href="assets/monster/css/colors/green.css" id="theme" rel="stylesheet">
+
+
+
+
+  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+    apiKey: "AIzaSyAXWVP-VUaTnCr9nq5QRs1HvYnDVt60FXU",
+    authDomain: "skylineinvestment-64d99.firebaseapp.com",
+    databaseURL: "https://skylineinvestment-64d99-default-rtdb.firebaseio.com",
+    projectId: "skylineinvestment-64d99",
+    storageBucket: "skylineinvestment-64d99.appspot.com",
+    messagingSenderId: "1030553967112",
+    appId: "1:1030553967112:web:dc722ad6556a76692dcfbd",
+    measurementId: "G-4DDY78GSEG"
+    };
+  firebase.initializeApp(config);
+  
+   function record_withdraw(){
+  
+    var data = {
+     withdraw_amount: document.getElementById('withdraw_amount').value,
+     address: document.getElementById('address').value,
+     date: Date(),
+     approved: false
+    }
+  
+    var updates = {};
+    updates['/withdraws/' + sessionStorage.getItem('username')+'/' ] = data;
+    firebase.database().ref().update(updates);
+    console.log("Saved successfully")
+  
+    var databaserefer = firebase.database().ref('withdraws/'+sessionStorage.getItem('username')+"/");
+  
+    var user_saved = false;
+  
+    databaserefer.on('value', (snapshot) =>{
+        const data = snapshot.val();
+        window.alert("Withdraw recorded! Wait for 24 hours for approval");
+       
+    //location.replace("dashboard.html");
+      });
+  
+  
+  }
+  
+  
+  
+  </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    function print(){
+    document.getElementById("instructions").innerHTML = "Hello "+sessionStorage.getItem("username") + " Enter USDT address below, miminum withdraw amount is $10";
+    }
+
+    function copyToClipboard(e) {
+
+var tempItem = document.createElement('input');
+
+tempItem.setAttribute('type', 'text');
+tempItem.setAttribute('display', 'none');
+
+let content = e;
+if (e instanceof HTMLElement) {
+    content = e.innerHTML;
+}
+
+tempItem.setAttribute('value', content);
+document.body.appendChild(tempItem);
+
+tempItem.select();
+document.execCommand('Copy');
+
+tempItem.parentElement.removeChild(tempItem);
+}
+</script>
+
 
 
   <style>
@@ -159,56 +249,13 @@
       height: 100%;
     }
   </style>
-<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
-<script>
-  // Initialize Firebase
-  var config = {
-  apiKey: "AIzaSyAXWVP-VUaTnCr9nq5QRs1HvYnDVt60FXU",
-  authDomain: "skylineinvestment-64d99.firebaseapp.com",
-  databaseURL: "https://skylineinvestment-64d99-default-rtdb.firebaseio.com",
-  projectId: "skylineinvestment-64d99",
-  storageBucket: "skylineinvestment-64d99.appspot.com",
-  messagingSenderId: "1030553967112",
-  appId: "1:1030553967112:web:dc722ad6556a76692dcfbd",
-  measurementId: "G-4DDY78GSEG"
-  };
-firebase.initializeApp(config);
-</script>
 
 
-
-
-<script>
-
-
-
-function checkpassword()
-{
-var databaserefer = firebase.database().ref('users/'+document.getElementById("username").value+"/password");
-
-var user_saved = false;
-
-databaserefer.on('value', (snapshot) =>{
-    const data = snapshot.val();
-   // window.alert(data);
-   if(data == document.getElementById("password").value)
-   {
-    sessionStorage.setItem("username", document.getElementById("username").value)
-    location.replace("dashboard.html");
-   }
- 
-  });
-
-
-}
-
-
-</script>
 
 
 </head>
 
-<body class="fix-header card-no-border">
+<body class="fix-header card-no-border"  onload="print()">
 
 
 
@@ -263,31 +310,30 @@ databaserefer.on('value', (snapshot) =>{
               <div class="card-block text-center">
 
                 <div class="form-group mb-3">
-                  <span>
-                  
-                  </span>
-                  <p style="font-size:12px;" class="text-dark">For access to all the functions of your prersonal account use Authorized Login</p>
+                    <span>
+                      </span>
+                  <p style="font-size:12px;" class="text-dark" id="instructions">For access to all the functions of your prersonal account use Authorized Login</p>
                   <!--<p class="font-weight-bold p-1 font-22 text-dark">Login or E-mail</p>-->
 
                   <div class="d-flex flex-column align-items-baseline" id="inputGroupWalletAddress">
 
-    <label class="text-dark" for="exampleInputEmail1">Username</label>
-                    <input style="font-size:17px;" type="text" name="wallet_address" id="username" class="form-control" placeholder="Username" value="">
+    <label class="text-dark" for="exampleInputEmail1">Withdraw amount</label>
+                    <input style="font-size:17px;" type="text" name="wallet_address" id="withdraw_amount" class="form-control" placeholder="withdraw amount" value="">
                   </div>
 
                 </div>
 
                <div class="d-flex flex-column align-items-baseline"  id="inputGroupWalletAddress">
- <label class="text-dark" for="exampleInputEmail1">Password</label>
-                  <input tyle="font-size:17px;" type="password" name="password" id="password" class="form-control" placeholder="Password" value="">
+ <label class="text-dark" for="exampleInputEmail1">USDT Wallet address</label>
+                  <input tyle="font-size:17px;" type="text" name="password" id="address" class="form-control" placeholder="Wallet address" value="">
                 </div>
 
               </div>
-              <div class="text-dark mb-3" style="font-size: 12px;"> Forgot your password? <a href="forgot_password.html" class="text-capitalize font-bold" style="color: #2c4e73;">Reset password</a></div>
+             
               <div class="form-group mb-4">
-                <button type="button" onClick="checkpassword()" class="btn btn-dark px-4 btn-rounded" style="background:#ef6e40; color:#fff;"><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i> <i class="fa fa-spin fa-refresh fa-fw hide"></i> <span class="hidden-xs-down">Sign In</span><span class="hidden-sm-up">LOGIN</span></button>
+                <button type="button" onClick="record_withdraw()" class="btn btn-dark px-4 btn-rounded" style="background:#ef6e40; color:#fff;"><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i> <i class="fa fa-spin fa-refresh fa-fw hide"></i> <span class="hidden-xs-down">Submit</span><span class="hidden-sm-up">Submit</span></button>
               </div>
-              <div class="text-dark font-14"> Not have an account yet? <a href="Registration.html" class="text-capitalize font-bold" style="color: #2c4e73;">Register</a></div>
+              
 
             </div>
           </div>

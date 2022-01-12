@@ -84,7 +84,7 @@ document.write('\
 				</div>\
 			</div>\
 			<div class="col-md-4 col-sm-4 form-group">\
-					<input class="form-control" type="text" placeholder="Daily 1.5% ROI" style="width:100%;' + crypt_calc_font_style + '">\
+					<input class="form-control" type="text" placeholder="Daily 2.0% ROI" style="width:100%;' + crypt_calc_font_style + '">\
 			</div>\
 			<div class="col-md-4 col-sm-4 form-group">\
 			<div class="input-group mb-3" style="display:flex; justify-content:center; align-items:center; ">\
@@ -151,9 +151,9 @@ function calculate(){
         alert ("amount must be greater than 50");
         return 
     }
-    let daily_reward= amount*1.5/100; 
-     let weekly_reward= amount*1.5/100*7;
-     let monthaly_reward= amount*1.5/100*30;
+    let daily_reward= amount*2/100; 
+     let weekly_reward= amount*2/100*7;
+     let monthaly_reward= amount*2/100*30;
      document.getElementById('amount-2').value=daily_reward+"  Daily";
      document.getElementById('amount-3').value=weekly_reward+"  Weekly";
       document.getElementById('amount-4').value=monthaly_reward+"  Monthly";
