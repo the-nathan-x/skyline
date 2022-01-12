@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from ethroninvestors.com/UserApp/Login.php by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 10 Jan 2022 07:03:54 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  
+  <title>Login</title>
+
+
+  <link href="assets/monster/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="assets/monster/plugins/toastr/toastr.min.css" rel="stylesheet">
+
+  <link href="assets/monster/css/style.css" rel="stylesheet">
+  <link href="assets/monster/css/custom.css" rel="stylesheet">
+
+  <link href="assets/monster/css/colors/green.css" id="theme" rel="stylesheet">
+
+
+  <style>
+    .brit__lang {
+      display: inline-block;
+      position: relative;
+      width: 155px;
+      text-align: center;
+      white-space: nowrap;
+      color: #fff;
+    }
+
+    @media only screen and (max-width: 576px) {
+      .brit__lang {
+        width: 110px;
+      }
+    }
+
+    .brit__lang.active .brit__lang-current {
+      -webkit-transition: all ease-in 0.2s;
+      -o-transition: all ease-in 0.2s;
+      transition: all ease-in 0.2s;
+      -webkit-border-radius: 5px 5px 0 0;
+      border-radius: 5px 5px 0 0;
+    }
+
+    .brit__lang.active .brit__lang-current i {
+      -webkit-transition: all ease-in 0.2s;
+      -o-transition: all ease-in 0.2s;
+      transition: all ease-in 0.2s;
+      -webkit-transform: rotate(-180deg);
+      -ms-transform: rotate(-180deg);
+      transform: rotate(-180deg);
+    }
+
+    .brit__lang.active .brit__lang-items {
+      -webkit-transition: all ease-in 0.2s;
+      -o-transition: all ease-in 0.2s;
+      transition: all ease-in 0.2s;
+      visibility: visible;
+      top: 100%;
+      opacity: 1;
+      -webkit-border-radius: 0 0 5px 5px;
+      border-radius: 0 0 5px 5px;
+    }
+
+    .brit__lang-current {
+      /*background-color: #2c2d2c;*/
+      height: 40px;
+      /*line-height: 40px;*/
+      -webkit-border-radius: 50px;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 700;
+      /*border: 1px solid #55ce63;*/
+      cursor: pointer;
+      -webkit-transition: all ease-in 0.2s;
+      -o-transition: all ease-in 0.2s;
+      transition: all ease-in 0.2s;
+    }
+
+    .brit__lang-current:hover {
+      /*background-color: #4ade5bd6;*/
+    }
+
+    .goog-logo-link,
+    .goog-logo-link:link,
+    .goog-logo-link:visited,
+    .goog-logo-link:hover,
+    .goog-logo-link:active {
+      font-size: 12px;
+      /* font-weight: bold; */
+      /* color: #444; */
+      /*text-decoration: none;*/
+      display: none;
+    }
+
+    .goog-te-combo,
+    .goog-te-banner *,
+    .goog-te-ftab *,
+    .goog-te-menu *,
+    .goog-te-menu2 *,
+    .goog-te-balloon * {
+      color: #dcd4d4;
+      font-family: arial;
+      font-size: 10pt;
+      background: #424141;
+      border: 2px solid #1b961b;
+      border-radius: 10px;
+    }
+
+    .brit__lang-current i {
+      font-size: 12px;
+      -webkit-transition: all ease-in 0.2s;
+      -o-transition: all ease-in 0.2s;
+      transition: all ease-in 0.2s;
+    }
+
+    .brit__lang-items {
+      position: absolute;
+      width: 100%;
+      top: 100%;
+      left: 0;
+      background-color: #4ade5bd6;
+      -webkit-border-radius: 5px;
+      border-radius: 5px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      top: 110%;
+      opacity: 0;
+      visibility: hidden;
+      -webkit-transition: all ease-in 0.2s;
+      -o-transition: all ease-in 0.2s;
+      transition: all ease-in 0.2s;
+    }
+
+    .brit__lang-items-item {
+      padding: 5px 0;
+      color: #fff;
+      display: block;
+      width: 100%;
+    }
+
+    .sidebar-nav .brit__lang-items a {
+      padding: 4px;
+
+    }
+
+    .canvas {
+      position: fixed !important;
+      top: 0 !important;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+  apiKey: "AIzaSyAXWVP-VUaTnCr9nq5QRs1HvYnDVt60FXU",
+  authDomain: "skylineinvestment-64d99.firebaseapp.com",
+  databaseURL: "https://skylineinvestment-64d99-default-rtdb.firebaseio.com",
+  projectId: "skylineinvestment-64d99",
+  storageBucket: "skylineinvestment-64d99.appspot.com",
+  messagingSenderId: "1030553967112",
+  appId: "1:1030553967112:web:dc722ad6556a76692dcfbd",
+  measurementId: "G-4DDY78GSEG"
+  };
+firebase.initializeApp(config);
+</script>
+
+
+
+
+<script>
+
+
+
+function checkpassword()
+{
+var databaserefer = firebase.database().ref('users/'+document.getElementById("username").value+"/password");
+
+var user_saved = false;
+
+databaserefer.on('value', (snapshot) =>{
+    const data = snapshot.val();
+   // window.alert(data);
+   if(data == document.getElementById("password").value)
+   {
+    sessionStorage.setItem("username", document.getElementById("username").value)
+    location.replace("dashboard.html");
+   }
+ 
+  });
+
+
+}
+
+
+</script>
+
+
+</head>
+
+<body class="fix-header card-no-border">
+
+
+
+  <div class="preloader">
+    <svg class="circular" viewbox="25 25 50 50">
+      <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"></circle>
+    </svg>
+  </div>
+
+
+
+  <div id="main-wrapper">
+
+    <header class="topbar" style="background: #4c2f6e;">
+      <nav class="navbar top-navbar navbar-toggleable-sm navbar-light">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="../index.html" title="">
+
+
+          </a>
+        </div>
+        <div class="navbar-collapse">
+          <ul class="navbar-nav mr-auto mt-md-0 ">
+
+            <li class="nav-item">
+              <a class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" href="javascript:void(0)">
+                
+
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link sidebartoggler hidden-sm-down text-muted waves-effect waves-dark" href="javascript:void(0)">
+                <i class="icon-arrow-left-circle"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <div class="page-wrapper" style="background:black">
+      <div class="canvas" id="particles-js"></div>
+      <div class="container-fluid">
+
+        <div class="row">
+          <div class="col-lg-4 text-center"></div>
+          <div class="col-lg-4 text-center">
+
+            <div class="card card-block card-inverse" style="background-color:#fff">
+              <div class="card-block text-center">
+
+                <div class="form-group mb-3">
+                  <span>
+                  
+                  </span>
+                  <p style="font-size:12px;" class="text-dark">For access to all the functions of your prersonal account use Authorized Login</p>
+                  <!--<p class="font-weight-bold p-1 font-22 text-dark">Login or E-mail</p>-->
+
+                  <div class="d-flex flex-column align-items-baseline" id="inputGroupWalletAddress">
+
+    <label class="text-dark" for="exampleInputEmail1">Username</label>
+                    <input style="font-size:17px;" type="text" name="wallet_address" id="username" class="form-control" placeholder="Username" value="">
+                  </div>
+
+                </div>
+
+               <div class="d-flex flex-column align-items-baseline"  id="inputGroupWalletAddress">
+ <label class="text-dark" for="exampleInputEmail1">Password</label>
+                  <input tyle="font-size:17px;" type="password" name="password" id="password" class="form-control" placeholder="Password" value="">
+                </div>
+
+              </div>
+              <div class="text-dark mb-3" style="font-size: 12px;"> Forgot your password? <a href="forgot_password.html" class="text-capitalize font-bold" style="color: #2c4e73;">Reset password</a></div>
+              <div class="form-group mb-4">
+                <button type="button" onClick="checkpassword()" class="btn btn-dark px-4 btn-rounded" style="background:#ef6e40; color:#fff;"><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i> <i class="fa fa-spin fa-refresh fa-fw hide"></i> <span class="hidden-xs-down">Sign In</span><span class="hidden-sm-up">LOGIN</span></button>
+              </div>
+              <div class="text-dark font-14"> Not have an account yet? <a href="Registration.html" class="text-capitalize font-bold" style="color: #2c4e73;">Register</a></div>
+
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 text-center"></div>
+      </div>
+    </div>
+
+  </div>
+  </div>
+
+  </div>
+
+
+
+
+
+
+  <script>
+    var coin = {
+      'symbol': 'BTC',
+      'name': 'Bitcoin'
+    };
+  </script>
+  <script src="assets/monster/plugins/jquery/jquery.min.js"></script>
+
+  <script src="assets/monster/plugins/bootstrap/js/tether.min.js"></script>
+  <script src="assets/monster/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+  <script src="assets/monster/js/jquery.slimscroll.js"></script>
+
+  <script src="assets/monster/js/waves.js"></script>
+
+  <script src="assets/monster/js/sidebarmenu.js"></script>
+
+  <script src="assets/monster/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
+
+  <script src="assets/monster/plugins/counterup/counterup.min.js"></script>
+
+  <script src="assets/monster/js/wallet-address-validator.min.js"></script>
+
+  <script src="assets/monster/js/jquery.countdown.mina6b2.js?v=20190918002"></script>
+
+  <script src="assets/monster/plugins/toastr/toastr.min.js"></script>
+
+  <script src="assets/monster/plugins/clipboard/clipboard.min.js"></script>
+
+  <script src="assets/monster/plugins/qrcode/qrcode.min.js"></script>
+
+  <script src="assets/monster/js/custom.js"></script>
+
+  <script src="assets/monster/js/maina6b2.js?v=20190918002"></script>
+
+
+  <script type="text/javascript" src="assets/monster/plugins/smooth-scroll/smooth-scroll.min.js"></script>
+  <script src="TronWeb.js"></script>
+  <script src="../../unpkg.com/sweetalert%402.1.2/dist/sweetalert.min.js"></script>
+
+  <!-- particles -->
+  <script src="../assets/js/particles.min.js"></script>
+  <script src="../assets/js/app.js"></script>
+  <script>
+  
+    function Login() {
+      // alert();
+
+      // userWalletAddress = window.tronWeb.defaultAddress.base58;
+      var userWalletAddress = $.trim($("#wallet_address").val());
+      var password = $.trim($("#password").val());
+      var dataStringr = 'user_add=' + userWalletAddress + '&password=' + password;
+      //alert(dataStringr);
+      $.ajax({
+        type: "POST",
+        url: "chklogin.php",
+        data: dataStringr,
+        cache: false,
+        success: function(status) {
+           // alert(status);
+          if (status == 1) {
+            window.location.href = 'Login.html';
+          } else {
+            swal('Login', "Incorrect User Id or Password", 'warning');
+          }
+        }
+      });
+
+    }
+  </script>
+  <script>
+    $(function() {
+
+
+      new SmoothScroll('ul#sidebarnav a', {
+        header: '.left-sidebar'
+      });
+    });
+  </script>
+
+
+
+  <script async="" src="gtag/js5bfc.html?id=UA-148211745-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-148211745-1');
+  </script>
+
+  <script>
+    // Lang
+    $(".brit__lang-current").click(function() {
+      $(this).closest(".brit__lang").toggleClass("active");
+    });
+  </script>
+
+
+</body>
+
+
+<!-- Mirrored from ethroninvestors.com/UserApp/Login.php by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 10 Jan 2022 07:04:15 GMT -->
+</html>

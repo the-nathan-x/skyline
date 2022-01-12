@@ -1,0 +1,166 @@
+
+<html>
+    <head>
+     <title>Firebase Realtime Database Web</title>
+     <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+     <script>
+       // Initialize Firebase
+    
+       var config = {
+        apiKey: "AIzaSyAXWVP-VUaTnCr9nq5QRs1HvYnDVt60FXU",
+        authDomain: "skylineinvestment-64d99.firebaseapp.com",
+        databaseURL: "https://skylineinvestment-64d99-default-rtdb.firebaseio.com",
+        projectId: "skylineinvestment-64d99",
+        storageBucket: "skylineinvestment-64d99.appspot.com",
+        messagingSenderId: "1030553967112",
+        appId: "1:1030553967112:web:dc722ad6556a76692dcfbd",
+        measurementId: "G-4DDY78GSEG"
+    };
+    
+       firebase.initializeApp(config);
+     </script>
+    
+    <script>
+        function approve(username)
+        {
+       
+       var updates = {};
+       updates['/deposits/' + username +"/approved" ] = true;
+       firebase.database().ref().update(updates);
+       
+       alert('The user is created successfully!');
+       reload_page();
+        }
+    </script>
+    
+    
+    
+    </head>
+    <body>
+     <table>
+    
+      <tr>
+       <td colspan="2">
+        <input type="button" value="Save" onclick="save_user();" />
+        <input type="button" value="Update" onclick="update_user();" />
+        <input type="button" value="Delete" onclick="delete_user();" />
+       </td>
+      </tr>
+     </table>
+     
+     <h3>Users List</h3>
+     
+     <table id="tbl_users_list" border="1">
+      <tr>
+          
+       <td>Date</td>
+       <td>Username</td>
+       <td>Address</td>
+       <td>Amount</td>
+       <td>Approve</td>
+      </tr>
+     </table>
+     
+     <script>
+     
+      var tblUsers = document.getElementById('tbl_users_list');
+      var databaseRef = firebase.database().ref('deposits/');
+      var rowIndex = 1;
+      
+      databaseRef.once('value', function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+       var childKey = childSnapshot.key;
+       var childData = childSnapshot.val();
+       
+       var row = tblUsers.insertRow(rowIndex);
+       var cellDate = row.insertCell(0);
+       var cellUsername = row.insertCell(1);
+       var cellAddress = row.insertCell(2);
+       var cellAmount = row.insertCell(3);
+       var cellApprove = row.insertCell(4);
+    
+       cellDate.appendChild(document.createTextNode(childData.date));
+       cellUsername.appendChild(document.createTextNode(childKey));
+       cellAddress.appendChild(document.createTextNode(childData.address));
+       cellAmount.appendChild(document.createTextNode(childData.amount));
+    
+       if(childData.approved == false)
+       {
+           var btn  = document.createElement ("button");
+           btn.innerHTML = "approve";
+           
+           btn.onclick = function(){
+            var updates = {};
+            updates['/deposits/' + childKey +"/approved" ] = true;
+            firebase.database().ref().update(updates);
+       
+            alert('The user is created successfully!');
+            reload_page();                 
+           };
+            
+           cellApprove.appendChild(btn);
+       }
+    
+       else{
+        cellApprove.appendChild(document.createTextNode("approved"));
+       }
+    
+       
+       
+    
+       rowIndex = rowIndex + 1;
+        });
+      });
+       
+      function save_user(){
+       var user_name = document.getElementById('user_name').value;
+      
+       var uid = firebase.database().ref().child('users').push().key;
+       
+       var data = {
+        user_id: uid,
+        user_name: user_name
+       }
+       
+       var updates = {};
+       updates['/users/' + uid] = data;
+       firebase.database().ref().update(updates);
+       
+       alert('The user is created successfully!');
+       reload_page();
+      }
+      
+      function update_user(){
+       var user_name = document.getElementById('user_name').value;
+       var user_id = document.getElementById('user_id').value;
+    
+       var data = {
+        user_id: user_id,
+        user_name: user_name
+       }
+       
+       var updates = {};
+       updates['/users/' + user_id] = data;
+       firebase.database().ref().update(updates);
+       
+       alert('The user is updated successfully!');
+       
+       reload_page();
+      }
+      
+      function delete_user(){
+       var user_id = document.getElementById('user_id').value;
+      
+       firebase.database().ref().child('/users/' + user_id).remove();
+       alert('The user is deleted successfully!');
+       reload_page();
+      }
+      
+      function reload_page(){
+       window.location.reload();
+      }
+      
+     </script>
+     
+    </body>
+    </html>

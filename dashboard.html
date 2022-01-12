@@ -1,0 +1,1050 @@
+
+
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="keywords" content="ETHRON INVESTORS">
+        <meta name="description" content="ETHRON INVESTORS">
+        <meta name="author" content="ETHRON INVESTORS">
+
+        <link rel="icon" type="image/png" sizes="16x16" href="img/faviconeth.png">
+        <title>Skyline Investment</title>
+
+
+        <link href="assets/monster/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+        <link href="assets/monster/plugins/toastr/toastr.min.css" rel="stylesheet">
+
+        <link href="assets/monster/css/style.css" rel="stylesheet">
+        <link href="assets/monster/css/custom.css" rel="stylesheet">
+
+        <link href="assets/monster/css/colors/green.css" id="theme" rel="stylesheet">
+
+
+        <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+        <script>
+          // Initialize Firebase
+       
+          var config = {
+           apiKey: "AIzaSyAXWVP-VUaTnCr9nq5QRs1HvYnDVt60FXU",
+           authDomain: "skylineinvestment-64d99.firebaseapp.com",
+           databaseURL: "https://skylineinvestment-64d99-default-rtdb.firebaseio.com",
+           projectId: "skylineinvestment-64d99",
+           storageBucket: "skylineinvestment-64d99.appspot.com",
+           messagingSenderId: "1030553967112",
+           appId: "1:1030553967112:web:dc722ad6556a76692dcfbd",
+           measurementId: "G-4DDY78GSEG"
+       };
+       
+          firebase.initializeApp(config);
+        </script>
+    
+
+        <script>
+            
+
+        </script>
+
+
+        <script>
+            var link_left, link_right;
+            function go()
+            {
+                var username = sessionStorage.getItem("username");
+
+                document.getElementById("greetings").innerHTML = username;
+                link_left = "http://skylineinvestment.finance/UserApp/Registration.html?referral="+username+"&&position=left";
+                link_right = "http://skylineinvestment.finance/UserApp/Registration.html?referral="+username+"&&position=right";
+                document.getElementById("print-link-left").innerHTML = link_left;
+                document.getElementById("print-link-right").innerHTML = link_right;
+                document.getElementById("print-link-left-value").value = link_left;
+                document.getElementById("print-link-right-value").value = link_right;
+                
+                var databaseRef = firebase.database().ref('users/');
+
+
+                databaseRef.once('value', function(snapshot) {
+                snapshot.forEach(function(childSnapshot) {
+                var childKey = childSnapshot.key;
+                var childData = childSnapshot.val();
+                    
+                    if(childKey == sessionStorage.getItem('username'))
+                    {
+
+                         //window.alert(childData.balance);
+                    console.log(childData.balance);
+                 document.getElementById("balance").innerHTML = childData.balance;
+                 document.getElementById("direct_referral").innerHTML = childData.direct_referral;
+                 document.getElementById("withdraws").innerHTML = childData.withdraws;
+                 document.getElementById("left_balance").innerHTML = childData.left_balance;
+                 document.getElementById("right_balance").innerHTML = childData.right_balance;
+
+                    }
+                   
+
+
+  });
+});
+            }
+
+
+        </script>
+
+
+
+
+        <style>
+            .brit__lang {
+                display: inline-block;
+                position: relative;
+                width: 155px;
+                text-align: center;
+                white-space: nowrap;
+                color: #fff;
+            }
+
+            @media only screen and (max-width: 576px) {
+                .brit__lang {
+                    width: 110px;
+                }
+            }
+
+            .brit__lang.active .brit__lang-current {
+                -webkit-transition: all ease-in 0.2s;
+                -o-transition: all ease-in 0.2s;
+                transition: all ease-in 0.2s;
+                -webkit-border-radius: 5px 5px 0 0;
+                border-radius: 5px 5px 0 0;
+            }
+
+            .brit__lang.active .brit__lang-current i {
+                -webkit-transition: all ease-in 0.2s;
+                -o-transition: all ease-in 0.2s;
+                transition: all ease-in 0.2s;
+                -webkit-transform: rotate(-180deg);
+                -ms-transform: rotate(-180deg);
+                transform: rotate(-180deg);
+            }
+
+            .brit__lang.active .brit__lang-items {
+                -webkit-transition: all ease-in 0.2s;
+                -o-transition: all ease-in 0.2s;
+                transition: all ease-in 0.2s;
+                visibility: visible;
+                top: 100%;
+                opacity: 1;
+                -webkit-border-radius: 0 0 5px 5px;
+                border-radius: 0 0 5px 5px;
+            }
+
+            .brit__lang-current {
+                /*background-color: #2c2d2c;*/
+                height: 40px;
+                /*line-height: 40px;*/
+                -webkit-border-radius: 50px;
+                border-radius: 50px;
+                font-size: 15px;
+                font-weight: 700;
+                /*border: 1px solid #55ce63;*/
+                cursor: pointer;
+                -webkit-transition: all ease-in 0.2s;
+                -o-transition: all ease-in 0.2s;
+                transition: all ease-in 0.2s;
+            }
+
+            .brit__lang-current:hover {
+                /*background-color: #4ade5bd6;*/
+            }
+
+            .goog-logo-link,
+            .goog-logo-link:link,
+            .goog-logo-link:visited,
+            .goog-logo-link:hover,
+            .goog-logo-link:active {
+                font-size: 12px;
+                /* font-weight: bold; */
+                /* color: #444; */
+                /*text-decoration: none;*/
+                display: none;
+            }
+
+            .goog-te-combo,
+            .goog-te-banner *,
+            .goog-te-ftab *,
+            .goog-te-menu *,
+            .goog-te-menu2 *,
+            .goog-te-balloon * {
+                color: #dcd4d4;
+                font-family: arial;
+                font-size: 10pt;
+                background: #424141;
+                border: 2px solid #1b961b;
+                border-radius: 10px;
+            }
+
+            .brit__lang-current i {
+                font-size: 12px;
+                -webkit-transition: all ease-in 0.2s;
+                -o-transition: all ease-in 0.2s;
+                transition: all ease-in 0.2s;
+            }
+
+            .brit__lang-items {
+                position: absolute;
+                width: 100%;
+                top: 100%;
+                left: 0;
+                background-color: #4ade5bd6;
+                -webkit-border-radius: 5px;
+                border-radius: 5px;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                top: 110%;
+                opacity: 0;
+                visibility: hidden;
+                -webkit-transition: all ease-in 0.2s;
+                -o-transition: all ease-in 0.2s;
+                transition: all ease-in 0.2s;
+            }
+
+            .brit__lang-items-item {
+                padding: 5px 0;
+                color: #fff;
+                display: block;
+                width: 100%;
+            }
+
+            .sidebar-nav .brit__lang-items a {
+                padding: 4px;
+
+            }
+
+            .cart {
+                width: 100px;
+                height: 100px;
+
+            }
+        </style>
+    </head>
+
+    <body class="fix-header card-no-border" onload="go()">
+        <div class="preloader">
+            <svg class="circular" viewbox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"></circle>
+            </svg>
+        </div>
+
+
+
+        <div id="main-wrapper">
+            <style>
+    .menu1 li:hover {
+        background: linear-gradient(to right, #000000 0%, #c55eb4 100%);
+
+    }
+.war::before{
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 84px;
+    background: url(https://kriptofuture.com/img/detalhe-topo.2c886089.svg) no-repeat 100%;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+    
+
+    .input__area {
+        background: #0000;
+        border: none;
+
+        color: #000;
+        text-shadow:
+            0 0 7px #74bad4,
+            0 0 10px #fff,
+            0 0 21px #fff,
+            0 0 42px #bc13fe,
+            0 0 82px #bc13fe,
+            0 0 92px #bc13fe,
+            0 0 102px #bc13fe,
+            0 0 151px #bc13fe;
+    }
+
+    .input__area:hover {
+        background: #0000;
+        border: none;
+
+        color: #fff;
+        text-shadow:
+            0 0 7px #0000,
+            0 0 10px #fff,
+            0 0 21px #fff,
+            0 0 42px #bc13fe,
+            0 0 82px #bc13fe,
+            0 0 92px #bc13fe,
+            0 0 102px #bc13fe,
+            0 0 151px #bc13fe;
+        cursor: pointer
+    }
+
+    .btn-info,
+    .btn-info.disabled {
+        background: #1d73af !important;
+        border: 1px solid #1d73af !important;
+    }
+
+    img {
+        vertical-align: middle;
+        width: 24px;
+    }
+
+    .dropdown-item:hover {
+        background: linear-gradient(to right, #000000 0%, #c55eb4 100%);
+
+    }
+
+    @media screen and (min-width:768px){
+.logoutbtn {
+        float: right;
+    }
+    }
+
+    @media only screen and (max-width: 768px) {
+        .dropdown-item:hover {
+            background: linear-gradient(to right, #000000 0%, #c55eb4 100%);
+
+        }
+    }
+    @media only screen and (max-width: 768px) {
+        .display-google-translate {
+            display:none;
+        }
+    }
+</style>
+<link rel="stylesheet" href="cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.mina4f0.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<header class="topbar" style="background:#1f0230">
+    <nav class="navbar navbar-toggleable-sm navbar-light">
+        <div class="navbar-header w-100">
+            <div class="d-flex justify-content-between"><a class="navbar-brand" href="#" title="">
+               
+            </a>
+            <div id="google_translate_element" class="display-google-translate"></div></div>
+            <ul class="navbar-nav mr-auto mt-md-0 ">
+                <li class="nav-item d-flex justify-content-between">
+                    <a class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" href="javascript:void(0)">
+                        <i class="ti-menu"></i>
+                        <img src="img/logo.png" alt="" class="light-logo" style="width:100px">
+                    </a>
+                    <div id="google_translate_element" class=""></div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link sidebartoggler hidden-sm-down text-muted waves-effect waves-dark" href="javascript:void(0)">
+                        <i class="icon-arrow-left-circle"></i>
+                    </a>
+                </li>
+            </ul>
+            
+        </div>
+   
+        
+    </nav>
+</header>
+<aside class="left-sidebar">
+    <div class="scroll-sidebar">
+        <nav class="sidebar-nav">
+            <ul id="sidebarnav">
+               
+                  
+           
+                                    </li>
+<li class="dropdown hide-menu " style="margin-top: 15px">
+<button class="px-3 py-2 dropdown-toggle" data-toggle="dropdown" style="background: #0000;
+    color: #fff;border: none;">
+                        <i class="fas fa-won-sign" style="color:#fff"></i>
+                        Deposit
+                    </button>
+                    <div class="dropdown-menu" style="background:#000000">
+                        <a class="dropdown-item" href="plans/index.html" style="color:#fff">Deposit</a>
+                        <a class="dropdown-item" href="plans/index.html" style="color:#fff">Deposit history</a>
+                    </div>
+                </li>
+
+<li class="dropdown hide-menu " style="margin-top: 15px">
+<button class="px-3 py-2 dropdown-toggle" data-toggle="dropdown" style="background: #0000;
+    color: #fff;border: none;">
+                        <i class="fas fa-won-sign" style="color:#fff"></i>
+                        Withdraw
+                    </button>
+                    <div class="dropdown-menu" style="background:#000000">
+                        <a class="dropdown-item" href="withdraw.html" style="color:#fff">Withdraw</a>
+                        <a class="dropdown-item" href="withdraw.html" style="color:#fff">Withdraw History</a>
+                    </div>
+                </li>
+                          
+           
+                
+
+                <!--<li class="logoutbtn"><a href="Logout.php" aria-expanded="false"><i class="fa fa-power-off"></i></a></li>-->
+                <li class="dropdown active logoutbtn " style="margin-top: 15px">
+                  <button class="px-3 py-2 dropdown-toggle" data-toggle="dropdown" style="background: #0000;
+    color: #fff;border: none;">
+                        <i class="fas fa-user-circle" style="color:#fff"></i>
+                        Hi: <span id="greetings">Sadick001</span> 
+                    </button>
+                    <div class="dropdown-menu" style="background:#000000">
+                        <a class="dropdown-item" href="profile" style="color:#fff"><i class="fas fa-user" style="color:#fff"></i> My Profile</a>
+                        <a class="dropdown-item" href="change_password" style="color:#fff"><i class="fas fa-user" style="color:#fff"></i> Change Password</a>
+                        <a class="dropdown-item" href="Logout" style="color:#fff"><i class="fas fa-sign-out-alt" style="color:#fff"></i>Logout</a>
+                        
+                    </div>
+                </li>
+                
+                <!--<li class="logoutbtn"><a href="#" aria-expanded="false">Hi: Sadick001 </a></li>-->
+            </ul>
+        </nav>
+    </div>
+</aside>
+
+</script>            <div class="page-wrapper pt-0">
+                <div class="container-fluid">
+                    <!--<div class="row" id="referral-program" style="margin-top:100px;margin-bottom:20px">-->
+                    <!--     <div class="col-sm-4 mb-3">-->
+                    <!--            <img src="https://kriptofuture.com/img/cold.f151f8cc.png" style="width:100%">-->
+                    <!--    </div>     -->
+                    <!--     <div class="col-sm-4 mb-3">-->
+                    <!--            <img src="https://kriptofuture.com/img/kripto.628f2487.png" style="width:100%">-->
+                    <!--    </div>     -->
+                    <!--     <div class="col-sm-4 mb-3">-->
+                    <!--            <img src="https://kriptofuture.com/img/academy.7575be0b.jpeg" style="width:100%">-->
+                    <!--    </div>     -->
+                    <!--   </div>-->
+                    <div class="row" id="referral-program" style="margin-top:80px;margin-bottom:20px">
+                        <div class="col-sm-10">
+                        </div>
+                        <div class="col-sm-2">
+                            <span class="font-22 font-medium"> Rank : Beginner </span>
+                        </div>
+                    </div>
+                    <div class="row" id="referral-program" style="margin-top:20px;margin-bottom:20px">
+                        <div class="col-sm-12">
+                            <div class="card card-block card-inverse" style="background: #124E9D">
+                                <marquee behavior="scroll" direction="left" scrolldelay="60" scrollamount="3" width="100%" height="20" onMouseOver="this.stop();" onMouseOut="this.start();">
+
+                                                                            <span style="line-height:11px; font-size:18px; margin:0px; text-transform:capitalize;color:#fff">&nbsp;Congratulations and Welcome to Skyline Investment. 
+More Power and More Success </span>
+
+                                    
+
+                                </marquee>
+
+                            </div>
+                        </div>
+                    </div>
+                                                            <div class="row">
+                        <div class="col-sm-6">
+                            <div class="card card-block card-inverse">
+                                <div class="row p-t-5 p-b-0">
+                                    <div class="col-12 p-r-0">
+                                        <h6 style="overflow-wrap: break-word;" id="print-link-left">https://LEFT </h6>
+                                        <span style="white-space: nowrap;">
+                                            <input class="input__area cp-target" type="hidden" id="print-link-left-value" value="https://LEFT" readonly="readonly" name="copyTarget1" id="left_ref_link">
+                                            <span class="btn btn-block btn-bs btn-custom" style="background: #124E9D;border: #124E9D;" onClick="myFunctionxvy();">LEFT AFFILIATE LINK</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+
+                            <div class="card card-block card-inverse">
+                                <div class="row p-t-5 p-b-0">
+                                    <div class="col-12 p-r-0">
+                                        <h6 style="overflow-wrap: break-word;" id="print-link-right">https://RIGHT </h6>
+
+                                        <span style="white-space: nowrap;">
+                                            <input class="input__area cp-target" type="hidden" id="print-link-right-value" value="https://RIGHT" readonly="readonly" name="copyTarget1" id="right_ref_link2">
+                                            <span class="btn btn-block btn-bs btn-custom" style="background: #124E9D;border: #124E9D;" onClick="myFunction2();">RIGHT AFFILIATE LINK</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="row" id="referral-program">
+                        <!--first row-->
+
+                        <div class="col-sm-3">
+                            <div class="card card-block card-inverse" style="background: #124E9D;border: #124E9D;">
+                                <div class="row p-t-5 p-b-0">
+                                    <div class="col-4 p-r-0">
+                                        
+                                    </div>
+                                    <div class="col-8 p-r-0">
+                                        <h2 class="text-white" style="float:right;margin-top:20px;margin-right:10px" id="balance"> </h2>
+                                    </div>
+                                    <div class="col-12 p-r-0">
+                                        <h2 class="text-white" style="font-size:21px">BALANCE</h2>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        
+                        <!--<div class="col-sm-3">-->
+                        <!--    <div class="card card-block card-inverse" style="background: #124E9D;border: #124E9D;">-->
+                        <!--        <div class="row p-t-5 p-b-0">-->
+                        <!--            <div class="col-4 p-r-0">-->
+                        <!--                <i><img src="assets/1-13.png" style="width: 57px;" class="mb-3"></i>-->
+                        <!--            </div>-->
+                        <!--            <div class="col-8 p-r-0">-->
+                        <!--                <h2 class="text-white" style="float:right;margin-top:20px;margin-right:10px">$  </h2>-->
+                        <!--            </div>-->
+                        <!--            <div class="col-12 p-r-0">-->
+                        <!--                <h2 class="text-white" style="font-size:21px">REINVESTMENT</h2>-->
+                        <!--            </div>-->
+                        <!--        </div>-->
+                        <!--    </div>-->
+                        <!--</div>-->
+                        
+                        
+                        <div class="col-sm-3">
+
+                            <div class="card card-block card-inverse" style="background: #124E9D;border: #124E9D;">
+                                <div class="row p-t-5 p-b-0">
+                                    <div class="col-4 p-r-0">
+                                        
+                                    </div>
+                                    <div class="col-8 p-r-0">
+                                        <h2 class="text-white" style="float:right;margin-top:20px;margin-right:10px" id="direct_referral"> </h2>
+                                    </div>
+                                    <div class="col-12 p-r-0">
+                                        <h2 class="text-white" style="font-size:21px">DIRECT REFERRALS</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+
+                            <div class="card card-block card-inverse" style="background: #124E9D;border: #124E9D;">
+                                <div class="row p-t-5 p-b-0">
+                                    <div class="col-4 p-r-0">
+                                        
+                                    </div>
+                                    <div class="col-8 p-r-0">
+                                        <h2 class="text-white" style="float:right;margin-top:20px;margin-right:10px" id="left_balance"> </h2>
+                                    </div>
+                                    <div class="col-12 p-r-0">
+                                        <h2 class="text-white" style="font-size:21px">LEFT BALANCE</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+
+                            <div class="card card-block card-inverse" style="background: #124E9D;border: #124E9D;">
+                                <div class="row p-t-5 p-b-0">
+                                    <div class="col-4 p-r-0">
+                                        
+                                    </div>
+                                    <div class="col-8 p-r-0">
+                                        <h2 class="text-white" style="float:right;margin-top:20px;margin-right:10px" id="right_balance"> </h2>
+                                    </div>
+                                    <div class="col-12 p-r-0">
+                                        <h2 class="text-white" style="font-size:21px">RIGHT BALANCE</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <
+                        <!--<div class="col-sm-3">-->
+                        <!--	<div class="card card-block card-inverse"  style="background: #124E9D;border: #124E9D;">-->
+                        <!--		<div class="row p-t-5 p-b-0">-->
+                        <!--			<div class="col-9 p-r-0">-->
+                        <!--			    <i><img src="assets/1-01.png" style="width: 57px;" class="mb-3"></i>-->
+                        <!--				<h2 class="text-white">REINVESTMENT INCOME</h2>-->
+                        <!--				<h6 class="text-white"> 0.00  $</h6>-->
+                        <!--			</div>-->
+                        <!--		</div>-->
+                        <!--	</div>-->
+                        <!--</div>-->
+                        <!--<div class="col-sm-3">-->
+                        <!--    <div class="card card-block card-inverse" style="background: #124E9D;border: #124E9D;">-->
+                        <!--        <div class="row p-t-5 p-b-0">-->
+                        <!--            <div class="col-4 p-r-0">-->
+                        <!--                <i><img src="assets/1-13.png" style="width: 57px;" class="mb-3"></i>-->
+                        <!--            </div>-->
+                        <!--            <div class="col-8 p-r-0">-->
+                        <!--                <h2 class="text-white" style="float:right;margin-top:20px;margin-right:10px">$ 0.00 </h2>-->
+                        <!--            </div>-->
+                        <!--            <div class="col-12 p-r-0">-->
+                        <!--                <h2 class="text-white" style="font-size:21px">REWARD</h2>-->
+                        <!--            </div>-->
+                        <!--        </div>-->
+                        <!--    </div>-->
+                        <!--</div>-->
+                      
+                       <div class="col-sm-3">
+                            <div class="card card-block card-inverse" style="background: #124E9D;border: #124E9D;">
+                                <div class="row p-t-5 p-b-0">
+                                    <div class="col-4 p-r-0">
+                                        
+                                    </div>
+                                    <div class="col-8 p-r-0">
+                                        <h2 class="text-white" style="float:right;margin-top:20px;margin-right:10px" id="withdraws"> </h2>
+                                    </div>
+                                    <div class="col-12 p-r-0">
+                                        <h2 class="text-white" style="font-size:21px">WITHDRAWN</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                </div>
+                <div class="row" style="margin-top:20px;margin-bottom:20px">
+                    <footer class="footer">
+                        <!--Contract Address <a href="https://tronscan.org/#/contract/TBZohsk53P2ZvC4by2LV9rMritUUAki1Gk/code" target="_blank">TBZohsk53P2ZvC</a>-->
+                    </footer>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            var coin = {
+                'symbol': 'BTC',
+                'name': 'Bitcoin'
+            };
+        </script>
+        <script src="assets/monster/plugins/jquery/jquery.min.js"></script>
+
+        <script src="assets/monster/plugins/bootstrap/js/tether.min.js"></script>
+        <script src="assets/monster/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+        <script src="assets/monster/js/jquery.slimscroll.js"></script>
+
+        <script src="assets/monster/js/waves.js"></script>
+
+        <script src="assets/monster/js/sidebarmenu.js"></script>
+
+        <script src="assets/monster/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
+
+        <script src="assets/monster/plugins/counterup/counterup.min.js"></script>
+
+        <script src="assets/monster/js/wallet-address-validator.min.js"></script>
+
+        <script src="assets/monster/js/jquery.countdown.min.js?v=20190918002"></script>
+
+        <script src="assets/monster/plugins/toastr/toastr.min.js"></script>
+
+        <script src="assets/monster/plugins/clipboard/clipboard.min.js"></script>
+
+        <script src="assets/monster/plugins/qrcode/qrcode.min.js"></script>
+
+        <script src="assets/monster/js/custom.js"></script>
+
+        <script src="assets/monster/js/main.js?v=20190918002"></script>
+
+
+        <script type="text/javascript" src="assets/monster/plugins/smooth-scroll/smooth-scroll.min.js"></script>
+        <script src="TronWeb.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+        <script type="text/javascript">
+            function myFunction2() {
+                var target = link_right;
+                copyToClipboard(target);
+                alert("Referral Link Copied Successfully");
+            }
+
+
+            function myFunctionxvy() {
+                var target = link_left;
+                copyToClipboard(target);
+                alert("Referral Link Copied Successfully");
+            }
+
+            function copyToClipboard(e) {
+
+                var tempItem = document.createElement('input');
+
+                tempItem.setAttribute('type', 'text');
+                tempItem.setAttribute('display', 'none');
+
+                let content = e;
+                if (e instanceof HTMLElement) {
+                    content = e.innerHTML;
+                }
+
+                tempItem.setAttribute('value', content);
+                document.body.appendChild(tempItem);
+
+                tempItem.select();
+                document.execCommand('Copy');
+
+                tempItem.parentElement.removeChild(tempItem);
+            }
+        </script>
+        <script>
+            function gethexcode() {
+                var tronweb = window.tronWeb;
+                var contract_address = tronWeb.address.toHex('TVWGJq7Ybo25H4kWPUmPWg15iizDt5hFFG');
+                alert(contract_address);
+                console.log(contract_address);
+
+                const addressInHexFormat = contract_address;
+                const addressInBase58 = tronWeb.address.fromHex(addressInHexFormat);
+                console.log(addressInBase58)
+                alert(addressInBase58);
+
+                const addressInBase581 = tronWeb.address.fromHex("41a6cb3f8ae9886233008b07c750c4c179d66176b6");
+                console.log(addressInBase581)
+                alert(addressInBase581);
+            }
+        </script>
+        <script>
+            $(function() {
+
+
+                new SmoothScroll('ul#sidebarnav a', {
+                    header: '.left-sidebar'
+                });
+            });
+        </script>
+
+
+
+        <script async="" src="gtag/js.js?id=UA-148211745-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+
+            gtag('config', 'UA-148211745-1');
+        </script>
+
+        <script>
+            // Lang
+            $(".brit__lang-current").click(function() {
+                $(this).closest(".brit__lang").toggleClass("active");
+            });
+        </script>
+        <script>
+            var contract_address = 'TBZohsk53P2ZvC4by2LV9rMritUUAki1Gk';
+            async function Investment(plan_amt) {
+
+                // alert(plan_amt);
+                if (window.tronWeb && window.tronWeb.defaultAddress.base58) {
+                    var wallets = new Array;
+                    var amount = new Array;
+                    var tronx = window.tronWeb;
+                    var addr = tronx.defaultAddress.base58;
+                    var result = await tronx.trx.getUnconfirmedBalance(addr);
+                    var wallet_balance = tronx.fromSun(result);
+                    // alert(wallet_balance);
+                    // alert(plan_amt);
+                    var member_user_id = sessionStorage.getItem("username");
+                    var invest_amt = parseInt(plan_amt);
+                    if (parseInt(invest_amt) < 250) {
+                        swal('Investment', "Invalid Investment Package", 'success');
+                        return;
+                    }
+                    var admin = parseInt(invest_amt) * 1000000;
+                    wallets.push("TLCG2FQivLztsBKFGmWqnZQAXuQADHYp17");
+
+                    amount = [admin];
+                    if (parseInt(wallet_balance) < parseInt(invest_amt) + 10) {
+
+                        var atrx = parseInt(invest_amt) + 10;
+                        swal('Investment', "Make sure your wallet balance contains " + atrx + " TRX For Invesment", 'success');
+                        return;
+                    } else {
+                        //$('#investment').css("display","none"); 
+                        // alert(invest_amt);
+                        var contract = await tronWeb.contract().at(contract_address);
+                        await contract.Reinvestment(member_user_id.toString(), invest_amt.toString(), wallets, amount).send({
+                            callValue: window.tronWeb.toSun(invest_amt),
+                            feeLimit: 100000000
+                        }).then(function(transaction) {
+                            // alert(transaction);
+                            if (transaction) {
+                                var dataString = 'amount=' + invest_amt + '&transaction=' + transaction;
+                                $.ajax({
+                                    url: 'process/deposit',
+                                    type: 'POST',
+                                    data: dataString,
+                                    cache: false,
+                                    success: function(SuccessData) {
+                                        //  alert(SuccessData);
+                                        console.log(SuccessData);
+                                        swal('Investment', "Transaction Success", 'success');
+                                        window.location.href = "index";
+                                    }
+                                });
+                            }
+
+                        });
+
+                    }
+
+                } else {
+                    swal('Failed!', 'Confirmation declined by user', 'error');
+                    return;
+                }
+            }
+        </script>
+        <script>
+            window.addEventListener('DOMContentLoaded', function() {
+                var autoOpen = null;
+                autoOpen = 0;
+
+                if (autoOpen) {
+                    modal1();
+                }
+
+                let step = 0;
+                let steps = $('.modal-info__content > div');
+                let prev = $('.modal-info_steep__prev');
+                let next = $('.modal-info_steep__next');
+                let done = $('.modal-info_steep__done');
+                prev.click(function() {
+                    if (step > 0) {
+                        step--;
+                    }
+                    next.show();
+                    done.hide();
+                    steps.hide();
+                    steps.eq(step).show();
+                });
+                next.click(function() {
+                    if (steps.length - 1 > step) {
+                        step++;
+                    }
+                    if (steps.length - 1 == step) {
+                        done.show();
+                        next.hide();
+                    }
+                    steps.hide();
+                    steps.eq(step).show();
+                });
+            });
+
+            function modal1() {
+                $.fancybox.open(
+                    $('.modal-1'), {
+                        touch: false,
+                        mobile: {
+                            touch: {
+                                vertical: true,
+                                momentum: true
+                            }
+                        }
+                    }
+                );
+            }
+        </script><script type="text/javascript">
+
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+}
+</script>
+
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+    
+</script>
+        <script>
+            "use strict";
+
+            var JSUtil = {
+
+                dragElementsIn: function() {
+                    $(".drag-this-left").each(function(i, el) {
+                        JSUtil.applyDragEffect(el, "drag-left");
+                    });
+
+                    $(".drag-this-right").each(function(i, el) {
+                        JSUtil.applyDragEffect(el, "drag-right");
+                    });
+
+                    $(".drag-this-up").each(function(i, el) {
+                        JSUtil.applyDragEffect(el, "drag-up");
+                    });
+                },
+
+                applyDragEffect: function(el, className) {
+                    var el = $(el);
+                    if (el.visible(true)) {
+                        el.addClass(className);
+                    }
+                },
+
+                checkRisingElements: function() {
+                    $(".rising-elm:not(.risen)").each(function(i, el) {
+                        JSUtil.riseUp(el);
+                    });
+                },
+
+                // 	riseUp: function(el){
+                // 		var $el = $(el);
+                // 		var trigger = $el.data("trigger");
+                // 		var $w = $(window);
+                // 		if(($w.scrollTop() + $w.height() ) > ($el.offset().top + trigger)){
+                // 			$(el).addClass('risen');
+                // 		}	
+                // 	},
+
+                gaugeInitCheck: function() {
+                    $(".gauge-container").each(function(i, el) {
+                        var $elm = $(el);
+                        if ($elm.visible(true)) {
+                            var $span = $elm.siblings('span');
+                            if ($span.html() == "") {
+                                var total = $elm.data('total');
+                                var current = $elm.data('current');
+                                var percent = (current / total) * 360;
+                                $elm.css("transform", "rotate(-" + percent + "deg)");
+                                $span.html("0");
+                                var val = 0;
+                                var id = setInterval(frame, 10);
+
+                                function frame() {
+                                    if (val >= current) {
+                                        clearInterval(id);
+                                        $span.html(current); // just to be sure.
+                                    } else {
+                                        val += current / 200;
+                                        $span.html(Math.floor(val));
+                                    }
+                                }
+                            }
+                        }
+                    });
+                },
+
+                initMobileMenu: function() {
+
+                    $(".side-menu-button").on('click', function(e) {
+                        e.preventDefault();
+                        $('#mobile-menu').toggleClass('active');
+                    });
+
+
+                    $("#mobile-menu .arrow").on('click', function(e) {
+                        e.preventDefault();
+                        var $this = $(e.target);
+                        var $li = $this.closest('li');
+                        $li.toggleClass('expanded');
+                        $li.children('.mobile-submenu').slideToggle();
+                    });
+                }
+
+
+            };
+
+            (function($) {
+
+                JSUtil.dragElementsIn();
+                JSUtil.checkRisingElements();
+                JSUtil.gaugeInitCheck();
+                $(window).scroll(function() {
+                    JSUtil.dragElementsIn();
+                    JSUtil.checkRisingElements();
+                    JSUtil.gaugeInitCheck();
+                });
+
+
+                $('#page-loader').fadeOut(600);
+
+                $('.navbar-toggler').on('click', function(e) {
+                    e.preventDefault();
+                    $(this).toggleClass('clicked');
+                    $('.navbar-collapse').toggleClass('collapse');
+                });
+
+                $('#page-loader').fadeOut(600);
+
+                //Sliders
+
+
+
+                $("#back-to-top").on("click", function(e) {
+                    e.preventDefault();
+                    $('html,body').animate({
+                        scrollTop: 0
+                    }, 'ease');
+                    return false;
+                });
+
+                //Isotopes
+
+                $(".widget-4 .widget-4-progress .progress-item a").on('click', function(e) {
+                    e.preventDefault();
+                    var target = $(this).data("target");
+                    $(".widget-4 .widget-4-progress-item").removeClass("active");
+                    $("." + target).addClass("active");
+                });
+
+
+
+                JSUtil.initMobileMenu();
+
+
+            })(jQuery);
+        </script>
+        <script>
+            var inputCopyGroups = document.querySelectorAll('.input-group-copy');
+
+            for (var i = 0; i < inputCopyGroups.length; i++) {
+                var _this = inputCopyGroups[i];
+                var btn = _this.getElementsByClassName('btn')[0];
+                var input = _this.getElementsByClassName('form-control')[0];
+
+                input.addEventListener('click', function(e) {
+                    this.select();
+                });
+                btn.addEventListener('click', function(e) {
+                    var input = this.parentNode.parentNode.getElementsByClassName('form-control')[0];
+                    input.select();
+                    try {
+                        var success = document.execCommand('copy');
+                        console.log('Copying ' + (success ? 'Succeeded' : 'Failed'));
+                    } catch (err) {
+                        console.log('Copying failed');
+                    }
+                });
+            }
+        </script>
+        <script>
+            function nav_toggle(status) {
+                var isMobileVersion = document.getElementsByClassName('m-nav_toggle');
+                // alert(isMobileVersion.length);
+                if (isMobileVersion.length > 0) {
+                    var element = document.getElementById("mobile_nav");
+                    element.classList.remove("m-nav_toggle");
+                    var element = document.getElementById("humm");
+                    element.classList.remove("hum_toggle");
+                } else {
+                    var element = document.getElementById("humm");
+                    element.classList.add("hum_toggle");
+                    var element = document.getElementById("mobile_nav");
+                    element.classList.add("m-nav_toggle");
+                }
+            }
+        </script>
+    </body>
+
+    </html>

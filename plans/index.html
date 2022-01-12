@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lobster&family=Montserrat:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles/style.css" />
+    <title>Deposit Plans</title>
+  
+
+
+    <script>
+      // Set the date we're counting down to
+var countDownDate = new Date("Jun 5, 2022 15:37:25").getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get today's date and time
+  var now = new Date().getTime();
+    
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+    
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+  // Output the result in an element with id="demo"
+  document.getElementById("countdown").innerHTML = "Deposit deadline: " + days + "d " + hours + "h "
+  + minutes + "m " + seconds + "s ";
+    
+  // If the count down is over, write some text 
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("countdown").innerHTML = "EXPIRED";
+  }
+}, 1000);
+
+    </script>
+
+
+
+  
+  
+  </head>
+  <body>
+    <main>
+      <div class="features-container">
+        <section class="features">
+          <p>Choose a plan</p>
+          <div class="cards">
+            <div class="card" onclick="sessionStorage.setItem('amount', 50); location.replace('../deposit.html')">
+              <img src="./img/bronze.jpg" alt="" />
+              <h4>Bronze - lite</h4>
+              <p>Deposit - $50</p>
+              <p>ROI - $1/daily</p>
+            </div>
+            <div class="card" onclick="sessionStorage.setItem('amount', 100); location.replace('../deposit.html')">
+              <img src="./img/bronze.jpg" alt="" />
+              <h4>Bronze - medium</h4>
+              <p>Deposit - $100</p>
+              <p>ROI - $2/daily</p>
+            </div>
+            <div class="card" onclick="sessionStorage.setItem('amount', 200); location.replace('../deposit.html')">
+              <img src="./img/bronze.jpg" alt="" />
+              <h4>Bronze - extra</h4>
+              <p>Deposit - $200</p>
+              <p>ROI - $4/daily</p>
+            </div>
+          </div>
+        </section>
+      </div>
+
+          <!--SIlver-->
+          <div class="features-container">
+            <section class="features">
+              <div class="cards">
+                <div class="card" onclick="sessionStorage.setItem('amount', 300); location.replace('../deposit.html')">
+                  <img src="./img/silver.jpg" alt="" />
+                  <h4>Silver - lite</h4>
+                  <p>Deposit - $300</p>
+                  <p>ROI - $6/daily</p>
+                </div>
+                <div class="card" onclick="sessionStorage.setItem('amount', 500); location.replace('../deposit.html')">
+                  <img src="./img/silver.jpg" alt="" />
+                  <h4>Silver - medium</h4>
+                  <p>Deposit - $500</p>
+                  <p>ROI - $10/daily</p>
+                </div>
+                <div class="card" onclick="sessionStorage.setItem('amount', 700); location.replace('../deposit.html')">
+                  <img src="./img/silver.jpg" alt="" />
+                  <h4>Silver - extra</h4>
+                  <p>Deposit - $700</p>
+                  <p>ROI - $14/daily</p>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <!--Gold-->
+          <div class="features-container">
+            <section class="features">
+              <div class="cards">
+                <div class="card"  onclick="sessionStorage.setItem('amount', 1000); location.replace('../deposit.html')">
+                  <img src="./img/gold.jpg" alt="" />
+                  <h4>Gold - lite</h4>
+                  <p>Deposit - $1000</p>
+                  <p>ROI - $20/daily</p>
+                </div>
+                <div class="card"  onclick="sessionStorage.setItem('amount', 1500); location.replace('../deposit.html')">
+                  <img src="./img/gold.jpg" alt="" />
+                  <h4>Gold - medium</h4>
+                  <p>Deposit - $1500</p>
+                  <p>ROI - $30/daily</p>
+                </div>
+                <div class="card"  onclick="sessionStorage.setItem('amount', 2000); location.replace('../deposit.html')">
+                  <img src="./img/gold.jpg" alt="" />
+                  <h4>Gold - extra</h4>
+                  <p>Deposit - $2000</p>
+                  <p>ROI - $40/daily</p>
+                </div>
+              </div>
+            </section>
+          </div>
+
+
+          <!--Platnum-->
+          <div class="features-container">
+            <section class="features">
+              <div class="cards">
+                <div class="card"  onclick="sessionStorage.setItem('amount', 3000); location.replace('../deposit.html')">
+                  <img src="./img/platinum.jpg" alt="" />
+                  <h4>Platinum - lite</h4>
+                  <p>Deposit - $3000</p>
+                  <p>ROI - $60/daily</p>
+                </div>
+                <div class="card"  onclick="sessionStorage.setItem('amount', 4000); location.replace('../deposit.html')">
+                  <img src="./img/platinum.jpg" alt="" />
+                  <h4>PLatinum - medium</h4>
+                  <p>Deposit - $4000</p>
+                  <p>ROI - $80/daily</p>
+                </div>
+                <div class="card"  onclick="sessionStorage.setItem('amount', 5000); location.replace('../deposit.html')">
+                  <img src="./img/platinum.jpg" alt="" />
+                  <h4>Platinum - extra</h4>
+                  <p>Deposit - $5000</p>
+                  <p>ROI - $100/daily</p>
+                </div>
+              </div>
+            </section>
+          </div>
+
+
+      <footer>
+      <p id="countdown"></p>
+      </footer>
+    </main>
+  </body>
+</html>
