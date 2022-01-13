@@ -167,8 +167,8 @@
 		var position = urlParams.get("position");
 		ref = referral;
 		pos = position;
-		window.alert(referral);
-		window.alert(position);
+	//	window.alert(referral);
+	//	window.alert(position);
 		document.getElementById("sponsor_id").value = referral;
 		document.getElementById("pposition").value = toUpperCase(position);
 		}
@@ -209,7 +209,7 @@ firebase.initializeApp(config);
   }
 
   function gotonext(){
-	location.replace("dashboard.html");
+	location.replace("dashboard/index.html");;
   }
 
   var updates = {};
@@ -236,6 +236,18 @@ firebase.initializeApp(config);
 
 }
 
+function checkusername()
+{
+  var databaserefer = firebase.database().ref('users/'+document.getElementById("username").value+"/password");
+
+  databaserefer.on('value', (snapshot) =>{
+      const data = snapshot.val();
+     
+	 if(data == null)
+	 {save_user()}
+
+    });
+}
 
 
 </script>
@@ -353,7 +365,7 @@ firebase.initializeApp(config);
 									</div>
 										
 									<div class="form-group mb-4">
-										<button type="button" onclick="save_user()" class="bbtn btn-dark px-4 btn-rounded" style="background:#ef6e40; color:#fff;border: 0px;"><i
+										<button type="button" onclick="checkusername()" class="bbtn btn-dark px-4 btn-rounded" style="background:#ef6e40; color:#fff;border: 0px;"><i
 												class="fa fa-sign-in fa-fw" aria-hidden="true"></i> <i
 												class="fa fa-spin fa-refresh fa-fw hide"></i> <span
 												class="hidden-xs-down">Sign Up </span><span
