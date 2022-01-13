@@ -65,21 +65,27 @@
                 document.getElementById("print-link-left-value").value = link_left;
                 document.getElementById("print-link-right-value").value = link_right;
                 
-                var databaseRef = firebase.database().ref('users/'+sessionStorage.getItem("username"));
+                var databaseRef = firebase.database().ref('users/');
 
 
                 databaseRef.once('value', function(snapshot) {
                 snapshot.forEach(function(childSnapshot) {
                 var childKey = childSnapshot.key;
                 var childData = childSnapshot.val();
-            
+                    
+                    if(childKey == sessionStorage.getItem('username'))
+                    {
 
-                  //  window.alert(childData.balance);
+                         //window.alert(childData.balance);
+                    console.log(childData.balance);
                  document.getElementById("balance").innerHTML = childData.balance;
                  document.getElementById("direct_referral").innerHTML = childData.direct_referral;
                  document.getElementById("withdraws").innerHTML = childData.withdraws;
                  document.getElementById("left_balance").innerHTML = childData.left_balance;
                  document.getElementById("right_balance").innerHTML = childData.right_balance;
+
+                    }
+                   
 
 
   });
@@ -334,9 +340,9 @@
                 <li class="nav-item d-flex justify-content-between">
                     <a class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" href="javascript:void(0)">
                         <i class="ti-menu"></i>
-                        <img src="img/logo.png" alt="" class="light-logo" style="width:100px">
+                      
                     </a>
-                    <div id="google_translate_element" class=""></div>
+
                 </li>
                 <li class="nav-item">
                     <a class="nav-link sidebartoggler hidden-sm-down text-muted waves-effect waves-dark" href="javascript:void(0)">

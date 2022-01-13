@@ -1,18 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<!-- Designined by CodingLab | www.youtube.com/codinglabyt -->
+<html lang="en" dir="ltr">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Lobster&family=Montserrat:wght@400;600&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="./styles/style.css" />
-    <title>Deposit Plans</title>
-  
+    <meta charset="UTF-8">
+    <title> Plans </title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Boxicons CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+ 
+ 
 
 
-    <script>
+
+     <script>
       // Set the date we're counting down to
 var countDownDate = new Date("Jun 5, 2022 15:37:25").getTime();
 
@@ -44,122 +46,354 @@ var x = setInterval(function() {
 
     </script>
 
+<script>
+  function go()
+  {
+    document.getElementById('user').innerHTML = sessionStorage.getItem('username');
+    var urlstuff = location.search;
+		const urlParams = new URLSearchParams(urlstuff);
+		var deposit_type = urlParams.get("type");
 
+    sessionStorage.setItem("deposit_type", deposit_type);
+  }
 
-  
-  
-  </head>
-  <body>
-    <main>
-      <div class="features-container">
-        <section class="features">
-          <p>Choose a plan</p>
-          <div class="cards">
-            <div class="card" onclick="sessionStorage.setItem('amount', 50); location.replace('../deposit.html')">
-              <img src="./img/bronze.jpg" alt="" />
-              <h4>Bronze - lite</h4>
-              <p>Deposit - $50</p>
-              <p>ROI - $1/daily</p>
-            </div>
-            <div class="card" onclick="sessionStorage.setItem('amount', 100); location.replace('../deposit.html')">
-              <img src="./img/bronze.jpg" alt="" />
-              <h4>Bronze - medium</h4>
-              <p>Deposit - $100</p>
-              <p>ROI - $2/daily</p>
-            </div>
-            <div class="card" onclick="sessionStorage.setItem('amount', 200); location.replace('../deposit.html')">
-              <img src="./img/bronze.jpg" alt="" />
-              <h4>Bronze - extra</h4>
-              <p>Deposit - $200</p>
-              <p>ROI - $4/daily</p>
+  function function_logout()
+  {
+    sessionStorage.clear();
+    location.replace("../../index.html");
+  }
+</script>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+    </head>
+<body onload="go()">
+  <div class="sidebar">
+    <div class="logo-details">
+      <span class="logo_name">Skyline Investment</span>
+    </div>
+    <ul class="nav-links">
+      <li>
+        <a href="#" class="active">
+          <i class='bx bx-grid-alt' ></i>
+          <span class="links_name">Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a href="../plans/index.html?type=usdt">
+          <i class='bx bx-box' ></i>
+          <span class="links_name">Deposit USDT</span>
+        </a>
+      </li>
+<!--       <li>
+        <a href="#">
+          <i class='bx bx-list-ul' ></i>
+          <span class="links_name">Deposit BUSD</span>
+        </a>
+      </li> -->
+      <li>
+        <a href="../plans/index.html?type=btc">
+          <i class='bx bx-pie-chart-alt-2' ></i>
+          <span class="links_name">Deposit BTC</span>
+        </a>
+      </li>
+      <li>
+        <a href="../withdraw.html">
+          <i class='bx bx-coin-stack' ></i>
+          <span class="links_name">Withdraw USDT</span>
+        </a>
+      </li>
+<!--       <li>
+        <a href="#">
+          <i class='bx bx-book-alt' ></i>
+          <span class="links_name">Total order</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class='bx bx-user' ></i>
+          <span class="links_name">Team</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class='bx bx-message' ></i>
+          <span class="links_name">Messages</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class='bx bx-heart' ></i>
+          <span class="links_name">Favrorites</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class='bx bx-cog' ></i>
+          <span class="links_name">Setting</span>
+        </a>
+      </li> -->
+      <li class="log_out">
+        <a href="Javascript:function_logout()">
+          <i class='bx bx-log-out'></i>
+          <span class="links_name">Log out</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <section class="home-section">
+    <nav>
+      <div class="sidebar-button">
+        <i class='bx bx-menu sidebarBtn'></i>
+        <span class="dashboard">Plans</span>
+      </div>
+      
+      <div class="profile-details">
+        
+        <span class="admin_name" id="user">Prem Shahi</span>
+       
+      </div>
+    </nav>
+
+    <div class="home-content">
+      <div class="overview-boxes">
+        <div class="box"  onclick="sessionStorage.setItem('amount', 50); location.replace('../deposit.html')">
+          <div class="right-side">
+            <div class="box-topic">Bronze - lite</div>
+            <div class="number">$50</div>
+            <div class="indicator">
+              <i class='bx bx-up-arrow-alt'></i>
+              <span class="text">ROI - $1/daily</span>
             </div>
           </div>
-        </section>
+          <i class='bx bxs-cart-download cart four' ></i>
+        </div>
+        <div class="box"  onclick="sessionStorage.setItem('amount', 100); location.replace('../deposit.html')">
+          <div class="right-side">
+            <div class="box-topic">Bronze - medium</div>
+            <div class="number">$100</div>
+            <div class="indicator">
+              <i class='bx bx-up-arrow-alt'></i>
+              <span class="text">ROI - $2/daily</span>
+            </div>
+          </div>
+          <i class='bx bxs-cart-download cart four' ></i>
+        </div>
+        <div class="box"  onclick="sessionStorage.setItem('amount', 200); location.replace('../deposit.html')">
+          <div class="right-side">
+            <div class="box-topic">Bronze - extra</div>
+            <div class="number">$200</div>
+            <div class="indicator">
+              <i class='bx bx-up-arrow-alt'></i>
+              <span class="text">ROI - $4/daily</span>
+            </div>
+          </div>
+          <i class='bx bxs-cart-download cart four' ></i>
+        </div>
       </div>
 
-          <!--SIlver-->
-          <div class="features-container">
-            <section class="features">
-              <div class="cards">
-                <div class="card" onclick="sessionStorage.setItem('amount', 300); location.replace('../deposit.html')">
-                  <img src="./img/silver.jpg" alt="" />
-                  <h4>Silver - lite</h4>
-                  <p>Deposit - $300</p>
-                  <p>ROI - $6/daily</p>
-                </div>
-                <div class="card" onclick="sessionStorage.setItem('amount', 500); location.replace('../deposit.html')">
-                  <img src="./img/silver.jpg" alt="" />
-                  <h4>Silver - medium</h4>
-                  <p>Deposit - $500</p>
-                  <p>ROI - $10/daily</p>
-                </div>
-                <div class="card" onclick="sessionStorage.setItem('amount', 700); location.replace('../deposit.html')">
-                  <img src="./img/silver.jpg" alt="" />
-                  <h4>Silver - extra</h4>
-                  <p>Deposit - $700</p>
-                  <p>ROI - $14/daily</p>
-                </div>
-              </div>
-            </section>
+
+
+      <!-- Silver-->
+
+      <div class="overview-boxes">
+        <div class="box"  onclick="sessionStorage.setItem('amount', 300); location.replace('../deposit.html')">
+          <div class="right-side">
+            <div class="box-topic">Silver - lite</div>
+            <div class="number">$300 </div>
+            <div class="indicator">
+              <i class='bx bx-up-arrow-alt'></i>
+              <span class="text">ROI - $6/daily</span>
+            </div>
           </div>
-
-          <!--Gold-->
-          <div class="features-container">
-            <section class="features">
-              <div class="cards">
-                <div class="card"  onclick="sessionStorage.setItem('amount', 1000); location.replace('../deposit.html')">
-                  <img src="./img/gold.jpg" alt="" />
-                  <h4>Gold - lite</h4>
-                  <p>Deposit - $1000</p>
-                  <p>ROI - $20/daily</p>
-                </div>
-                <div class="card"  onclick="sessionStorage.setItem('amount', 1500); location.replace('../deposit.html')">
-                  <img src="./img/gold.jpg" alt="" />
-                  <h4>Gold - medium</h4>
-                  <p>Deposit - $1500</p>
-                  <p>ROI - $30/daily</p>
-                </div>
-                <div class="card"  onclick="sessionStorage.setItem('amount', 2000); location.replace('../deposit.html')">
-                  <img src="./img/gold.jpg" alt="" />
-                  <h4>Gold - extra</h4>
-                  <p>Deposit - $2000</p>
-                  <p>ROI - $40/daily</p>
-                </div>
-              </div>
-            </section>
+          <i class='bx bx-cart-alt cart'></i>
+        </div>
+        <div class="box"  onclick="sessionStorage.setItem('amount', 500); location.replace('../deposit.html')">
+          <div class="right-side">
+            <div class="box-topic">Silver - medium</div>
+            <div class="number">$500</div>
+            <div class="indicator">
+              <i class='bx bx-up-arrow-alt'></i>
+              <span class="text">ROI - $10/daily</span>
+            </div>
           </div>
-
-
-          <!--Platnum-->
-          <div class="features-container">
-            <section class="features">
-              <div class="cards">
-                <div class="card"  onclick="sessionStorage.setItem('amount', 3000); location.replace('../deposit.html')">
-                  <img src="./img/platinum.jpg" alt="" />
-                  <h4>Platinum - lite</h4>
-                  <p>Deposit - $3000</p>
-                  <p>ROI - $60/daily</p>
-                </div>
-                <div class="card"  onclick="sessionStorage.setItem('amount', 4000); location.replace('../deposit.html')">
-                  <img src="./img/platinum.jpg" alt="" />
-                  <h4>PLatinum - medium</h4>
-                  <p>Deposit - $4000</p>
-                  <p>ROI - $80/daily</p>
-                </div>
-                <div class="card"  onclick="sessionStorage.setItem('amount', 5000); location.replace('../deposit.html')">
-                  <img src="./img/platinum.jpg" alt="" />
-                  <h4>Platinum - extra</h4>
-                  <p>Deposit - $5000</p>
-                  <p>ROI - $100/daily</p>
-                </div>
-              </div>
-            </section>
+          <i class='bx bx-cart-alt cart'></i>
+        </div>
+        <div class="box"  onclick="sessionStorage.setItem('amount', 700); location.replace('../deposit.html')">
+          <div class="right-side">
+            <div class="box-topic">Silver - extra</div>
+            <div class="number">$700</div>
+            <div class="indicator">
+              <i class='bx bx-up-arrow-alt'></i>
+              <span class="text">ROI - $14/daily</span>
+            </div>
           </div>
+          <i class='bx bx-cart-alt cart'></i>
+        </div>
+      
+      </div>
 
 
-      <footer>
-      <p id="countdown"></p>
-      </footer>
-    </main>
-  </body>
+
+
+
+      <!-- Gold-->
+
+      <div class="overview-boxes">
+        <div class="box"  onclick="sessionStorage.setItem('amount', 1000); location.replace('../deposit.html')">
+          <div class="right-side">
+            <div class="box-topic">Gold - lite</div>
+            <div class="number">$1000</div>
+            <div class="indicator">
+              <i class='bx bx-up-arrow-alt'></i>
+              <span class="text">ROI - $20/daily</span>
+            </div>
+          </div>
+          <i class='bx bx-cart cart three' ></i>
+        </div>
+        <div class="box"  onclick="sessionStorage.setItem('amount', 1500); location.replace('../deposit.html')">
+          <div class="right-side">
+            <div class="box-topic">Gold - medium</div>
+            <div class="number">$1500</div>
+            <div class="indicator">
+              <i class='bx bx-up-arrow-alt'></i>
+              <span class="text">ROI - $30/daily</span>
+            </div>
+          </div>
+          <i class='bx bx-cart cart three' ></i>
+        </div>
+        <div class="box"  onclick="sessionStorage.setItem('amount', 2000); location.replace('../deposit.html')">
+          <div class="right-side">
+            <div class="box-topic">Gold - extra</div>
+            <div class="number">$2000</div>
+            <div class="indicator">
+              <i class='bx bx-up-arrow-alt'></i>
+              <span class="text">ROI - $40/daily</span>
+            </div>
+          </div>
+          <i class='bx bx-cart cart three' ></i>
+        </div>
+      </div>
+
+
+
+      
+
+
+      <!-- Platnum-->
+
+      <div class="overview-boxes">
+        <div class="box"  onclick="sessionStorage.setItem('amount', 3000); location.replace('../deposit.html')">
+          <div class="right-side">
+            <div class="box-topic">Platnum - lite</div>
+            <div class="number">$3000</div>
+            <div class="indicator">
+              <i class='bx bx-up-arrow-alt'></i>
+              <span class="text">ROI - $60/daily</span>
+            </div>
+          </div>
+          <i class='bx bxs-cart-add cart two' ></i>
+        </div>
+        <div class="box"  onclick="sessionStorage.setItem('amount', 4000); location.replace('../deposit.html')">
+          <div class="right-side">
+            <div class="box-topic">Platnum - medium</div>
+            <div class="number">$4000</div>
+            <div class="indicator">
+              <i class='bx bx-up-arrow-alt'></i>
+              <span class="text">ROI - $80/daily</span>
+            </div>
+          </div>
+          <i class='bx bxs-cart-add cart two' ></i>
+        </div>
+        <div class="box"  onclick="sessionStorage.setItem('amount', 5000); location.replace('../deposit.html')">
+          <div class="right-side">
+            <div class="box-topic">Platnum</div>
+            <div class="number">$5000</div>
+            <div class="indicator">
+              <i class='bx bx-up-arrow-alt'></i>
+              <span class="text">ROI - $100/daily</span>
+            </div>
+          </div>
+          <i class='bx bxs-cart-add cart two' ></i>
+        </div>
+        
+      </div>
+
+
+
+      <div class="sales-boxes">
+        <div class="recent-sales box">
+          <div class="title" id="countdown">Withdrawn - </span></div>
+<!--          <div class="sales-details">
+            <ul class="details">
+              <li class="topic">Date</li>
+              <li><a href="#">02 Jan 2021</a></li>
+              <li><a href="#">02 Jan 2021</a></li>
+              <li><a href="#">02 Jan 2021</a></li>
+              <li><a href="#">02 Jan 2021</a></li>
+              <li><a href="#">02 Jan 2021</a></li>
+              <li><a href="#">02 Jan 2021</a></li>
+              <li><a href="#">02 Jan 2021</a></li>
+            </ul>
+            <ul class="details">
+            <li class="topic">Customer</li>
+            <li><a href="#">Alex Doe</a></li>
+            <li><a href="#">David Mart</a></li>
+            <li><a href="#">Roe Parter</a></li>
+            <li><a href="#">Diana Penty</a></li>
+            <li><a href="#">Martin Paw</a></li>
+            <li><a href="#">Doe Alex</a></li>
+            <li><a href="#">Aiana Lexa</a></li>
+            <li><a href="#">Rexel Mags</a></li>
+             <li><a href="#">Tiana Loths</a></li>
+          </ul>
+          <ul class="details">
+            <li class="topic">Sales</li>
+            <li><a href="#">Delivered</a></li>
+            <li><a href="#">Pending</a></li>
+            <li><a href="#">Returned</a></li>
+            <li><a href="#">Delivered</a></li>
+            <li><a href="#">Pending</a></li>
+            <li><a href="#">Returned</a></li>
+            <li><a href="#">Delivered</a></li>
+             <li><a href="#">Pending</a></li>
+            <li><a href="#">Delivered</a></li>
+          </ul>
+          <ul class="details">
+            <li class="topic">Total</li>
+            <li><a href="#">$204.98</a></li>
+            <li><a href="#">$24.55</a></li>
+            <li><a href="#">$25.88</a></li>
+            <li><a href="#">$170.66</a></li>
+            <li><a href="#">$56.56</a></li>
+            <li><a href="#">$44.95</a></li>
+            <li><a href="#">$67.33</a></li>
+             <li><a href="#">$23.53</a></li>
+             <li><a href="#">$46.52</a></li>
+          </ul>
+          </div> 
+          <div class="button">
+            <a href="#">See All</a>
+          </div> 
+        </div>  -->
+        
+  </section>
+
+  <script>
+   let sidebar = document.querySelector(".sidebar");
+let sidebarBtn = document.querySelector(".sidebarBtn");
+sidebarBtn.onclick = function() {
+  sidebar.classList.toggle("active");
+  if(sidebar.classList.contains("active")){
+  sidebarBtn.classList.replace("bx-menu" ,"bx-menu-alt-right");
+}else
+  sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+}
+ </script>
+
+</body>
 </html>
