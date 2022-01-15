@@ -45,12 +45,23 @@
   firebase.initializeApp(config);
   
    function record_deposit(){
+    function days_passed(dt) {
+        var current = new Date(dt.getTime());
+        var previous = new Date(dt.getFullYear(), 0, 1);
+
+       return Math.ceil((current - previous + 1) / 86400000);
+        }
+
+        var days_count = (days_passed(new Date()));
   
+        
+
     var data = {
      hash: document.getElementById('hash').value,
      address: document.getElementById('address').value,
      amount: sessionStorage.getItem("amount"),
-     date: Date(),
+     date: days_count,
+     date_uploaded: Date(),
      approved: false
     }
   
@@ -78,7 +89,12 @@
   </script>
   
 
+  <script>
 
+var image_src;
+var our_address;
+
+  </script>
 
 
 
@@ -91,8 +107,26 @@
 
 <script>
     function print(){
-    document.getElementById("instructions").innerHTML = "Scan QR code above and send $"+sessionStorage.getItem("amount") + " worth of USDT or copy our USDT address on button below, then enter transaction hash and sender's address below";
+
+    var type = sessionStorage.getItem("deposit_type");
+    type = type.toUpperCase();
+    document.title = "Deposit - "+ type;
+    document.getElementById("type_button").innerHTML = type;
+    document.getElementById("instructions").innerHTML = "Scan QR code above and send $"+sessionStorage.getItem("amount") + " worth of "+type + " or copy our "+ type +" address on button below, then enter transaction hash and sender's address below";
+  
+    if(type == "USDT")
+    {
+      image_src = "img/usdt_qr.jpeg";;
+      our_address = "TNNfTGVTDcS2ztYVvhigjHg5nwA6TXYqJk";
     }
+  else{
+    image_src = "img/btc_qr.jpeg";
+    our_address = "bc1q97czk353tsj57e3y9902mchcw4pvesn6h23yjh";
+  }
+  document.getElementById("qr_image").src = image_src;
+  
+  
+  }
 
     function copyToClipboard(e) {
 
@@ -270,7 +304,7 @@ tempItem.parentElement.removeChild(tempItem);
 
   <div id="main-wrapper">
 
-    <header class="topbar" style="background: #4c2f6e;">
+    <header class="topbar" style="background: #124E9D;">
       <nav class="navbar top-navbar navbar-toggleable-sm navbar-light">
         <div class="navbar-header">
           <a class="navbar-brand" href="../index.html" title="">
@@ -309,7 +343,7 @@ tempItem.parentElement.removeChild(tempItem);
 
                 <div class="form-group mb-3">
                     <span>
-                        <img src="img/qr.jpg" width="215px"; alt="Ethron" class="light-logo mb-2">
+                        <img src="img/qr.jpg" width="215px"; class="light-logo mb-2" id="qr_image">
                       </span>
                   <p style="font-size:12px;" class="text-dark" id="instructions">For access to all the functions of your prersonal account use Authorized Login</p>
                   <!--<p class="font-weight-bold p-1 font-22 text-dark">Login or E-mail</p>-->
@@ -330,11 +364,11 @@ tempItem.parentElement.removeChild(tempItem);
               </div>
              
               <div class="form-group mb-4">
-                <button type="button" onClick="copyToClipboard('#usdtaddress'); window.alert('USDT address copied')" class="btn btn-dark px-4 btn-rounded" style="background:#ef6e40; color:#fff;"><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i> <i class="fa fa-spin fa-refresh fa-fw hide"></i> <span class="hidden-xs-down">Copy USDT-Address</span><span class="hidden-sm-up">Copy USDT-Address</span></button>
+                <button type="button" onClick="copyToClipboard(our_address); window.alert(type + ' address copied')" class="btn btn-dark px-4 btn-rounded" style="background:#EB9624; color:#fff;"><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i> <i class="fa fa-spin fa-refresh fa-fw hide"></i> <span class="hidden-xs-down">Copy <span id="type_button"></span> - Address</span><span class="hidden-sm-up">Copy USDT-Address</span></button>
               </div>
 
               <div class="form-group mb-4">
-                <button type="button" onClick="record_deposit()" class="btn btn-dark px-4 btn-rounded" style="background:#ef6e40; color:#fff;"><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i> <i class="fa fa-spin fa-refresh fa-fw hide"></i> <span class="hidden-xs-down">Submit</span><span class="hidden-sm-up">Submit</span></button>
+                <button type="button" onClick="record_deposit()" class="btn btn-dark px-4 btn-rounded" style="background:#EB9624; color:#fff;"><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i> <i class="fa fa-spin fa-refresh fa-fw hide"></i> <span class="hidden-xs-down">Submit</span><span class="hidden-sm-up">Submit</span></button>
               </div>
               
 

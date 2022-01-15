@@ -43,16 +43,7 @@ function approved()
 <body>
  <table>
 
-  <tr>
-   <td colspan="2">
-    <input type="button" value="Save" onclick="save_user();" />
-    <input type="button" value="Update" onclick="update_user();" />
-    <input type="button" value="Delete" onclick="delete_user();" />
-   </td>
-  </tr>
- </table>
- 
- <h3>Users List</h3>
+  
  
  <table id="tbl_users_list" border="1">
   <tr>
@@ -91,6 +82,9 @@ function approved()
    cellHash.appendChild(document.createTextNode(childData.hash));
    cellAmount.appendChild(document.createTextNode(childData.amount));
 
+   var deposit_amount_today = childData.amount;
+
+
    if(childData.approved == false)
    {
        var btn  = document.createElement ("button");
@@ -116,7 +110,7 @@ function approved()
 
 
         var updates2 = {};
-        var total = balance + childData.amount;
+        var total = balance + deposit_amount_today;
         updates2['/users/' + childKey +"/balance" ] = total;
         firebase.database().ref().update(updates2);
 
@@ -146,12 +140,12 @@ function approved()
 
 
        var updates2 = {};
-       var total = direct_balance + (childData.amount * 0.1); //10% of the deposit amount
+       var total = direct_balance + (deposit_amount_today * 0.1); //10% of the deposit amount
        updates2['/users/' + sponsor_username +"/direct_referral" ] = total;
        firebase.database().ref().update(updates2);
 
        
-       var databaserefersponsorindirect = firebase.database().ref('/users/' + sponsor_username);
+        var databaserefersponsorindirect = firebase.database().ref('/users/' + sponsor_username);
         var position;
         var sponsor2;
 
@@ -165,13 +159,11 @@ function approved()
 
         });
       });
-        if(position.toUpperCase() == "left".toUpperCase())
-        {
 
-        var left_balance_url = firebase.database().ref('/users/' + sponsor2 +"/left_balance");
+      var left_balance_url = firebase.database().ref('/users/' + sponsor2 +"/direct_referral");
         var balance2;
 
-        databaserefersponsordirect.on('value', (snapshot) =>{
+        left_balance_url.on('value', (snapshot) =>{
         const data = snapshot.val();
         balance2 = data;
         // window.alert(data);
@@ -179,33 +171,10 @@ function approved()
        });
 
        var updates3 = {};
-       var total = balance2 + (childData.amount * 0.08); //8% of the deposit amount
-       updates3['/users/' + sponsor2 +"/left_balance" ] = total;
+       var total = balance2 + (deposit_amount_today * 0.08); //8% of the deposit amount
+       updates3['/users/' + sponsor2 +"/direct_referral" ] = total;
        firebase.database().ref().update(updates3);
 
-
-        }
-
-        else{
-        var left_balance_url = firebase.database().ref('/users/' + sponsor2 +"/right_balance");
-        var balance2;
-
-        databaserefersponsordirect.on('value', (snapshot) =>{
-        const data = snapshot.val();
-        balance2 = data;
-        // window.alert(data);
-	 
-       });
-
-       var updates3 = {};
-       var total = balance2 + (childData.amount * 0.08); //8% of the deposit amount
-       updates3['/users/' + sponsor2 +"/right_balance" ] = total;
-       firebase.database().ref().update(updates3);
-
-
-
-
-        }
 
 
         alert('The user is created successfully!');
