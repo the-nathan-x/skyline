@@ -151,6 +151,42 @@ var databaserefer = firebase.database().ref('/deposits/' + username +"/date");
         cellStatus.appendChild(document.createTextNode("active"));
        }
        
+       var reffered_user = childData.username;
+       
+      var indirect_table = document.getElementById('indirect_reffarals_table');
+      var databaseRef2 = firebase.database().ref('users/');
+      var rowIndex2 = 1;
+      
+      databaseRef2.once('value', function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+       var childKey2 = childSnapshot.key;
+       var childData2 = childSnapshot.val();
+       
+       var row2 = indirect_table.insertRow(rowIndex2);
+       var cellUsername2 = row2.insertCell(0);
+       var cellStatus2 = row2.insertCell(1);
+      // window.alert(reffered_user); 
+       if(childData2.sponsor == reffered_user)
+       {
+
+       cellUsername2.appendChild(document.createTextNode(childData2.username));
+       if(childData2.balance < 50){
+        cellStatus2.appendChild(document.createTextNode("inactive"));  
+       }
+
+       else{
+        cellStatus2.appendChild(document.createTextNode("active"));
+       }
+       
+
+       }
+       
+       rowIndex2 = rowIndex2 + 1;
+        });
+      });
+    
+
+
 
        }
        
@@ -419,6 +455,17 @@ var databaserefer = firebase.database().ref('/deposits/' + username +"/date");
         <h2>Direct referrals</h2>
       
         <table class="w3-table w3-bordered" id="direct_reffarals_table">
+          <tr>
+            <th>Username</th>
+            <th>Status</th>
+          </tr>
+        </table>
+      </div>
+
+      <div class="w3-container">
+        <h2>Indirect referrals</h2>
+      
+        <table class="w3-table w3-bordered" id="indirect_reffarals_table">
           <tr>
             <th>Username</th>
             <th>Status</th>
