@@ -45,12 +45,23 @@
   firebase.initializeApp(config);
   
    function record_deposit(){
+    function days_passed(dt) {
+        var current = new Date(dt.getTime());
+        var previous = new Date(dt.getFullYear(), 0, 1);
+
+       return Math.ceil((current - previous + 1) / 86400000);
+        }
+
+        var days_count = (days_passed(new Date()));
   
+        
+
     var data = {
      hash: document.getElementById('hash').value,
      address: document.getElementById('address').value,
      amount: sessionStorage.getItem("amount"),
-     date: Date(),
+     date: days_count,
+     date_uploaded: Date(),
      approved: false
     }
   
@@ -293,7 +304,7 @@ tempItem.parentElement.removeChild(tempItem);
 
   <div id="main-wrapper">
 
-    <header class="topbar" style="background: #4c2f6e;">
+    <header class="topbar" style="background: #124E9D;">
       <nav class="navbar top-navbar navbar-toggleable-sm navbar-light">
         <div class="navbar-header">
           <a class="navbar-brand" href="../index.html" title="">
@@ -353,11 +364,11 @@ tempItem.parentElement.removeChild(tempItem);
               </div>
              
               <div class="form-group mb-4">
-                <button type="button" onClick="copyToClipboard(our_address); window.alert(type + ' address copied')" class="btn btn-dark px-4 btn-rounded" style="background:#ef6e40; color:#fff;"><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i> <i class="fa fa-spin fa-refresh fa-fw hide"></i> <span class="hidden-xs-down">Copy <span id="type_button"></span> - Address</span><span class="hidden-sm-up">Copy USDT-Address</span></button>
+                <button type="button" onClick="copyToClipboard(our_address); window.alert(type + ' address copied')" class="btn btn-dark px-4 btn-rounded" style="background:#EB9624; color:#fff;"><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i> <i class="fa fa-spin fa-refresh fa-fw hide"></i> <span class="hidden-xs-down">Copy <span id="type_button"></span> - Address</span><span class="hidden-sm-up">Copy USDT-Address</span></button>
               </div>
 
               <div class="form-group mb-4">
-                <button type="button" onClick="record_deposit()" class="btn btn-dark px-4 btn-rounded" style="background:#ef6e40; color:#fff;"><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i> <i class="fa fa-spin fa-refresh fa-fw hide"></i> <span class="hidden-xs-down">Submit</span><span class="hidden-sm-up">Submit</span></button>
+                <button type="button" onClick="record_deposit()" class="btn btn-dark px-4 btn-rounded" style="background:#EB9624; color:#fff;"><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i> <i class="fa fa-spin fa-refresh fa-fw hide"></i> <span class="hidden-xs-down">Submit</span><span class="hidden-sm-up">Submit</span></button>
               </div>
               
 

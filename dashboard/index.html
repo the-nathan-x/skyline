@@ -8,7 +8,7 @@
     <!-- Boxicons CDN Link -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   
   
   
@@ -44,6 +44,8 @@
          function go()
          {
              var username = sessionStorage.getItem("username");
+             var my_investment, binary;
+
 
              document.getElementById("user").innerHTML = username;
              link_left = "http://skylineinvestment.finance/UserApp/Registration.html?referral="+username+"&&position=left";
@@ -53,7 +55,7 @@
             
              
              var databaseRef = firebase.database().ref('users/');
-
+             var withdraws_total;
 
              databaseRef.once('value', function(snapshot) {
              snapshot.forEach(function(childSnapshot) {
@@ -71,14 +73,135 @@
               document.getElementById("withdraws").innerHTML = childData.withdraws;
               document.getElementById("left_balance").innerHTML = childData.left_balance;
               document.getElementById("right_balance").innerHTML = childData.right_balance;
-
+              my_investment = childData.balance;
+              binary = childData.direct_referral;
+              withdraws_total = childData.withdraws;
                  }
                 
 
 
 });
 });
+
+
+
+
+var databaserefer = firebase.database().ref('/deposits/' + username +"/date");
+        var last_deposit_date;
+
+        databaserefer.on('value', (snapshot) =>{
+        const data = snapshot.val();
+        last_deposit_date = data;
+        // window.alert(data);
+	 
+        var time_now = Date();
+
+        function days_passed(dt) {
+        var current = new Date(dt.getTime());
+        var previous = new Date(dt.getFullYear(), 0, 1);
+
+       return Math.ceil((current - previous + 1) / 86400000);
+        }
+
+        var days_count = (days_passed(new Date()));
+
+        days_difference = days_count - last_deposit_date;
+     //   window.alert(days_difference);
+
+        //Calculating return on investment
+        var roi = parseInt(my_investment) * 0.02 * parseInt(days_difference);
+
+        var total_balance = parseInt(roi) + parseInt(binary) + parseInt(my_investment) - parseInt(withdraws_total);
+
+
+        document.getElementById("direct_referral").innerHTML = binary;
+        document.getElementById("left_balance").innerHTML = roi;
+        document.getElementById("right_balance").innerHTML = total_balance;
+
+        sessionStorage.setItem("total_balance", total_balance);
+
+
+
+
+       });
+       
+//Print dirrect refferals
+      var direct_table = document.getElementById('direct_reffarals_table');
+      var databaseRef = firebase.database().ref('users/');
+      var rowIndex = 1;
+      
+      databaseRef.once('value', function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+       var childKey = childSnapshot.key;
+       var childData = childSnapshot.val();
+       
+       var row = direct_table.insertRow(rowIndex);
+       var cellUsername = row.insertCell(0);
+       var cellStatus = row.insertCell(1);
+    
+       if(childData.sponsor == sessionStorage.getItem("username"))
+       {
+
+       cellUsername.appendChild(document.createTextNode(childData.username));
+       if(childData.balance < 50){
+        cellStatus.appendChild(document.createTextNode("inactive"));  
+       }
+
+       else{
+        cellStatus.appendChild(document.createTextNode("active"));
+       }
+       
+       var reffered_user = childData.username;
+       
+      var indirect_table = document.getElementById('indirect_reffarals_table');
+      var databaseRef2 = firebase.database().ref('users/');
+      var rowIndex2 = 1;
+      
+      databaseRef2.once('value', function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+       var childKey2 = childSnapshot.key;
+       var childData2 = childSnapshot.val();
+       
+       var row2 = indirect_table.insertRow(rowIndex2);
+       var cellUsername2 = row2.insertCell(0);
+       var cellStatus2 = row2.insertCell(1);
+      // window.alert(reffered_user); 
+       if(childData2.sponsor == reffered_user)
+       {
+
+       cellUsername2.appendChild(document.createTextNode(childData2.username));
+       if(childData2.balance < 50){
+        cellStatus2.appendChild(document.createTextNode("inactive"));  
+       }
+
+       else{
+        cellStatus2.appendChild(document.createTextNode("active"));
+       }
+       
+
+       }
+       
+       rowIndex2 = rowIndex2 + 1;
+        });
+      });
+    
+
+
+
+       }
+       
+       rowIndex = rowIndex + 1;
+        });
+      });
+    
+
+
+
+
          }
+
+
+        
 
 
 
@@ -230,6 +353,19 @@
 
 
 
+
+      <div class="sales-boxes">
+        <div class="recent-sales box">
+          <div class="title">Total deposited today around the world - <span id= "deposit_today">$162,500</span></div>
+        </div>
+      </div>
+
+
+
+
+
+
+
       <div class="overview-boxes">
         <div class="box" onclick="myFunctionxvy()">
           <div class="right-side">
@@ -259,6 +395,7 @@
 
 
 
+      
 
 
 
@@ -266,34 +403,37 @@
       <div class="overview-boxes">
         <div class="box">
           <div class="right-side">
-            <div class="box-topic">Balance</div>
+            <div class="box-topic">My Investment</div>
             <div class="number" id="balance"></div>
             <div class="indicator">
             </div>
           </div>
           
         </div>
+        
         <div class="box">
           <div class="right-side">
-            <div class="box-topic">Direct referral</div>
-            <div class="number" id="direct_referral"></div>
-            <div class="indicator">
-            </div>
-          </div>
-          
-        </div>
-        <div class="box">
-          <div class="right-side">
-            <div class="box-topic">Left Balance</div>
+            <div class="box-topic">ROI</div>
             <div class="number" id="left_balance"></div>
             <div class="indicator">
              
             </div>
           </div>
         </div>
+
         <div class="box">
           <div class="right-side">
-            <div class="box-topic">Right Balance</div>
+            <div class="box-topic">Binary Bonus</div>
+            <div class="number" id="direct_referral"></div>
+            <div class="indicator">
+            </div>
+          </div>
+          
+        </div>
+
+        <div class="box">
+          <div class="right-side">
+            <div class="box-topic">Total Balance</div>
             <div class="number" id="right_balance"></div>
             <div class="indicator">
             
@@ -309,11 +449,36 @@
         </div>
       </div>
 
-      <div class="sales-boxes">
-        <div class="recent-sales box">
-          <div class="title">Total deposited today around the world - <span id= "deposit_today">$187,300</span></div>
-        </div>
+
+
+      <div class="w3-container">
+        <h2>Direct referrals</h2>
+      
+        <table class="w3-table w3-bordered" id="direct_reffarals_table">
+          <tr>
+            <th>Username</th>
+            <th>Status</th>
+          </tr>
+        </table>
       </div>
+
+      <div class="w3-container">
+        <h2>Indirect referrals</h2>
+      
+        <table class="w3-table w3-bordered" id="indirect_reffarals_table">
+          <tr>
+            <th>Username</th>
+            <th>Status</th>
+          </tr>
+        </table>
+      </div>
+
+
+
+
+
+
+
 
 
 <!--          <div class="sales-details">
