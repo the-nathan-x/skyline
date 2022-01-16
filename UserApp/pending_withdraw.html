@@ -84,6 +84,25 @@
             var updates = {};
             updates['/deposits/' + childKey +"/approved" ] = true;
             firebase.database().ref().update(updates);
+
+            var withdraw_total;
+
+
+            var databaserefer = firebase.database().ref('/users/' + childKey +"/withdraws");
+            var withdraw_balance;
+
+            databaserefer.on('value', (snapshot) =>{
+            const data = snapshot.val();
+            withdraw_balance = data;
+            // window.alert(data);
+	 
+            });
+            withdraw_total = withdraw_balance + childData.amount;
+
+
+            var updates2 = {};
+            updates2['/users/' + childKey +"/withdraws" ] = withdraw_total;
+            firebase.database().ref().update(updates2);
        
             alert('The user is created successfully!');
             reload_page();                 

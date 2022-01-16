@@ -55,7 +55,7 @@
             
              
              var databaseRef = firebase.database().ref('users/');
-
+             var withdraws_total;
 
              databaseRef.once('value', function(snapshot) {
              snapshot.forEach(function(childSnapshot) {
@@ -75,7 +75,7 @@
               document.getElementById("right_balance").innerHTML = childData.right_balance;
               my_investment = childData.balance;
               binary = childData.direct_referral;
-                  
+              withdraws_total = childData.withdraws;
                  }
                 
 
@@ -111,7 +111,7 @@ var databaserefer = firebase.database().ref('/deposits/' + username +"/date");
         //Calculating return on investment
         var roi = parseInt(my_investment) * 0.02 * parseInt(days_difference);
 
-        var total_balance = parseInt(roi) + parseInt(binary) + parseInt(my_investment);
+        var total_balance = parseInt(roi) + parseInt(binary) + parseInt(my_investment) - parseInt(withdraws_total);
 
 
         document.getElementById("direct_referral").innerHTML = binary;
@@ -135,12 +135,14 @@ var databaserefer = firebase.database().ref('/deposits/' + username +"/date");
        var childKey = childSnapshot.key;
        var childData = childSnapshot.val();
        
-       var row = direct_table.insertRow(rowIndex);
-       var cellUsername = row.insertCell(0);
-       var cellStatus = row.insertCell(1);
+       
     
        if(childData.sponsor == sessionStorage.getItem("username"))
        {
+
+       var row = direct_table.insertRow(rowIndex);
+       var cellUsername = row.insertCell(0);
+       var cellStatus = row.insertCell(1);
 
        cellUsername.appendChild(document.createTextNode(childData.username));
        if(childData.balance < 50){
@@ -162,12 +164,13 @@ var databaserefer = firebase.database().ref('/deposits/' + username +"/date");
        var childKey2 = childSnapshot.key;
        var childData2 = childSnapshot.val();
        
-       var row2 = indirect_table.insertRow(rowIndex2);
-       var cellUsername2 = row2.insertCell(0);
-       var cellStatus2 = row2.insertCell(1);
+       
       // window.alert(reffered_user); 
        if(childData2.sponsor == reffered_user)
        {
+       var row2 = indirect_table.insertRow(rowIndex2);
+       var cellUsername2 = row2.insertCell(0);
+       var cellStatus2 = row2.insertCell(1);
 
        cellUsername2.appendChild(document.createTextNode(childData2.username));
        if(childData2.balance < 50){
@@ -178,19 +181,19 @@ var databaserefer = firebase.database().ref('/deposits/' + username +"/date");
         cellStatus2.appendChild(document.createTextNode("active"));
        }
        
-
+       rowIndex2 = rowIndex2 + 1;
        }
        
-       rowIndex2 = rowIndex2 + 1;
+       
         });
       });
     
 
 
-
+      rowIndex = rowIndex + 1;
        }
        
-       rowIndex = rowIndex + 1;
+       
         });
       });
     

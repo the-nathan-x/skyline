@@ -90,8 +90,13 @@
 
 <script>
     function print(){
-    document.getElementById("instructions").innerHTML = "Hello "+sessionStorage.getItem("username") + " Enter USDT address below, miminum withdraw amount is $10";
+    document.getElementById("instructions").innerHTML = "Hello "+sessionStorage.getItem("username") + " Enter USDT address below, mininum withdraw amount is $25";
+   // window.alert(sessionStorage.getItem("total_balance"));
+    if(sessionStorage.getItem("total_balance") < 25){
+      window.alert("You do not have minimum withdraw balance which is $25");
+      location.replace("dashboard/index.html");
     }
+  }
 
     function copyToClipboard(e) {
 

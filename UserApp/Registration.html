@@ -214,7 +214,8 @@ firebase.initializeApp(config);
 
   var updates = {};
   updates['/users/' + document.getElementById('username').value] = data;
-  firebase.database().ref().update(updates);
+  firebase.database().ref().update(updates).then(() => {
+
   console.log("Saved successfully")
   sessionStorage.setItem("username", document.getElementById("username").value);
   //location.replace("dashboard.html");
@@ -229,9 +230,13 @@ firebase.initializeApp(config);
 	 sessionStorage.setItem("username", document.getElementById("username").value);
 	 //location.replace("dashboard.html");
 	 if(data == document.getElementById("password").value)
-	 {gotonext();}
+	 {gotonext();
+	}
 
     });
+
+	});
+  
 
 
 }
