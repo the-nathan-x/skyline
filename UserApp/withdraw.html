@@ -66,6 +66,38 @@
         const data = snapshot.val();
         window.alert("Withdraw recorded! Wait for 24 hours for approval");
        
+        var databaserefer_mail = firebase.database().ref('/users/' + sessionStorage.getItem('username')+"/" +"/email");
+
+        databaserefer_mail.on('value', (snapshot) =>{
+        const data2 = snapshot.val();
+        mail = data2;
+    // window.alert(data);
+
+    });
+
+    function sendEmail() {
+
+    var email_html_body = "<p>Hello " +sessionStorage.getItem("username") + "!</p>" + "<h1>Withdraw request recorded successfully </h1> <p>Your account balance will be updated within the next 24 hours;</p><p>We hope you have a pleasant time investing with us</p>";
+
+  Email.send({
+    Host: "smtp.gmail.com",
+    Username: "emailskylineinvestment@gmail.com",
+    Password: "neno$iri",
+    To: mail,
+    From: "emailskylineinvestment@gmail.com",
+    Subject: "SKYLINE INVESTMENT - Deposit",
+    Body: email_html_body,
+  })
+    .then(function (message) {
+      console.log("mail sent successfully")
+    });
+}
+
+
+  sendEmail();
+
+
+
     //location.replace("dashboard.html");
       });
   

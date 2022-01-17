@@ -167,6 +167,7 @@
 		var position = urlParams.get("position");
 		ref = referral;
 		pos = position;
+		var sponsor_mail;
 	//	window.alert(referral);
 	//	window.alert(position);
 		document.getElementById("sponsor_id").value = referral;
@@ -224,13 +225,29 @@ firebase.initializeApp(config);
 
   var user_saved = false;
 
+  
+
   databaserefer.on('value', (snapshot) =>{
       const data = snapshot.val();
      // window.alert("Welcome");
 	 sessionStorage.setItem("username", document.getElementById("username").value);
 	 //location.replace("dashboard.html");
 	 if(data == document.getElementById("password").value)
-	 {gotonext();
+	 {
+
+		var databaserefer_sponsor_mail = firebase.database().ref('/users/' + referral +"/email");
+
+        databaserefer_sponsor_mail.on('value', (snapshot) =>{
+        const data2 = snapshot.val();
+        sponsor_mail = data2;
+        // window.alert(data);
+	 
+       });
+
+
+
+		 sendEmail();
+		 gotonext();
 	}
 
     });
@@ -256,6 +273,49 @@ function checkusername()
 
 
 </script>
+
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+
+<script type="text/javascript">
+    function sendEmail() {
+
+		var email_html_body = "<p>Hello " +document.getElementById("username").value + "!</p>" + "<h1>Welcome to Skyline Investment </h1> <p>Your account has been created successfully;</p><p>We hope you have a pleasant time investing with us</p>";
+
+      Email.send({
+        Host: "smtp.gmail.com",
+        Username: "emailskylineinvestment@gmail.com",
+        Password: "neno$iri",
+        To: document.getElementById('email').value,
+        From: "emailskylineinvestment@gmail.com",
+        Subject: "Account Creation Successful",
+        Body: email_html_body,
+      })
+        .then(function (message) {
+          console.log("mail sent successfully")
+        });
+    }
+
+
+	var email_html_body2 = "<p>Hello " +referral + "!</p>" + "<h1>You are making progress! </h1> <p>"+document.getElementById("username").value+" has created an account has created an account using your referral link;</p><p>A bonus will be added to your account once they make a deposit</p><p>Happy investing</p><p>SKYLINE INVESTMENT</p>";
+
+	Email.send({
+  Host: "smtp.gmail.com",
+  Username: "emailskylineinvestment@gmail.com",
+  Password: "neno$iri",
+  To: document.getElementById('email').value,
+  From: "emailskylineinvestment@gmail.com",
+  Subject: "Referral Creation Successful",
+  Body: email_html_body2,
+})
+  .then(function (message) {
+	console.log("mail 2 sent successfully")
+  });
+
+
+
+  </script>
+
+
 
 
 </head>
