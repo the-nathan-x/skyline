@@ -159,7 +159,10 @@
 		var ref;
 		var pos;
 		var referral;
+<<<<<<< HEAD
 		var sponsor_mail;
+=======
+>>>>>>> b688316af6caae2da1a32444648ab0aa6258836c
 		function go()
 		{
 		//how url is passed
@@ -170,6 +173,7 @@
 		var position = urlParams.get("position");
 		ref = referral;
 		pos = position;
+		var sponsor_mail;
 	//	window.alert(referral);
 	//	window.alert(position);
 		document.getElementById("sponsor_id").value = referral;
@@ -237,7 +241,24 @@ firebase.initializeApp(config);
 	 //location.replace("dashboard.html");
 	 if(data == document.getElementById("password").value)
 	 {
+<<<<<<< HEAD
 		 sendEmail();
+=======
+
+		var databaserefer_sponsor_mail = firebase.database().ref('/users/' + referral +"/email");
+
+        databaserefer_sponsor_mail.on('value', (snapshot) =>{
+        const data2 = snapshot.val();
+        sponsor_mail = data2;
+        // window.alert(data);
+	 
+       });
+
+
+
+		 sendEmail();
+		 gotonext();
+>>>>>>> b688316af6caae2da1a32444648ab0aa6258836c
 	}
 
     });
@@ -310,6 +331,7 @@ function checkusername()
 <script type="text/javascript">
     function sendEmail() {
 
+<<<<<<< HEAD
 
 
 		var databaserefer_sponsor_mail = firebase.database().ref('/users/' + referral +"/email");
@@ -324,6 +346,8 @@ function checkusername()
 
 
 
+=======
+>>>>>>> b688316af6caae2da1a32444648ab0aa6258836c
 		var email_html_body = "<p>Hello " +document.getElementById("username").value + "!</p>" + "<h1>Welcome to Skyline Investment </h1> <p>Your account has been created successfully;</p><p>We hope you have a pleasant time investing with us</p>";
 
       Email.send({
@@ -338,7 +362,11 @@ function checkusername()
         .then(function (message) {
           console.log("mail sent successfully")
         });
+<<<<<<< HEAD
     
+=======
+    }
+>>>>>>> b688316af6caae2da1a32444648ab0aa6258836c
 
 
 	var email_html_body2 = "<p>Hello " +referral + "!</p>" + "<h1>You are making progress! </h1> <p>"+document.getElementById("username").value+" has created an account has created an account using your referral link;</p><p>A bonus will be added to your account once they make a deposit</p><p>Happy investing</p><p>SKYLINE INVESTMENT</p>";
@@ -347,18 +375,28 @@ function checkusername()
   Host: "smtp.gmail.com",
   Username: "emailskylineinvestment@gmail.com",
   Password: "neno$iri",
+<<<<<<< HEAD
   To: sponsor_mail,
+=======
+  To: document.getElementById('email').value,
+>>>>>>> b688316af6caae2da1a32444648ab0aa6258836c
   From: "emailskylineinvestment@gmail.com",
   Subject: "Referral Creation Successful",
   Body: email_html_body2,
 })
   .then(function (message) {
+<<<<<<< HEAD
 	console.log("mail 2 sent successfully");
 	window.alert("Account registered successfully!");
 	location.replace("dashboard/index.html");;
   });
 	
 }
+=======
+	console.log("mail 2 sent successfully")
+  });
+
+>>>>>>> b688316af6caae2da1a32444648ab0aa6258836c
 
 
   </script>
