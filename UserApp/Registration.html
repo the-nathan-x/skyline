@@ -157,13 +157,14 @@
 	<script>
 		var ref;
 		var pos;
+		var referral;
 		function go()
 		{
 		//how url is passed
 		//file:////Registration.html?referral=ugali&&position=left
 		var urlstuff = location.search;
 		const urlParams = new URLSearchParams(urlstuff);
-		var referral = urlParams.get("referral");
+	    referral = urlParams.get("referral");
 		var position = urlParams.get("position");
 		ref = referral;
 		pos = position;
