@@ -41,6 +41,7 @@
 
      <script>
          var link_left, link_right;
+         var direct_bonus;
          function go()
          {
              var username = sessionStorage.getItem("username");
@@ -79,6 +80,7 @@
               document.getElementById("left_balance").innerHTML = childData.left_balance;
               document.getElementById("right_balance").innerHTML = childData.right_balance;
               my_investment = childData.balance;
+              direct_bonus = childData.left_balance;
               binary = childData.direct_referral;
               withdraws_total = childData.withdraws;
                  }
@@ -117,13 +119,15 @@ var databaserefer = firebase.database().ref('/deposits/' + username +"/date");
         var roi = parseInt(my_investment) * 0.02 * parseInt(days_difference);
         var withdrawable_balance;
 
-        var total_balance = parseInt(roi) + parseInt(binary) + parseInt(my_investment) - parseInt(withdraws_total);
+        
+
+        var total_balance = parseInt(roi) + parseInt(binary) + parseInt(my_investment) - parseInt(withdraws_total) + parseInt(direct_bonus);
         withdrawable_balance = total_balance - parseInt(my_investment);   
 
         document.getElementById("direct_referral").innerHTML = binary;
         document.getElementById("left_balance").innerHTML = roi;
         document.getElementById("right_balance").innerHTML = withdrawable_balance;
-         
+        document.getElementById("direct").innerHTML = direct_bonus; 
         sessionStorage.setItem("withdrawable_balance", withdrawable_balance);
         sessionStorage.setItem("total_balance", total_balance);
 
@@ -366,7 +370,7 @@ var databaserefer = firebase.database().ref('/deposits/' + username +"/date");
 
       <div class="sales-boxes">
         <div class="recent-sales box">
-          <div class="title">Total deposited today around the world - <span id= "deposit_today">$213,050</span></div>
+          <div class="title">Total deposited today around the world - <span id= "deposit_today">$145,050</span></div>
         </div>
       </div>
 
@@ -425,6 +429,16 @@ var databaserefer = firebase.database().ref('/deposits/' + username +"/date");
           <div class="right-side">
             <div class="box-topic">ROI</div>
             <div class="number" id="left_balance"></div>
+            <div class="indicator">
+             
+            </div>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="right-side">
+            <div class="box-topic">Direct referral bonus</div>
+            <div class="number" id="direct"></div>
             <div class="indicator">
              
             </div>

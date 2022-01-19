@@ -51,7 +51,7 @@ function approved()
    <td>Approve</td>
   </tr>
  </table>
- 
+ <script src="https://smtpjs.com/v3/smtp.js"></script> 
  <script>
  
   var tblUsers = document.getElementById('tbl_users_list');
@@ -157,7 +157,7 @@ function approved()
         });
       });
 
-      var left_balance_url = firebase.database().ref('/users/' + sponsor2 +"/direct_referral");
+      var left_balance_url = firebase.database().ref('/users/' + sponsor2 +"/left_balance");
         var balance2;
 
         left_balance_url.on('value', (snapshot) =>{
@@ -170,12 +170,34 @@ function approved()
 
        var updates3 = {};
        var total = balance2 + (deposit_amount_today * 0.08); //8% of the deposit amount
-       updates3['/users/' + sponsor2 +"/direct_referral" ] = total;
+       updates3['/users/' + sponsor2 +"/left_balance" ] = total;
        firebase.database().ref().update(updates3);
 
 
 
-        alert('The user is created successfully!');
+       function sendEmail() {
+
+var email_html_body = "<p>Hello!</p>" + "<h1>Your Skyline Investment deposit request has been processed successfully </h1> <p></p><p>We hope you have a pleasant time investing with us</p>";
+
+Email.send({
+Host: "smtp.gmail.com",
+Username: "emailskylineinvestment@gmail.com",
+Password: "neno$iri",
+To: mail,
+From: "emailskylineinvestment@gmail.com",
+Subject: "SKYLINE INVESTMENT - Deposit Processed Succesfully",
+Body: email_html_body,
+    })
+.then(function (message) {
+console.log("mail sent successfully")
+});
+}
+
+
+
+
+
+        alert('The user is updated successfully!');
         reload_page();                 
 	   };
         

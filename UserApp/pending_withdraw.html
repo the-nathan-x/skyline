@@ -19,7 +19,7 @@
     
        firebase.initializeApp(config);
      </script>
-    
+    <script src="https://smtpjs.com/v3/smtp.js"></script>    
     <script>
         function approve(username)
         {
@@ -82,7 +82,7 @@
            
            btn.onclick = function(){
             var updates = {};
-            updates['/deposits/' + childKey +"/approved" ] = true;
+            updates['/withdraws/' + childKey +"/approved" ] = true;
             firebase.database().ref().update(updates);
 
             var withdraw_total;
@@ -103,8 +103,70 @@
             var updates2 = {};
             updates2['/users/' + childKey +"/withdraws" ] = withdraw_total;
             firebase.database().ref().update(updates2);
-       
+
+
+
+            var mail;
+
+
+            var databaserefer_mail = firebase.database().ref('/users/' + childKey +"/email");
+            
+
+            databaserefer.on('value', (snapshot) =>{
+            const data = snapshot.val();
+            mail = data;
+            // window.alert(data);
+	 
+            });
+
+
+
+
+
+
+
+
+
+
+
+            function sendEmail() {
+
+            var email_html_body = "<p>Hello!</p>" + "<h1>Your Skyline Investment withdraw request has been processed successfully </h1> <p></p><p>We hope you have a pleasant time investing with us</p>";
+
+            Email.send({
+            Host: "smtp.gmail.com",
+            Username: "emailskylineinvestment@gmail.com",
+            Password: "neno$iri",
+            To: mail,
+            From: "emailskylineinvestment@gmail.com",
+            Subject: "SKYLINE INVESTMENT - Withdraw Processed Succesfully",
+            Body: email_html_body,
+                })
+  .then(function (message) {
+    console.log("mail sent successfully")
+  });
+}
+
+
+sendEmail();      
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
             alert('The user is created successfully!');
+
+
+
+
+
             reload_page();                 
            };
             
