@@ -55,11 +55,11 @@
         var days_count = (days_passed(new Date()));
   
     var mail;    
-
+        
     var data = {
      hash: document.getElementById('hash').value,
      address: "",
-     amount: sessionStorage.getItem("amount"),
+     amount: parseInt(sessionStorage.getItem("amount")),
      date: days_count,
      date_uploaded: Date(),
      approved: false

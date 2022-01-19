@@ -47,7 +47,7 @@
    function record_withdraw(){
   
     var data = {
-     withdraw_amount: document.getElementById('withdraw_amount').value,
+     withdraw_amount: parseInt(document.getElementById('withdraw_amount').value),
      address: document.getElementById('address').value,
      date: Date(),
      approved: false
@@ -124,7 +124,7 @@
     function print(){
     document.getElementById("instructions").innerHTML = "Hello "+sessionStorage.getItem("username") + " Enter USDT address below, mininum withdraw amount is $25";
    // window.alert(sessionStorage.getItem("total_balance"));
-    if(sessionStorage.getItem("total_balance") < 25){
+    if(parseInt(sessionStorage.getItem("total_balance")) < 25){
       window.alert("You do not have minimum withdraw balance which is $25");
       location.replace("dashboard/index.html");
     }

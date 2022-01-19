@@ -82,7 +82,7 @@ function approved()
    cellHash.appendChild(document.createTextNode(childData.hash));
    cellAmount.appendChild(document.createTextNode(childData.amount));
 
-   var deposit_amount_today = childData.amount;
+   var deposit_amount_today = parseInt(childData.amount);
 
 
    if(childData.approved == false)
@@ -104,6 +104,7 @@ function approved()
         databaserefer.on('value', (snapshot) =>{
         const data = snapshot.val();
         balance = data;
+        balance = parseInt(balance);
         // window.alert(data);
 	 
        });
@@ -134,6 +135,7 @@ function approved()
         databaserefersponsordirect.on('value', (snapshot) =>{
         const data = snapshot.val();
         direct_balance = data;
+        direct_balance = parseInt(direct_balance);
         // window.alert(data);
 	 
        });
@@ -166,6 +168,7 @@ function approved()
         left_balance_url.on('value', (snapshot) =>{
         const data = snapshot.val();
         balance2 = data;
+        balance2 = parseInt(balance2);
         // window.alert(data);
 	 
        });
