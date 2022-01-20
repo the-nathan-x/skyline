@@ -46,6 +46,11 @@
              var username = sessionStorage.getItem("username");
              var my_investment, binary;
 
+              if(sessionStorage.getItem("username") == null)
+              {
+                location.replace("../Login.html");
+              }
+
 
              document.getElementById("user").innerHTML = username;
              link_left = "http://skylineinvestment.finance/UserApp/Registration.html?referral="+username+"&&position=left";
@@ -110,14 +115,16 @@ var databaserefer = firebase.database().ref('/deposits/' + username +"/date");
 
         //Calculating return on investment
         var roi = parseInt(my_investment) * 0.02 * parseInt(days_difference);
+        var withdrawable_balance;
 
         var total_balance = parseInt(roi) + parseInt(binary) + parseInt(my_investment) - parseInt(withdraws_total);
-
+        withdrawable_balance = total_balance - parseInt(my_investment);   
 
         document.getElementById("direct_referral").innerHTML = binary;
         document.getElementById("left_balance").innerHTML = roi;
-        document.getElementById("right_balance").innerHTML = total_balance;
-
+        document.getElementById("right_balance").innerHTML = withdrawable_balance;
+         
+        sessionStorage.setItem("withdrawable_balance", withdrawable_balance);
         sessionStorage.setItem("total_balance", total_balance);
 
 
@@ -436,7 +443,7 @@ var databaserefer = firebase.database().ref('/deposits/' + username +"/date");
 
         <div class="box">
           <div class="right-side">
-            <div class="box-topic">Total Balance</div>
+            <div class="box-topic">Withdrawable Balance</div>
             <div class="number" id="right_balance"></div>
             <div class="indicator">
             

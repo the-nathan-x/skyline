@@ -55,7 +55,7 @@
      <script>
      
       var tblUsers = document.getElementById('tbl_users_list');
-      var databaseRef = firebase.database().ref('deposits/');
+      var databaseRef = firebase.database().ref('withdraws/');
       var rowIndex = 1;
       
       databaseRef.once('value', function(snapshot) {
@@ -73,8 +73,8 @@
        cellDate.appendChild(document.createTextNode(childData.date));
        cellUsername.appendChild(document.createTextNode(childKey));
        cellAddress.appendChild(document.createTextNode(childData.address));
-       cellAmount.appendChild(document.createTextNode(childData.amount));
-    
+       cellAmount.appendChild(document.createTextNode(childData.withdraw_amount));
+       console.log(childData.approved);
        if(childData.approved == false)
        {
            var btn  = document.createElement ("button");
@@ -97,7 +97,7 @@
             // window.alert(data);
 	 
             });
-            withdraw_total = withdraw_balance + parseInt(childData.amount);
+            withdraw_total = withdraw_balance + parseInt(childData.withdraw_amount);
 
 
             var updates2 = {};

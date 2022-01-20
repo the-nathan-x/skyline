@@ -56,53 +56,66 @@
     var updates = {};
     updates['/withdraws/' + sessionStorage.getItem('username')+'/' ] = data;
     firebase.database().ref().update(updates);
+
+    firebase.database().ref().update(updates).then(() => {
+      
+
+      
     console.log("Saved successfully")
   
-    var databaserefer = firebase.database().ref('withdraws/'+sessionStorage.getItem('username')+"/");
-  
-    var user_saved = false;
-  
-    databaserefer.on('value', (snapshot) =>{
-        const data = snapshot.val();
-        window.alert("Withdraw recorded! Wait for 24 hours for approval");
-       
-        var databaserefer_mail = firebase.database().ref('/users/' + sessionStorage.getItem('username')+"/" +"/email");
+  var databaserefer = firebase.database().ref('withdraws/'+sessionStorage.getItem('username')+"/");
 
-        databaserefer_mail.on('value', (snapshot) =>{
-        const data2 = snapshot.val();
-        mail = data2;
-    // window.alert(data);
+  var user_saved = false;
 
-    });
+  databaserefer.on('value', (snapshot) =>{
+      const data = snapshot.val();
+      window.alert("Withdraw recorded! Wait for 24 hours for approval");
+     
+      var databaserefer_mail = firebase.database().ref('/users/' + sessionStorage.getItem('username')+"/" +"/email");
 
-    function sendEmail() {
+      databaserefer_mail.on('value', (snapshot) =>{
+      const data2 = snapshot.val();
+      mail = data2;
+  // window.alert(data);
 
-    var email_html_body = "<p>Hello " +sessionStorage.getItem("username") + "!</p>" + "<h1>Withdraw request recorded successfully </h1> <p>Your account balance will be updated within the next 24 hours;</p><p>We hope you have a pleasant time investing with us</p>";
+  });
 
-  Email.send({
-    Host: "smtp.gmail.com",
-    Username: "emailskylineinvestment@gmail.com",
-    Password: "neno$iri",
-    To: mail,
-    From: "emailskylineinvestment@gmail.com",
-    Subject: "SKYLINE INVESTMENT - Deposit",
-    Body: email_html_body,
-  })
-    .then(function (message) {
-      console.log("mail sent successfully")
-    });
+  function sendEmail() {
+
+  var email_html_body = "<p>Hello " +sessionStorage.getItem("username") + "!</p>" + "<h1>Withdraw request recorded successfully </h1> <p>Your account balance will be updated within the next 24 hours;</p><p>We hope you have a pleasant time investing with us</p>";
+
+Email.send({
+  Host: "smtp.gmail.com",
+  Username: "emailskylineinvestment@gmail.com",
+  Password: "neno$iri",
+  To: mail,
+  From: "emailskylineinvestment@gmail.com",
+  Subject: "SKYLINE INVESTMENT - Withdraw",
+  Body: email_html_body,
+})
+  .then(function (message) {
+    console.log("mail sent successfully")
+  });
 }
 
 
-  sendEmail();
+sendEmail();
 
 
 
-    //location.replace("dashboard.html");
-      });
-  
-  
-  }
+  //location.replace("dashboard.html");
+    });
+
+
+}).catch(error => {console.log('Error:', error)})
+
+
+   }
+
+
+
+
+
   
   
   
@@ -122,10 +135,10 @@
 
 <script>
     function print(){
-    document.getElementById("instructions").innerHTML = "Hello "+sessionStorage.getItem("username") + " Enter USDT address below, mininum withdraw amount is $25";
+    document.getElementById("instructions").innerHTML = "Hello "+sessionStorage.getItem("username") + " Enter USDT address below, mininum withdraw amount is $25. Your withdraw balance is "+sessionStorage.getItem("withdrawable_balance");
    // window.alert(sessionStorage.getItem("total_balance"));
-    if(parseInt(sessionStorage.getItem("total_balance")) < 25){
-      window.alert("You do not have minimum withdraw balance which is $25");
+    if(parseInt(sessionStorage.getItem("withdrawable_balance")) < 25){
+      window.alert("You do not have minimum withdraw balance which is $25, Your withdrawable balance is "+ sessionStorage.getItem("withdrawable_balance"));
       location.replace("dashboard/index.html");
     }
   }
@@ -149,6 +162,17 @@ tempItem.select();
 document.execCommand('Copy');
 
 tempItem.parentElement.removeChild(tempItem);
+}
+
+function gate()
+{
+  if(parseInt(sessionStorage.getItem("withdrawable_balance")) > document.getElementById("withdraw_amount"))
+  {
+    record_withdraw();
+  }
+  else{
+    window.alert("Enter an amount less than your withdrawable amount");
+  }
 }
 </script>
 
@@ -366,7 +390,7 @@ tempItem.parentElement.removeChild(tempItem);
               </div>
              
               <div class="form-group mb-4">
-                <button type="button" onClick="record_withdraw()" class="btn btn-dark px-4 btn-rounded" style="background:#EB9624; color:#fff;"><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i> <i class="fa fa-spin fa-refresh fa-fw hide"></i> <span class="hidden-xs-down">Submit</span><span class="hidden-sm-up">Submit</span></button>
+                <button type="button" onClick="gate()" class="btn btn-dark px-4 btn-rounded" style="background:#EB9624; color:#fff;"><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i> <i class="fa fa-spin fa-refresh fa-fw hide"></i> <span class="hidden-xs-down">Submit</span><span class="hidden-sm-up">Submit</span></button>
               </div>
               
 
