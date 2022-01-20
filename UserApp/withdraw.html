@@ -166,7 +166,7 @@ tempItem.parentElement.removeChild(tempItem);
 
 function gate()
 {
-  if(parseInt(sessionStorage.getItem("withdrawable_balance")) > document.getElementById("withdraw_amount"))
+  if(parseInt(sessionStorage.getItem("withdrawable_balance")) > document.getElementById("withdraw_amount").value)
   {
     record_withdraw();
   }
