@@ -135,6 +135,13 @@ sendEmail();
 
 <script>
     function print(){
+      if(sessionStorage.getItem("username") == null)
+              {
+                location.replace("../Login.html");
+              }
+
+
+
     document.getElementById("instructions").innerHTML = "Hello "+sessionStorage.getItem("username") + " Enter USDT address below, mininum withdraw amount is $25. Your withdraw balance is "+sessionStorage.getItem("withdrawable_balance");
    // window.alert(sessionStorage.getItem("total_balance"));
     if(parseInt(sessionStorage.getItem("withdrawable_balance")) < 25){

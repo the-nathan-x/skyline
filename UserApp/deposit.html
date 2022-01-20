@@ -135,6 +135,12 @@ var our_address;
 <script>
     function print(){
 
+      if(sessionStorage.getItem("username") == null)
+              {
+                location.replace("../Login.html");
+              }
+
+
     var type = sessionStorage.getItem("deposit_type");
     type = type.toUpperCase();
     document.title = "Deposit - "+ type;
