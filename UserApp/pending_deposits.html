@@ -82,13 +82,13 @@ function approved()
 
    if(childData.approved == false)
    {
+      var usernam = childKey;
        var btn  = document.createElement ("button");
        btn.innerHTML = "approve";
        
        btn.onclick = function(){
         var updates = {};
-        updates['/deposits/' + childKey +"/approved" ] = true;
-        firebase.database().ref().update(updates);
+       
    
 
         //
@@ -105,11 +105,6 @@ function approved()
 	 
        });
 
-
-        var updates2 = {};
-        var total = parseInt(balance) + parseInt(deposit_amount_today);
-        updates2['/users/' + childKey +"/balance" ] = total;
-        firebase.database().ref().update(updates2);
         
 
         var databaserefersponsor = firebase.database().ref('/users/' + childKey +"/sponsor");
@@ -138,11 +133,7 @@ function approved()
        });
 
 
-       var updates2 = {};
-       var total = direct_balance + (deposit_amount_today * 0.1); //10% of the deposit amount
-       updates2['/users/' + sponsor_username +"/direct_referral" ] = total;
-       firebase.database().ref().update(updates2);
-
+       
        
         var databaserefersponsorindirect = firebase.database().ref('/users/' + sponsor_username);
         var position;
@@ -170,10 +161,7 @@ function approved()
 	 
        });
 
-       var updates3 = {};
-       var total = balance2 + (deposit_amount_today * 0.08); //8% of the deposit amount
-       updates3['/users/' + sponsor2 +"/left_balance" ] = total;
-       firebase.database().ref().update(updates3);
+       
 
 
 
@@ -197,10 +185,38 @@ console.log("mail sent successfully")
 
 
 
+updates['/deposits/' + childKey +"/approved" ] = true;
 
 
-        alert('The user is updated successfully!');
-      //  reload_page();                 
+var total1 = parseInt(balance) + parseInt(deposit_amount_today);
+var string_path;
+string_path = "/users/".concat(usernam).concat("/balance");
+updates[string_path] = total1;
+
+if(sponsor_username != null || sponsor_username != "")
+{
+var total2 = direct_balance + (deposit_amount_today * 0.1); //10% of the deposit amount
+updates['/users/' + sponsor_username +"/direct_referral" ] = total2;
+}
+
+
+if(sponsor2 != null || sponsor2 != "")
+{
+var total3 = balance2 + (deposit_amount_today * 0.08); //8% of the deposit amount
+updates['/users/' + sponsor2 +"/left_balance" ] = total3;
+}
+
+
+       
+
+
+firebase.database().ref().update(updates)
+  .then(() => {
+         alert('The user is updated successfully!');
+        reload_page();       
+  });
+
+             
 	   };
         
        cellApprove.appendChild(btn);
