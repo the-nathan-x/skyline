@@ -93,7 +93,7 @@ function approved()
 
         //
 
-        var databaserefer = firebase.database().ref('/users/' + childKey +"/balance");
+        var databaserefer = firebase.database().ref('users/' + childKey +"/balance");
         var balance;
 
         databaserefer.on('value', (snapshot) =>{
@@ -101,23 +101,25 @@ function approved()
         balance = data;
         balance = parseInt(balance);
         // window.alert(data);
+        //console.log(balance);
 	 
        });
 
 
         var updates2 = {};
-        var total = balance + deposit_amount_today;
+        var total = parseInt(balance) + parseInt(deposit_amount_today);
         updates2['/users/' + childKey +"/balance" ] = total;
         firebase.database().ref().update(updates2);
-
+        
 
         var databaserefersponsor = firebase.database().ref('/users/' + childKey +"/sponsor");
         var sponsor_username;
 
         databaserefersponsor.on('value', (snapshot) =>{
-        const data = snapshot.val();
-        sponsor_username = data;
+        const data_sponsor = snapshot.val();
+        sponsor_username = data_sponsor;
         // window.alert(data);
+        console.log(sponsor_username);
 	 
        });
 
@@ -128,8 +130,8 @@ function approved()
         var direct_balance;
 
         databaserefersponsordirect.on('value', (snapshot) =>{
-        const data = snapshot.val();
-        direct_balance = data;
+        const data_direct = snapshot.val();
+        direct_balance = data_direct;
         direct_balance = parseInt(direct_balance);
         // window.alert(data);
 	 
@@ -198,7 +200,7 @@ console.log("mail sent successfully")
 
 
         alert('The user is updated successfully!');
-        reload_page();                 
+      //  reload_page();                 
 	   };
         
        cellApprove.appendChild(btn);

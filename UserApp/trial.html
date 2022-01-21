@@ -1,0 +1,269 @@
+
+<html>
+    <head>
+     <title>Firebase Realtime Database Web</title>
+     <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+     <script>
+       // Initialize Firebase
+    
+       var config = {
+        apiKey: "AIzaSyAXWVP-VUaTnCr9nq5QRs1HvYnDVt60FXU",
+        authDomain: "skylineinvestment-64d99.firebaseapp.com",
+        databaseURL: "https://skylineinvestment-64d99-default-rtdb.firebaseio.com",
+        projectId: "skylineinvestment-64d99",
+        storageBucket: "skylineinvestment-64d99.appspot.com",
+        messagingSenderId: "1030553967112",
+        appId: "1:1030553967112:web:dc722ad6556a76692dcfbd",
+        measurementId: "G-4DDY78GSEG"
+    };
+    
+       firebase.initializeApp(config);
+     </script>
+    
+    <script>
+    function approved()
+    {
+      alert('The user is updated successfully!');
+      reload_page();
+    }
+    
+    </script>
+    
+    
+    
+    
+    
+    
+    </head>
+    <body>
+     <table>
+    
+      
+     
+     <table id="tbl_users_list" border="1">
+      <tr>
+          
+       <td>Date</td>
+       <td>Username</td>
+       <td>Address</td>
+       <td>Hash</td>
+       <td>Amount</td>
+       <td>Approve</td>
+      </tr>
+     </table>
+     <script src="https://smtpjs.com/v3/smtp.js"></script> 
+     <script>
+     
+      var tblUsers = document.getElementById('tbl_users_list');
+      var databaseRef = firebase.database().ref('deposits/');
+      var rowIndex = 1;
+      
+      databaseRef.once('value', function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+       var childKey = childSnapshot.key;
+       var childData = childSnapshot.val();
+       
+       var row = tblUsers.insertRow(rowIndex);
+       var cellDate = row.insertCell(0);
+       var cellUsername = row.insertCell(1);
+       var cellAddress = row.insertCell(2);
+       var cellHash = row.insertCell(3);
+       var cellAmount = row.insertCell(4);
+       var cellApprove = row.insertCell(5);
+    
+       cellDate.appendChild(document.createTextNode(childData.date));
+       cellUsername.appendChild(document.createTextNode(childKey));
+       cellAddress.appendChild(document.createTextNode(childData.address));
+       cellHash.appendChild(document.createTextNode(childData.hash));
+       cellAmount.appendChild(document.createTextNode(childData.amount));
+    
+       var deposit_amount_today = parseInt(childData.amount);
+    
+    
+       if(childData.approved == false)
+       {
+           var btn  = document.createElement ("button");
+           btn.innerHTML = "approve";
+           
+           btn.onclick = function(){
+            var updates = {};
+            updates['/deposits/' + childKey +"/approved" ] = true;
+            firebase.database().ref().update(updates);
+       
+    
+            //
+    
+            var databaserefer = firebase.database().ref('/users/' + childKey +"/balance");
+            var balance;
+    
+            databaserefer.on('value', (snapshot) =>{
+            const data = snapshot.val();
+            balance = data;
+            balance = parseInt(balance);
+            // window.alert(data);
+         
+           });
+    
+    
+            var updates2 = {};
+            var total = balance + deposit_amount_today;
+            updates2['/users/' + childKey +"/balance" ] = total;
+            firebase.database().ref().update(updates2);
+    
+    
+            var databaserefersponsor = firebase.database().ref('/users/' + childKey +"/sponsor");
+            var sponsor_username;
+    
+            databaserefersponsor.on('value', (snapshot) =>{
+            const data = snapshot.val();
+            sponsor_username = data;
+            // window.alert(data);
+         
+           });
+    
+            
+    
+    
+           var databaserefersponsordirect = firebase.database().ref('/users/' + sponsor_username +"/direct_referral");
+            var direct_balance;
+    
+            databaserefersponsordirect.on('value', (snapshot) =>{
+            const data = snapshot.val();
+            direct_balance = data;
+            direct_balance = parseInt(direct_balance);
+            // window.alert(data);
+         
+           });
+    
+    
+           var updates2 = {};
+           var total = direct_balance + (deposit_amount_today * 0.1); //10% of the deposit amount
+           updates2['/users/' + sponsor_username +"/direct_referral" ] = total;
+           firebase.database().ref().update(updates2);
+    
+           
+            var databaserefersponsorindirect = firebase.database().ref('/users/' + sponsor_username);
+            var position;
+            var sponsor2;
+    
+            databaserefersponsorindirect.once('value', function(snapshot) {
+            snapshot.forEach(function(childSnapshot) {
+            var childKey = childSnapshot.key;
+            var childData = childSnapshot.val();
+       
+            position = childData.position;
+            sponsor2 = childData.sponsor;
+    
+            });
+          });
+    
+          var left_balance_url = firebase.database().ref('/users/' + sponsor2 +"/left_balance");
+            var balance2;
+    
+            left_balance_url.on('value', (snapshot) =>{
+            const data = snapshot.val();
+            balance2 = data;
+            balance2 = parseInt(balance2);
+            // window.alert(data);
+         
+           });
+    
+           var updates3 = {};
+           var total = balance2 + (deposit_amount_today * 0.08); //8% of the deposit amount
+           updates3['/users/' + sponsor2 +"/left_balance" ] = total;
+           firebase.database().ref().update(updates3);
+    
+    
+    
+           function sendEmail() {
+    
+    var email_html_body = "<p>Hello!</p>" + "<h1>Your Skyline Investment deposit request has been processed successfully </h1> <p></p><p>We hope you have a pleasant time investing with us</p>";
+    
+    Email.send({
+    Host: "smtp.gmail.com",
+    Username: "emailskylineinvestment@gmail.com",
+    Password: "neno$iri",
+    To: mail,
+    From: "emailskylineinvestment@gmail.com",
+    Subject: "SKYLINE INVESTMENT - Deposit Processed Succesfully",
+    Body: email_html_body,
+        })
+    .then(function (message) {
+    console.log("mail sent successfully")
+    });
+    }
+    
+    
+    
+    
+    
+            alert('The user is updated successfully!');
+            reload_page();                 
+           };
+            
+           cellApprove.appendChild(btn);
+       }
+    
+       else{
+        cellApprove.appendChild(document.createTextNode("approved"));
+       }
+    
+       
+       
+    
+       rowIndex = rowIndex + 1;
+        });
+      });
+       
+      function save_user(){
+       var user_name = document.getElementById('user_name').value;
+      
+       var uid = firebase.database().ref().child('users').push().key;
+       
+       var data = {
+        user_id: uid,
+        user_name: user_name
+       }
+       
+       var updates = {};
+       updates['/users/' + uid] = data;
+       firebase.database().ref().update(updates);
+       
+       alert('The user is created successfully!');
+       reload_page();
+      }
+      
+      function update_user(){
+       var user_name = document.getElementById('user_name').value;
+       var user_id = document.getElementById('user_id').value;
+    
+       var data = {
+        user_id: user_id,
+        user_name: user_name
+       }
+       
+       var updates = {};
+       updates['/users/' + user_id] = data;
+       firebase.database().ref().update(updates);
+       
+       alert('The user is updated successfully!');
+       
+       reload_page();
+      }
+      
+      function delete_user(){
+       var user_id = document.getElementById('user_id').value;
+      
+       firebase.database().ref().child('/users/' + user_id).remove();
+       alert('The user is deleted successfully!');
+       reload_page();
+      }
+      
+      function reload_page(){
+       window.location.reload();
+      }
+      
+     </script>
+     
+    </body>
+    </html>

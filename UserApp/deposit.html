@@ -142,7 +142,7 @@ var our_address;
 
 
     var type = sessionStorage.getItem("deposit_type");
-    type = type.toUpperCase();
+    type = toUpperCase(type);
     document.title = "Deposit - "+ type;
     document.getElementById("type_button").innerHTML = type;
     document.getElementById("instructions").innerHTML = "Scan QR code above and send $"+sessionStorage.getItem("amount") + " worth of "+type + " or copy our "+ type +" address on button below, then enter transaction hash and sender's address below";
