@@ -41,10 +41,16 @@
 
      <script>
          var link_left, link_right;
+         var direct_bonus;
          function go()
          {
              var username = sessionStorage.getItem("username");
              var my_investment, binary;
+
+              if(sessionStorage.getItem("username") == null)
+              {
+                location.replace("../Login.html");
+              }
 
 
              document.getElementById("user").innerHTML = username;
@@ -74,6 +80,7 @@
               document.getElementById("left_balance").innerHTML = childData.left_balance;
               document.getElementById("right_balance").innerHTML = childData.right_balance;
               my_investment = childData.balance;
+              direct_bonus = childData.left_balance;
               binary = childData.direct_referral;
               withdraws_total = childData.withdraws;
                  }
@@ -110,14 +117,18 @@ var databaserefer = firebase.database().ref('/deposits/' + username +"/date");
 
         //Calculating return on investment
         var roi = parseInt(my_investment) * 0.02 * parseInt(days_difference);
+        var withdrawable_balance;
 
-        var total_balance = parseInt(roi) + parseInt(binary) + parseInt(my_investment) - parseInt(withdraws_total);
+        
 
+        var total_balance = parseInt(roi) + parseInt(binary) + parseInt(my_investment) - parseInt(withdraws_total) + parseInt(direct_bonus);
+        withdrawable_balance = total_balance - parseInt(my_investment);   
 
         document.getElementById("direct_referral").innerHTML = binary;
         document.getElementById("left_balance").innerHTML = roi;
-        document.getElementById("right_balance").innerHTML = total_balance;
-
+        document.getElementById("right_balance").innerHTML = withdrawable_balance;
+        document.getElementById("direct").innerHTML = direct_bonus; 
+        sessionStorage.setItem("withdrawable_balance", withdrawable_balance);
         sessionStorage.setItem("total_balance", total_balance);
 
 
@@ -301,13 +312,13 @@ var databaserefer = firebase.database().ref('/deposits/' + username +"/date");
             <span class="links_name">Withdraw USDT</span>
           </a>
         </li>
- <!--       <li>
-          <a href="#">
+        <li>
+          <a href="https://t.me/skylinesupport">
             <i class='bx bx-book-alt' ></i>
-            <span class="links_name">Total order</span>
+            <span class="links_name">Support</span>
           </a>
         </li>
-        <li>
+ <!--       <li>
           <a href="#">
             <i class='bx bx-user' ></i>
             <span class="links_name">Team</span>
@@ -359,7 +370,7 @@ var databaserefer = firebase.database().ref('/deposits/' + username +"/date");
 
       <div class="sales-boxes">
         <div class="recent-sales box">
-          <div class="title">Total deposited today around the world - <span id= "deposit_today">$162,500</span></div>
+          <div class="title">Total deposited today around the world - <span id= "deposit_today">$95,700</span></div>
         </div>
       </div>
 
@@ -426,6 +437,16 @@ var databaserefer = firebase.database().ref('/deposits/' + username +"/date");
 
         <div class="box">
           <div class="right-side">
+            <div class="box-topic">Direct referral bonus</div>
+            <div class="number" id="direct"></div>
+            <div class="indicator">
+             
+            </div>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="right-side">
             <div class="box-topic">Binary Bonus</div>
             <div class="number" id="direct_referral"></div>
             <div class="indicator">
@@ -436,7 +457,7 @@ var databaserefer = firebase.database().ref('/deposits/' + username +"/date");
 
         <div class="box">
           <div class="right-side">
-            <div class="box-topic">Total Balance</div>
+            <div class="box-topic">Withdrawable Balance</div>
             <div class="number" id="right_balance"></div>
             <div class="indicator">
             
