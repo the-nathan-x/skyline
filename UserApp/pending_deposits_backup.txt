@@ -23,11 +23,6 @@
 <script>
 function approved()
 {
-
-
-
-
-
   alert('The user is updated successfully!');
   reload_page();
 }
@@ -56,7 +51,7 @@ function approved()
    <td>Approve</td>
   </tr>
  </table>
- 
+ <script src="https://smtpjs.com/v3/smtp.js"></script> 
  <script>
  
   var tblUsers = document.getElementById('tbl_users_list');
@@ -82,8 +77,12 @@ function approved()
    cellHash.appendChild(document.createTextNode(childData.hash));
    cellAmount.appendChild(document.createTextNode(childData.amount));
 
+   var deposit_amount_today = parseInt(childData.amount);
+
+
    if(childData.approved == false)
    {
+      var usernam = childKey;
        var btn  = document.createElement ("button");
        btn.innerHTML = "approve";
        
@@ -95,30 +94,35 @@ function approved()
 
         //
 
-        var databaserefer = firebase.database().ref('/users/' + childKey +"/balance");
+        var databaserefer = firebase.database().ref('users/' + childKey +"/balance");
         var balance;
 
         databaserefer.on('value', (snapshot) =>{
         const data = snapshot.val();
         balance = data;
+        balance = parseInt(balance);
         // window.alert(data);
+        //console.log(balance);
 	 
        });
 
 
         var updates2 = {};
-        var total = balance + childData.amount;
-        updates2['/users/' + childKey +"/balance" ] = total;
+        var total = parseInt(balance) + parseInt(deposit_amount_today);
+        var string_path;
+        string_path = "/users/".concat(usernam).concat("/balance");
+        updates2[string_path] = total;
         firebase.database().ref().update(updates2);
-
+        
 
         var databaserefersponsor = firebase.database().ref('/users/' + childKey +"/sponsor");
         var sponsor_username;
 
         databaserefersponsor.on('value', (snapshot) =>{
-        const data = snapshot.val();
-        sponsor_username = data;
+        const data_sponsor = snapshot.val();
+        sponsor_username = data_sponsor;
         // window.alert(data);
+        console.log(sponsor_username);
 	 
        });
 
@@ -129,15 +133,16 @@ function approved()
         var direct_balance;
 
         databaserefersponsordirect.on('value', (snapshot) =>{
-        const data = snapshot.val();
-        direct_balance = data;
+        const data_direct = snapshot.val();
+        direct_balance = data_direct;
+        direct_balance = parseInt(direct_balance);
         // window.alert(data);
 	 
        });
 
 
        var updates2 = {};
-       var total = direct_balance + (childData.amount * 0.1); //10% of the deposit amount
+       var total = direct_balance + (deposit_amount_today * 0.1); //10% of the deposit amount
        updates2['/users/' + sponsor_username +"/direct_referral" ] = total;
        firebase.database().ref().update(updates2);
 
@@ -156,51 +161,49 @@ function approved()
 
         });
       });
-        if(position.toUpperCase() == "left".toUpperCase())
-        {
 
-        var left_balance_url = firebase.database().ref('/users/' + sponsor2 +"/left_balance");
+      var left_balance_url = firebase.database().ref('/users/' + sponsor2 +"/left_balance");
         var balance2;
 
-        databaserefersponsordirect.on('value', (snapshot) =>{
+        left_balance_url.on('value', (snapshot) =>{
         const data = snapshot.val();
         balance2 = data;
+        balance2 = parseInt(balance2);
         // window.alert(data);
 	 
        });
 
        var updates3 = {};
-       var total = balance2 + (childData.amount * 0.08); //8% of the deposit amount
+       var total = balance2 + (deposit_amount_today * 0.08); //8% of the deposit amount
        updates3['/users/' + sponsor2 +"/left_balance" ] = total;
        firebase.database().ref().update(updates3);
 
 
-        }
 
-        else{
-        var left_balance_url = firebase.database().ref('/users/' + sponsor2 +"/right_balance");
-        var balance2;
+       function sendEmail() {
 
-        databaserefersponsordirect.on('value', (snapshot) =>{
-        const data = snapshot.val();
-        balance2 = data;
-        // window.alert(data);
-	 
-       });
+var email_html_body = "<p>Hello!</p>" + "<h1>Your Skyline Investment deposit request has been processed successfully </h1> <p></p><p>We hope you have a pleasant time investing with us</p>";
 
-       var updates3 = {};
-       var total = balance2 + (childData.amount * 0.08); //8% of the deposit amount
-       updates3['/users/' + sponsor2 +"/right_balance" ] = total;
-       firebase.database().ref().update(updates3);
-
-
-
-
-        }
+Email.send({
+Host: "smtp.gmail.com",
+Username: "emailskylineinvestment@gmail.com",
+Password: "neno$iri",
+To: mail,
+From: "emailskylineinvestment@gmail.com",
+Subject: "SKYLINE INVESTMENT - Deposit Processed Succesfully",
+Body: email_html_body,
+    })
+.then(function (message) {
+console.log("mail sent successfully")
+});
+}
 
 
-        alert('The user is created successfully!');
-        reload_page();                 
+
+
+
+        alert('The user is updated successfully!');
+      //  reload_page();                 
 	   };
         
        cellApprove.appendChild(btn);

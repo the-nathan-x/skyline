@@ -1,7 +1,7 @@
 
 <html>
 <head>
- <title>Firebase Realtime Database Web</title>
+ <title>Pending Deposits</title>
  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
  <script>
    // Initialize Firebase
@@ -88,33 +88,70 @@ function approved()
        
        btn.onclick = function(){
         var updates = {};
-       
-   
+        var balance;
+        var sponsor_username;
+        var direct_balance;
+        var position;
+        var sponsor2;
+        var balance2;   
+        var mail;
+
+
+      
+
 
         //
 
         var databaserefer = firebase.database().ref('users/' + childKey +"/balance");
-        var balance;
+        
 
         databaserefer.on('value', (snapshot) =>{
-        const data = snapshot.val();
+       var data = "not_null";
+          data = snapshot.val();
         balance = data;
         balance = parseInt(balance);
         // window.alert(data);
         //console.log(balance);
+
+
+
+      console.log(balance);
+
 	 
        });
 
         
 
+       var databaserefer = firebase.database().ref('users/' + childKey +"/email");
+        
+
+        databaserefer.on('value', (snapshot) =>{
+       var data = "not_null";
+          data = snapshot.val();
+        mail = data;
+                // window.alert(data);
+        //console.log(balance);
+
+
+
+      console.log(mail);
+
+	 
+       });
+
+
+
+
         var databaserefersponsor = firebase.database().ref('/users/' + childKey +"/sponsor");
-        var sponsor_username;
+        
 
         databaserefersponsor.on('value', (snapshot) =>{
-        const data_sponsor = snapshot.val();
+        var data_sponsor = "not_null";
+          data_sponsor = snapshot.val();
         sponsor_username = data_sponsor;
         // window.alert(data);
-        console.log(sponsor_username);
+       // console.log(sponsor_username);
+
 	 
        });
 
@@ -122,22 +159,23 @@ function approved()
 
 
        var databaserefersponsordirect = firebase.database().ref('/users/' + sponsor_username +"/direct_referral");
-        var direct_balance;
+        
 
         databaserefersponsordirect.on('value', (snapshot) =>{
-        const data_direct = snapshot.val();
+        var data_direct = "not_null"
+          data_direct = snapshot.val();
         direct_balance = data_direct;
         direct_balance = parseInt(direct_balance);
         // window.alert(data);
-	 
+
+  
        });
 
 
        
        
         var databaserefersponsorindirect = firebase.database().ref('/users/' + sponsor_username);
-        var position;
-        var sponsor2;
+        
 
         databaserefersponsorindirect.once('value', function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
@@ -147,21 +185,33 @@ function approved()
         position = childData.position;
         sponsor2 = childData.sponsor;
 
+        
+
+
         });
       });
 
       var left_balance_url = firebase.database().ref('/users/' + sponsor2 +"/left_balance");
-        var balance2;
+        
 
         left_balance_url.on('value', (snapshot) =>{
-        const data = snapshot.val();
+        var data  = "not_null";
+          data = snapshot.val();
         balance2 = data;
         balance2 = parseInt(balance2);
         // window.alert(data);
+
+          continuity();
+    
+
 	 
        });
 
-       
+      
+      
+      
+      
+      
 
 
 
@@ -185,36 +235,72 @@ console.log("mail sent successfully")
 
 
 
-updates['/deposits/' + childKey +"/approved" ] = true;
+
+function continuity(){
+
+
+  
+         
+  updates['/deposits/' + childKey +"/approved" ] = true;
 
 
 var total1 = parseInt(balance) + parseInt(deposit_amount_today);
+if(!isNaN(total1))
+{
 var string_path;
 string_path = "/users/".concat(usernam).concat("/balance");
 updates[string_path] = total1;
+}
+
 
 if(sponsor_username != null || sponsor_username != "")
 {
 var total2 = direct_balance + (deposit_amount_today * 0.1); //10% of the deposit amount
-updates['/users/' + sponsor_username +"/direct_referral" ] = total2;
+if(!isNaN(total2))
+{
+  updates['/users/' + sponsor_username +"/direct_referral" ] = total2;
+}
+
+
 }
 
 
 if(sponsor2 != null || sponsor2 != "")
 {
 var total3 = balance2 + (deposit_amount_today * 0.08); //8% of the deposit amount
-updates['/users/' + sponsor2 +"/left_balance" ] = total3;
+if(!isNaN(total3))
+{
+  updates['/users/' + sponsor2 +"/left_balance" ] = total3;
 }
 
+  }
 
+
+
+
+
+  console.log(updates);
+  firebase.database().ref().update(updates)
+  .then(() => {
+         
+        sendEmail();
+        alert('The user is updated successfully!'); 
+        reload_page();      
+  });
+
+
+
+
+
+
+
+
+
+}
        
 
 
-firebase.database().ref().update(updates)
-  .then(() => {
-         alert('The user is updated successfully!');
-        reload_page();       
-  });
+
 
              
 	   };

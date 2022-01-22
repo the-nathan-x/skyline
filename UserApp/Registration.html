@@ -250,10 +250,14 @@ firebase.initializeApp(config);
 
 function checkbox()
 {
-	if(document.getElementById("username").value != "")
+	if((document.getElementById("username").value != "") && (document.getElementById('password').value != "") && (document.getElementById('full_name').value != "") && (document.getElementById('email').value != "") && (document.getElementById('mobile_number').value != ""))
 	{
 	//	window.alert(document.getElementById("username").value);
 		checkusername();
+	}
+
+	else{
+		window.alert("Please fill in all the required fields");
 	}
 }
 
