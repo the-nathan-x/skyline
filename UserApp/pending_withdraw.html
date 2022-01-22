@@ -75,6 +75,7 @@
        cellAddress.appendChild(document.createTextNode(childData.address));
        cellAmount.appendChild(document.createTextNode(childData.withdraw_amount));
        console.log(childData.approved);
+       var add_once = false;
        if(childData.approved == false)
        {
            var btn  = document.createElement ("button");
@@ -89,21 +90,42 @@
 
 
             var databaserefer = firebase.database().ref('/users/' + childKey +"/withdraws");
-            var withdraw_balance;
-
-            databaserefer.on('value', (snapshot) =>{
+            var withdraw_balance = 123456789;
+            if(!add_once)
+            {
+              
+            
+            databaserefer.once('value', (snapshot) =>{
             const data = snapshot.val();
             withdraw_balance = data;
             // window.alert(data);
-	 
-            });
-            withdraw_total = withdraw_balance + parseInt(childData.withdraw_amount);
+              console.log(data);
+            
+            
+            add_once = true;
 
+            if(add_once)
+            {
+            withdraw_total = parseInt(withdraw_balance) + parseInt(childData.withdraw_amount);
+            console.log(withdraw_total);
 
             var updates2 = {};
+            
+              console.log(withdraw_balance);
             updates2['/users/' + childKey +"/withdraws" ] = withdraw_total;
             firebase.database().ref().update(updates2);
+            add_once = false;
+            }
 
+            
+            
+          //  console.log(withdraw_total);
+
+            });
+
+            }
+
+            
 
 
             var mail;
@@ -167,7 +189,7 @@ sendEmail();
 
 
 
-            reload_page();                 
+       //     reload_page();                 
            };
             
            cellApprove.appendChild(btn);

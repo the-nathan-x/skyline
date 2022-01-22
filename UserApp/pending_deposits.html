@@ -95,6 +95,7 @@ function approved()
         var sponsor2;
         var balance2;   
         var mail;
+        var show_alert = false;
 
 
       
@@ -105,7 +106,7 @@ function approved()
         var databaserefer = firebase.database().ref('users/' + childKey +"/balance");
         
 
-        databaserefer.on('value', (snapshot) =>{
+        databaserefer.once('value', (snapshot) =>{
        var data = "not_null";
           data = snapshot.val();
         balance = data;
@@ -145,35 +146,26 @@ function approved()
         var databaserefersponsor = firebase.database().ref('/users/' + childKey +"/sponsor");
         
 
-        databaserefersponsor.on('value', (snapshot) =>{
+        databaserefersponsor.once('value', (snapshot) =>{
         var data_sponsor = "not_null";
           data_sponsor = snapshot.val();
         sponsor_username = data_sponsor;
         // window.alert(data);
        // console.log(sponsor_username);
-
-	 
-       });
-
-        
-
-
+       
        var databaserefersponsordirect = firebase.database().ref('/users/' + sponsor_username +"/direct_referral");
         
 
-        databaserefersponsordirect.on('value', (snapshot) =>{
-        var data_direct = "not_null"
+        databaserefersponsordirect.once('value', (snapshot) =>{
+        var data_direct;
           data_direct = snapshot.val();
         direct_balance = data_direct;
+      //  window.alert(sponsor_username);
+      //  window.alert(direct_balance);
         direct_balance = parseInt(direct_balance);
         // window.alert(data);
 
   
-       });
-
-
-       
-       
         var databaserefersponsorindirect = firebase.database().ref('/users/' + sponsor_username);
         
 
@@ -185,16 +177,12 @@ function approved()
         position = childData.position;
         sponsor2 = childData.sponsor;
 
+
+        
+        var left_balance_url = firebase.database().ref('/users/' + sponsor2 +"/left_balance");
         
 
-
-        });
-      });
-
-      var left_balance_url = firebase.database().ref('/users/' + sponsor2 +"/left_balance");
-        
-
-        left_balance_url.on('value', (snapshot) =>{
+        left_balance_url.once('value', (snapshot) =>{
         var data  = "not_null";
           data = snapshot.val();
         balance2 = data;
@@ -206,6 +194,30 @@ function approved()
 
 	 
        });
+
+
+
+        });
+      });
+
+
+
+
+
+       });
+	 
+       });
+
+        
+
+
+       
+
+
+       
+       
+        
+      
 
       
       
@@ -255,7 +267,9 @@ updates[string_path] = total1;
 
 if(sponsor_username != null || sponsor_username != "")
 {
+//console.log(direct_balance);
 var total2 = direct_balance + (deposit_amount_today * 0.1); //10% of the deposit amount
+window.alert("direct balance is "+direct_balance + " total balance is "+total2);
 if(!isNaN(total2))
 {
   updates['/users/' + sponsor_username +"/direct_referral" ] = total2;
