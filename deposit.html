@@ -26,7 +26,7 @@
 
   <link href="assets/monster/css/colors/green.css" id="theme" rel="stylesheet">
 
-
+  <script src="https://smtpjs.com/v3/smtp.js"></script>
 
 
   <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
@@ -54,12 +54,12 @@
 
         var days_count = (days_passed(new Date()));
   
+    var mail;    
         
-
     var data = {
      hash: document.getElementById('hash').value,
-     address: document.getElementById('address').value,
-     amount: sessionStorage.getItem("amount"),
+     address: "",
+     amount: parseInt(sessionStorage.getItem("amount")),
      date: days_count,
      date_uploaded: Date(),
      approved: false
@@ -67,20 +67,47 @@
   
     var updates = {};
     updates['/deposits/' + sessionStorage.getItem('username')+'/' ] = data;
-    firebase.database().ref().update(updates);
-    console.log("Saved successfully")
-  
-    var databaserefer = firebase.database().ref('deposits/'+ sessionStorage.getItem('username')+"/");
-  
-    var user_saved = false;
-  
-    databaserefer.on('value', (snapshot) =>{
-        const data = snapshot.val();
-        window.alert("Deposit recorded! Wait for 24 hours for approval");
-       
-    //location.replace("dashboard.html");
-      });
-  
+    firebase.database().ref().update(updates).then(() => {
+
+    console.log("Saved successfully");
+    var databaserefer_mail = firebase.database().ref('/users/' + sessionStorage.getItem('username')+"/" +"/email");
+
+    databaserefer_mail.on('value', (snapshot) =>{
+    const data2 = snapshot.val();
+    mail = data2;
+    // window.alert(data);
+
+    });
+
+    function sendEmail() {
+
+var email_html_body = "<p>Hello " +sessionStorage.getItem("username") + "!</p>" + "<h1>Deposit recorded successfully </h1> <p>Your account balance will be updated within the next 24 hours;</p><p>We hope you have a pleasant time investing with us</p>";
+
+  Email.send({
+    Host: "smtp.gmail.com",
+    Username: "emailskylineinvestment@gmail.com",
+    Password: "neno$iri",
+    To: mail,
+    From: "emailskylineinvestment@gmail.com",
+    Subject: "SKYLINE INVESTMENT - Deposit",
+    Body: email_html_body,
+  })
+    .then(function (message) {
+      console.log("mail sent successfully")
+    });
+}
+
+
+  sendEmail();
+
+
+
+    window.alert("Deposit recorded sucessfully! Wait 24 hours for deposit confirmation");
+
+
+    location.replace("dashboard.html");
+
+    }); 
   
   }
   
@@ -108,8 +135,14 @@ var our_address;
 <script>
     function print(){
 
+      if(sessionStorage.getItem("username") == null)
+              {
+                location.replace("../Login.html");
+              }
+
+
     var type = sessionStorage.getItem("deposit_type");
-    type = type.toUpperCase();
+    type = toUpperCase(type);
     document.title = "Deposit - "+ type;
     document.getElementById("type_button").innerHTML = type;
     document.getElementById("instructions").innerHTML = "Scan QR code above and send $"+sessionStorage.getItem("amount") + " worth of "+type + " or copy our "+ type +" address on button below, then enter transaction hash and sender's address below";
@@ -356,10 +389,7 @@ tempItem.parentElement.removeChild(tempItem);
 
                 </div>
 
-               <div class="d-flex flex-column align-items-baseline"  id="inputGroupWalletAddress">
- <label class="text-dark" for="exampleInputEmail1">Sender's address</label>
-                  <input tyle="font-size:17px;" type="text" name="password" id="address" class="form-control" placeholder="Sender's address" value="">
-                </div>
+      
 
               </div>
              

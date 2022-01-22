@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -158,21 +159,21 @@
 		var ref;
 		var pos;
 		var referral;
+		var sponsor_mail;
 		function go()
 		{
 		//how url is passed
 		//file:////Registration.html?referral=ugali&&position=left
 		var urlstuff = location.search;
 		const urlParams = new URLSearchParams(urlstuff);
-		var referral = urlParams.get("referral");
+	    referral = urlParams.get("referral");
 		var position = urlParams.get("position");
 		ref = referral;
 		pos = position;
 	//	window.alert(referral);
-	//	window.alert(referral);
 	//	window.alert(position);
 		document.getElementById("sponsor_id").value = referral;
-		document.getElementById("pposition").value = toUpperCase(position);
+		document.getElementById("pposition").value = position.toUpperCase();
 		}
 	
 	 </script>
@@ -216,8 +217,10 @@ firebase.initializeApp(config);
 
   var updates = {};
   updates['/users/' + document.getElementById('username').value] = data;
-  firebase.database().ref().update(updates);
-  console.log("Saved successfully")
+  firebase.database().ref().update(updates).then(() => {
+
+  console.log("Saved successfully");
+//  window.alert("Account registered successfully");
   sessionStorage.setItem("username", document.getElementById("username").value);
   //location.replace("dashboard.html");
 
@@ -225,34 +228,155 @@ firebase.initializeApp(config);
 
   var user_saved = false;
 
+  
+
   databaserefer.on('value', (snapshot) =>{
       const data = snapshot.val();
      // window.alert("Welcome");
 	 sessionStorage.setItem("username", document.getElementById("username").value);
 	 //location.replace("dashboard.html");
 	 if(data == document.getElementById("password").value)
-	 {gotonext();}
+	 {
+		 sendEmail();
+	}
 
     });
 
+	});
+  
 
+
+}
+
+function checkbox()
+{
+	if((document.getElementById("username").value != "") && (document.getElementById('password').value != "") && (document.getElementById('full_name').value != "") && (document.getElementById('email').value != "") && (document.getElementById('mobile_number').value != ""))
+	{
+	//	window.alert(document.getElementById("username").value);
+		checkusername();
+	}
+
+	else{
+		window.alert("Please fill in all the required fields");
+	}
 }
 
 function checkusername()
 {
-  var databaserefer = firebase.database().ref('users/'+document.getElementById("username").value+"/password");
 
-  databaserefer.on('value', (snapshot) =>{
-      const data = snapshot.val();
-     
-	 if(data == null)
-	 {save_user()}
+
+		var checked = false;
+		var exist = 500;
+		var data = "not_null";
+		
+			console.log("retying");
+		var databaserefer = firebase.database().ref('users/'+document.getElementById("username").value+"/password");
+  		
+  		databaserefer.on('value', (snapshot) =>{
+			console.log("okay");
+		
+	   	 data = snapshot.val();
+
+			
+		if(data == null)
+		{
+			exist = 1000;
+		}
+
+		else if(data != null && data != "not_null"){
+			exist = 2000;
+		}
+		else{console.log("");}
+
+		if(exist == 1000)
+			{
+				checked = true;
+				save_user();
+			}
+
+			else if(exist == 2000)
+			{
+				if(!checked)
+				{
+					window.alert("Username exists! Please choose a new username");
+				}
+				
+			}
+
+			else{
+				console.log("Retrying");
+			}
 
     });
+
+
+		
+		
+  
 }
 
 
 </script>
+
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+
+<script type="text/javascript">
+    function sendEmail() {
+
+
+
+		var databaserefer_sponsor_mail = firebase.database().ref('/users/' + referral +"/email");
+
+        databaserefer_sponsor_mail.on('value', (snapshot) =>{
+        const data2 = snapshot.val();
+        sponsor_mail = data2;
+        // window.alert(data);
+	 
+       });
+
+
+
+
+		var email_html_body = "<p>Hello " +document.getElementById("username").value + "!</p>" + "<h1>Welcome to Skyline Investment </h1> <p>Your account has been created successfully;</p><p>We hope you have a pleasant time investing with us</p>";
+
+      Email.send({
+        Host: "smtp.gmail.com",
+        Username: "emailskylineinvestment@gmail.com",
+        Password: "neno$iri",
+        To: document.getElementById('email').value,
+        From: "emailskylineinvestment@gmail.com",
+        Subject: "Account Creation Successful",
+        Body: email_html_body,
+      })
+        .then(function (message) {
+          console.log("mail sent successfully")
+        });
+    
+
+
+	var email_html_body2 = "<p>Hello " +referral + "!</p>" + "<h1>You are making progress! </h1> <p>"+document.getElementById("username").value+" has created an account has created an account using your referral link;</p><p>A bonus will be added to your account once they make a deposit</p><p>Happy investing</p><p>SKYLINE INVESTMENT</p>";
+
+	Email.send({
+  Host: "smtp.gmail.com",
+  Username: "emailskylineinvestment@gmail.com",
+  Password: "neno$iri",
+  To: sponsor_mail,
+  From: "emailskylineinvestment@gmail.com",
+  Subject: "Referral Creation Successful",
+  Body: email_html_body2,
+})
+  .then(function (message) {
+	console.log("mail 2 sent successfully");
+	window.alert("Account registered successfully!");
+	location.replace("dashboard/index.html");;
+  });
+	
+}
+
+
+  </script>
+
+
 
 
 </head>
@@ -367,7 +491,7 @@ function checkusername()
 									</div>
 										
 									<div class="form-group mb-4">
-										<button type="button" onclick="checkusername()" class="bbtn btn-dark px-4 btn-rounded" style="background:#EB9624; color:#fff;border: 0px;"><i
+										<button type="button" onclick="checkbox()" class="bbtn btn-dark px-4 btn-rounded" style="background:#EB9624; color:#fff;border: 0px;"><i
 												class="fa fa-sign-in fa-fw" aria-hidden="true"></i> <i
 												class="fa fa-spin fa-refresh fa-fw hide"></i> <span
 												class="hidden-xs-down">Sign Up </span><span
