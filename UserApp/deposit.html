@@ -105,7 +105,7 @@ var email_html_body = "<p>Hello " +sessionStorage.getItem("username") + "!</p>" 
     window.alert("Deposit recorded sucessfully! Wait 24 hours for deposit confirmation");
 
 
-    location.replace("dashboard.html");
+    location.replace("dashboard/index.html");
 
     }); 
   
@@ -120,7 +120,7 @@ var email_html_body = "<p>Hello " +sessionStorage.getItem("username") + "!</p>" 
 
 var image_src;
 var our_address;
-
+var deposit_type;
   </script>
 
 
@@ -133,7 +133,7 @@ var our_address;
 
 
 <script>
-    function print(){
+    function print_instructions(){
 
       if(sessionStorage.getItem("username") == null)
               {
@@ -141,13 +141,13 @@ var our_address;
               }
 
 
-    var type = sessionStorage.getItem("deposit_type");
-    type = toUpperCase(type);
-    document.title = "Deposit - "+ type;
-    document.getElementById("type_button").innerHTML = type;
-    document.getElementById("instructions").innerHTML = "Scan QR code above and send $"+sessionStorage.getItem("amount") + " worth of "+type + " or copy our "+ type +" address on button below, then enter transaction hash and sender's address below";
+    deposit_type = sessionStorage.getItem("deposit_type");
+    deposit_type = deposit_type.toUpperCase();
+    document.title = "Deposit - "+ deposit_type;
+    document.getElementById("type_button").innerHTML = deposit_type;
+    document.getElementById("instructions").innerHTML = "Scan QR code above and send $"+sessionStorage.getItem("amount") + " worth of "+deposit_type + " or copy our "+ deposit_type +" address on button below, then enter transaction hash and sender's address below";
   
-    if(type == "USDT")
+    if(deposit_type == "USDT")
     {
       image_src = "img/usdt_qr.jpeg";;
       our_address = "TNNfTGVTDcS2ztYVvhigjHg5nwA6TXYqJk";
@@ -180,6 +180,11 @@ tempItem.select();
 document.execCommand('Copy');
 
 tempItem.parentElement.removeChild(tempItem);
+}
+
+function show_alert(deposit_type)
+{
+  window.alert(deposit_type + " address copied!");
 }
 </script>
 
@@ -323,7 +328,7 @@ tempItem.parentElement.removeChild(tempItem);
 
 </head>
 
-<body class="fix-header card-no-border"  onload="print()">
+<body class="fix-header card-no-border"  onload="print_instructions()">
 
 
 
@@ -394,7 +399,7 @@ tempItem.parentElement.removeChild(tempItem);
               </div>
              
               <div class="form-group mb-4">
-                <button type="button" onClick="copyToClipboard(our_address); window.alert(type + ' address copied')" class="btn btn-dark px-4 btn-rounded" style="background:#EB9624; color:#fff;"><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i> <i class="fa fa-spin fa-refresh fa-fw hide"></i> <span class="hidden-xs-down">Copy <span id="type_button"></span> - Address</span><span class="hidden-sm-up">Copy USDT-Address</span></button>
+                <button type="button" onClick="copyToClipboard(our_address); show_alert(deposit_type)" class="btn btn-dark px-4 btn-rounded" style="background:#EB9624; color:#fff;"><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i> <i class="fa fa-spin fa-refresh fa-fw hide"></i> <span class="hidden-xs-down">Copy <span id="type_button"></span> - Address</span><span class="hidden-sm-up">Copy USDT-Address</span></button>
               </div>
 
               <div class="form-group mb-4">
