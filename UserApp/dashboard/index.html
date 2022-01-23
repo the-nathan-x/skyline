@@ -127,7 +127,7 @@ var databaserefer = firebase.database().ref('/deposits/' + username +"/date");
         document.getElementById("direct_referral").innerHTML = binary;
         document.getElementById("left_balance").innerHTML = roi;
         document.getElementById("right_balance").innerHTML = withdrawable_balance;
-        document.getElementById("direct").innerHTML = direct_bonus; 
+        document.getElementById("binary").innerHTML = direct_bonus; 
         sessionStorage.setItem("withdrawable_balance", withdrawable_balance);
         sessionStorage.setItem("total_balance", total_balance);
 
@@ -449,7 +449,7 @@ var databaserefer = firebase.database().ref('/deposits/' + username +"/date");
         <div class="box">
           <div class="right-side">
             <div class="box-topic">Binary Bonus</div>
-            <div class="number" id="direct"></div>
+            <div class="number" id="binary"></div>
             <div class="indicator">
             </div>
           </div>
